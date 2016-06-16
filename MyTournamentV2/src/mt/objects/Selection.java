@@ -16,14 +16,19 @@ public class Selection implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idSelections;
 
-	private byte confirmation;
+	@Column(nullable=false)
+	private Object confirmation;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date creationDate;
 
-	private byte validation;
+	@Column(nullable=false)
+	private Object validation;
 
 	//bi-directional many-to-one association to Clan
 	@ManyToOne
@@ -32,12 +37,12 @@ public class Selection implements Serializable {
 
 	//bi-directional many-to-one association to Tournament
 	@ManyToOne
-	@JoinColumn(name="idTournaments")
+	@JoinColumn(name="idTournaments", nullable=false)
 	private Tournament tournament;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers")
+	@JoinColumn(name="idUsers", nullable=false)
 	private User user;
 
 	public Selection() {
@@ -51,11 +56,11 @@ public class Selection implements Serializable {
 		this.idSelections = idSelections;
 	}
 
-	public byte getConfirmation() {
+	public Object getConfirmation() {
 		return this.confirmation;
 	}
 
-	public void setConfirmation(byte confirmation) {
+	public void setConfirmation(Object confirmation) {
 		this.confirmation = confirmation;
 	}
 
@@ -67,11 +72,11 @@ public class Selection implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public byte getValidation() {
+	public Object getValidation() {
 		return this.validation;
 	}
 
-	public void setValidation(byte validation) {
+	public void setValidation(Object validation) {
 		this.validation = validation;
 	}
 

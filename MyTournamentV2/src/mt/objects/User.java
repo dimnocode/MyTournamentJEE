@@ -17,42 +17,62 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idUsers;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date creationDate;
 
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date dob;
 
+	@Column(nullable=false, length=100)
 	private String email;
 
+	@Column(nullable=false, length=45)
 	private String firstname;
 
-	private int idUsersStatus;
-
+	@Column(nullable=false, length=45)
 	private String name;
 
+	@Column(nullable=false, length=45)
 	private String phoneNumber;
 
+	@Column(nullable=false, length=45)
 	private String pseudo;
+
+	//bi-directional many-to-one association to Gameaccount
+	@OneToMany(mappedBy="user")
+	private List<Gameaccount> gameaccounts;
 
 	//bi-directional many-to-one association to Selection
 	@OneToMany(mappedBy="user")
 	private List<Selection> selections;
+
+	//bi-directional many-to-one association to Unavailability
+	@OneToMany(mappedBy="user")
+	private List<Unavailability> unavailabilities;
 
 	//bi-directional many-to-many association to Clan
 	@ManyToMany
 	@JoinTable(
 		name="usersclan"
 		, joinColumns={
-			@JoinColumn(name="idUsers")
+			@JoinColumn(name="idUsers", nullable=false)
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idClan")
+			@JoinColumn(name="idClan", nullable=false)
 			}
 		)
 	private List<Clan> clans;
+
+	//bi-directional many-to-one association to Usersstatut
+	@ManyToOne
+	@JoinColumn(name="idUsersStatus", nullable=false)
+	private Usersstatut usersstatut;
 
 	public User() {
 	}
@@ -97,14 +117,6 @@ public class User implements Serializable {
 		this.firstname = firstname;
 	}
 
-	public int getIdUsersStatus() {
-		return this.idUsersStatus;
-	}
-
-	public void setIdUsersStatus(int idUsersStatus) {
-		this.idUsersStatus = idUsersStatus;
-	}
-
 	public String getName() {
 		return this.name;
 	}
@@ -129,6 +141,28 @@ public class User implements Serializable {
 		this.pseudo = pseudo;
 	}
 
+	public List<Gameaccount> getGameaccounts() {
+		return this.gameaccounts;
+	}
+
+	public void setGameaccounts(List<Gameaccount> gameaccounts) {
+		this.gameaccounts = gameaccounts;
+	}
+
+	public Gameaccount addGameaccount(Gameaccount gameaccount) {
+		getGameaccounts().add(gameaccount);
+		gameaccount.setUser(this);
+
+		return gameaccount;
+	}
+
+	public Gameaccount removeGameaccount(Gameaccount gameaccount) {
+		getGameaccounts().remove(gameaccount);
+		gameaccount.setUser(null);
+
+		return gameaccount;
+	}
+
 	public List<Selection> getSelections() {
 		return this.selections;
 	}
@@ -151,12 +185,42 @@ public class User implements Serializable {
 		return selection;
 	}
 
+	public List<Unavailability> getUnavailabilities() {
+		return this.unavailabilities;
+	}
+
+	public void setUnavailabilities(List<Unavailability> unavailabilities) {
+		this.unavailabilities = unavailabilities;
+	}
+
+	public Unavailability addUnavailability(Unavailability unavailability) {
+		getUnavailabilities().add(unavailability);
+		unavailability.setUser(this);
+
+		return unavailability;
+	}
+
+	public Unavailability removeUnavailability(Unavailability unavailability) {
+		getUnavailabilities().remove(unavailability);
+		unavailability.setUser(null);
+
+		return unavailability;
+	}
+
 	public List<Clan> getClans() {
 		return this.clans;
 	}
 
 	public void setClans(List<Clan> clans) {
 		this.clans = clans;
+	}
+
+	public Usersstatut getUsersstatut() {
+		return this.usersstatut;
+	}
+
+	public void setUsersstatut(Usersstatut usersstatut) {
+		this.usersstatut = usersstatut;
 	}
 
 }

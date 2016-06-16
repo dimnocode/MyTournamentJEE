@@ -11,19 +11,27 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="clan")
 @NamedQuery(name="Clan.findAll", query="SELECT c FROM Clan c")
 public class Clan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idClan;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date creationDate;
 
-	private int idWebRef;
-
+	@Column(nullable=false, length=45)
 	private String nom;
+
+	//bi-directional many-to-one association to Webref
+	@ManyToOne
+	@JoinColumn(name="idWebRef")
+	private Webref webref;
 
 	//bi-directional many-to-one association to Selection
 	@OneToMany(mappedBy="clan")
@@ -52,20 +60,20 @@ public class Clan implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public int getIdWebRef() {
-		return this.idWebRef;
-	}
-
-	public void setIdWebRef(int idWebRef) {
-		this.idWebRef = idWebRef;
-	}
-
 	public String getNom() {
 		return this.nom;
 	}
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+
+	public Webref getWebref() {
+		return this.webref;
+	}
+
+	public void setWebref(Webref webref) {
+		this.webref = webref;
 	}
 
 	public List<Selection> getSelections() {

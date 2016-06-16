@@ -16,11 +16,22 @@ public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idGames;
 
-	private int idWebRef;
-
+	@Column(nullable=false, length=45)
 	private String name;
+
+	//bi-directional many-to-one association to Gameaccount
+	@ManyToOne
+	@JoinColumn(name="GameAccounts_idGameAccounts", nullable=false)
+	private Gameaccount gameaccount;
+
+	//bi-directional many-to-one association to Webref
+	@ManyToOne
+	@JoinColumn(name="idWebRef")
+	private Webref webref;
 
 	//bi-directional many-to-one association to Tournament
 	@OneToMany(mappedBy="game")
@@ -37,20 +48,28 @@ public class Game implements Serializable {
 		this.idGames = idGames;
 	}
 
-	public int getIdWebRef() {
-		return this.idWebRef;
-	}
-
-	public void setIdWebRef(int idWebRef) {
-		this.idWebRef = idWebRef;
-	}
-
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Gameaccount getGameaccount() {
+		return this.gameaccount;
+	}
+
+	public void setGameaccount(Gameaccount gameaccount) {
+		this.gameaccount = gameaccount;
+	}
+
+	public Webref getWebref() {
+		return this.webref;
+	}
+
+	public void setWebref(Webref webref) {
+		this.webref = webref;
 	}
 
 	public List<Tournament> getTournaments() {
