@@ -4,6 +4,6 @@
 	<title>mytournament</title>
 	
 	
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 </head>

@@ -1,6 +1,12 @@
-h1{
-	color: white;
+@CHARSET "ISO-8859-1";
+
+.spacer{
+	padding-top:100px;
+	padding-bottom:100px;
 }
-body{
-	background-color:red;
+header{
+	height: 50px;
+}
+footer{
+	height: 200px;
 }
