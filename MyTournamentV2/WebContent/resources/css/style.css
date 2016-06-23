@@ -4,6 +4,19 @@
 	padding-top:100px;
 	padding-bottom:100px;
 }
+.form{
+	padding-left: 50px;
+	width: 600px;
+}
+.ui-datepicker .ui-datepicker-header {
+    background-color: #e95420;
+}
+#ui-datepicker-div {
+	background-color: #FFFCE2;
+}
+body{
+	background-color: #FFFCE2;	
+}
 header{
 	height: 50px;
 }

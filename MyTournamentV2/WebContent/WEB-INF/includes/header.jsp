@@ -8,7 +8,7 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                    	<li><a href="index">Index</a></li>
+                    	<li><a href="/MyTournamentV2">Index</a></li>
                         <li><a href="#information">Information</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

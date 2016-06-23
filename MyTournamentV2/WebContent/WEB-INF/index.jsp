@@ -3,14 +3,14 @@
 <html>
 <c:import url="includes/head.jsp"/>
 
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 	<c:import url="includes/header.jsp"/>
 	
 	<div class="container">
 		<div class="jumbotron">
 		  <h1>My Tournament</h1>
 		  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-		  <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+		  <p><a href="login" class="btn btn-primary btn-lg">Login</a></p>
 		</div>
 		
 		<div class="row">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="panel-body" style="height:200px;">
                         <p>blablabla</p><br/>
-                        <a href="#" class="btn btn-primary">
+                        <a href="register" class="btn btn-primary">
                             Register
                         </a>
                     </div>
@@ -93,7 +93,7 @@
                     </div>
                     <div class="panel-body" style="height:200px;">
                         <p>blablabla</p><br/>
-                        <a href="#" class="btn btn-primary">
+                        <a href="info" class="btn btn-primary">
                             Information
                         </a>
                     </div>
