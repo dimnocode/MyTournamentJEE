@@ -21,14 +21,14 @@ public class Selection implements Serializable {
 	private int idSelections;
 
 	@Column(nullable=false)
-	private Object confirmation;
+	private boolean confirmation;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
 	private Date creationDate;
 
 	@Column(nullable=false)
-	private Object validation;
+	private boolean validation;
 
 	//bi-directional many-to-one association to Clan
 	@ManyToOne
@@ -56,11 +56,11 @@ public class Selection implements Serializable {
 		this.idSelections = idSelections;
 	}
 
-	public Object getConfirmation() {
+	public boolean getConfirmation() {
 		return this.confirmation;
 	}
 
-	public void setConfirmation(Object confirmation) {
+	public void setConfirmation(boolean confirmation) {
 		this.confirmation = confirmation;
 	}
 
@@ -72,11 +72,11 @@ public class Selection implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public Object getValidation() {
+	public boolean getValidation() {
 		return this.validation;
 	}
 
-	public void setValidation(Object validation) {
+	public void setValidation(boolean validation) {
 		this.validation = validation;
 	}
 
