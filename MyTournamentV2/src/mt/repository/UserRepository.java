@@ -1,9 +1,10 @@
 package mt.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 import mt.connection.EMF;
 import mt.objects.User;
@@ -11,32 +12,33 @@ import mt.objects.User;
 public class UserRepository implements IRepository<User>{
 	
 	private EntityManager em;
-	private HttpServlet http;
+	private HttpServletRequest http;
 	private Validation validation;
 
+	public Validation getvalidation() {
+		return this.validation;
+	}
 	
-	public UserRepository(HttpServlet http){
+	public UserRepository(HttpServletRequest http){
 		this.em = EMF.getEM();
 		this.validation = new Validation(http, new User());
 	}
 	
-	public User updateT(User user){
+	public User update(User user){
 		return this.em.merge(user);
 	}
-	public void deleteT(int id){
+	public void delete(int id){
 		User user = find(id);
 		this.em.remove(user);
 	}
-	public void createT(User user){
+	public void create(User user){
 		if(this.validation.validate()){
-			this.em.persist(user);
+			this.createUser(user);
 		}
 		else{
 			System.out.println("erreur");
 		}
 	}
-	
-	
 	public User find(int id){
 		return this.em.find(User.class, id); 
 	}
@@ -45,5 +47,28 @@ public class UserRepository implements IRepository<User>{
 	}
 	public void close(){
 		this.em.close();
+	}
+	
+	private void createUser(User user){
+		user.setName(this.http.getParameter("nameRegister"));
+		user.setFirstname(this.http.getParameter("firstnameRegister"));
+		user.setEmail(this.http.getParameter("emailRegister"));
+		user.setPseudo(this.http.getParameter("pseudoRegister"));
+		user.setPhoneNumber(this.http.getParameter("phoneRegister"));
+		String password = this.http.getParameter("passRegister");
+		user.setDob(this.validation.stringToDate(this.http.getParameter("dobRegister")));
+		user.setCreationDate(this.validation.stringToDate(this.validation.getDateNow()));
+		//user.setPassword(password); N EXISTE PAS DANS LA DB ... LOL
+		
+		System.out.println(user.getName());
+		System.out.println(user.getFirstname());
+		System.out.println(user.getEmail());
+		System.out.println(user.getPhoneNumber());
+		System.out.println(user.getPseudo());
+		System.out.println(password);
+		System.out.println(user.getDob());
+		System.out.println(user.getCreationDate());
+		
+		//this.em.persist(user);
 	}
 }

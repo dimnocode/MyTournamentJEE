@@ -8,8 +8,8 @@ public interface IRepository<T> {
 	
 	T find(int id);
 	Collection<T> findAll();
-	T updateT(T entity);
-	void deleteT(int id);
-	void createT(T entity);
+	T update(T entity);
+	void delete(int id);
+	void create(T entity);
 	void close();
 }
