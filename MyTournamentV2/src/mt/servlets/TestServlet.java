@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import mt.objects.Game;
-import mt.objects.User;
-import mt.objects.Usersstatut;
+import mt.entities.Game;
+import mt.entities.User;
+import mt.entities.Userrole;
 import mt.repository.UsersstatutRepository;
 /**
  * Servlet implementation class TestServlet
@@ -47,7 +47,7 @@ public class TestServlet extends HttpServlet {
 		
 		UsersstatutRepository us = new UsersstatutRepository();
 		
-		Usersstatut uss = us.find(1);
+		Userrole uss = us.find(1);
 		uss.setName("User");
 		//us.update(uss);
 		em.getTransaction().begin();

@@ -7,10 +7,10 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 import mt.connection.EMF;
-import mt.objects.User;
-import mt.objects.Usersstatut;
+import mt.entities.User;
+import mt.entities.Userrole;
 
-public class UsersstatutRepository implements IRepository<Usersstatut>{
+public class UsersstatutRepository implements IRepository<Userrole>{
 
 	private EntityManager em;
 	
@@ -18,21 +18,21 @@ public class UsersstatutRepository implements IRepository<Usersstatut>{
 		this.em = EMF.getEM();
 	}
 	
-	public Usersstatut update(Usersstatut user){
+	public Userrole update(Userrole user){
 		return this.em.merge(user);
 	}
 	public void delete(int id){
-		Usersstatut user = find(id);
+		Userrole user = find(id);
 		this.em.remove(user);
 	}
-	public void create(Usersstatut user){
+	public void create(Userrole user){
 		this.em.persist(user);
 	}
-	public Usersstatut find(int id){
-		return this.em.find(Usersstatut.class, id); 
+	public Userrole find(int id){
+		return this.em.find(Userrole.class, id); 
 	}
-	public List<Usersstatut> findAll(){
-		return this.em.createNamedQuery("Usersstatut.findAll").getResultList(); 
+	public List<Userrole> findAll(){
+		return this.em.createNamedQuery("Userrole.findAll").getResultList(); 
 	}
 	public void close(){
 		this.em.close();

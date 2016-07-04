@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 
 import mt.connection.EMF;
-import mt.objects.User;
+import mt.entities.User;
 
 public class UserRepository implements IRepository<User>{
 	

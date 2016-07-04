@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import mt.connection.EMF;
 import mt.util.Util;
-import mt.objects.User;
+import mt.entities.User;
 import mt.repository.UserRepository;
 
 /**
