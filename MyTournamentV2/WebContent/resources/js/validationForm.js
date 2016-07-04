@@ -15,9 +15,8 @@ $(document).ready(function(){
                         message: "Adresse email est requise"
                     },
                     stringLength: {
-                        min: 6,
                         max: 35,
-                        message: "L'adresse email fournie doit etre comprise entre 6 et 35 caracteres"
+                        message: "L'adresse email fournie doit avoir maximum 35 caracteres"
                     },
                     emailAddress: {
                         message: "Adresse email est invalide"
@@ -31,7 +30,8 @@ $(document).ready(function(){
                     },
                     stringLength: {
                         min: 3,
-                        message: "Mot de pass doit avoir minimum 3 caracteres"
+                        max: 20,
+                        message: "Mot de pass doit etre compris entre 3 et 20 caracteres"
                     },
                     different: {
                         field: "emailForm",
@@ -126,7 +126,8 @@ $(document).ready(function(){
                     },
                     stringLength: {
                         min: 3,
-                        message: "Mot de pass doit avoir minimum 3 caracteres"
+                        max: 20,
+                        message: "Mot de pass doit etre compris entre 3 et 20 caracteres"
                     },
                     different: {
                         field: "emailRegister",
@@ -141,7 +142,8 @@ $(document).ready(function(){
                     },
                     stringLength: {
                         min: 3,
-                        message: "Confirme doit avoir minimum 3 caracteres"
+                        max: 20,
+                        message: "Confirme doit etre compris entre 3 et 20 caracteres"
                     },
                     identical: {
                         field: 'passRegister',
