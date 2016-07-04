@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mt.connection.EMF;
+import mt.util.Util;
 import mt.objects.User;
 import mt.repository.UserRepository;
 
@@ -38,21 +39,14 @@ public class register extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		/*String name = request.getParameter("nameRegister") ;
-		String firstname = request.getParameter("firstnameRegister") ;
-		String email = request.getParameter("emailRegister") ;
-		String pseudo = request.getParameter("pseudoRegister") ;
-		String password = request.getParameter("passRegister") ;
-		String dob = request.getParameter("dobRegister") ;*/
 
 		EMF.getEMF();
 		
 		User user = new User();
 		
 		UserRepository userRepository = new UserRepository(request);
-		//userRepository.create(user);
 		
-		//userRepository.close();
+		userRepository.close();
 		
 		doGet(request, response);
 	}
