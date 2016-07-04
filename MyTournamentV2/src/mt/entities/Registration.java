@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,29 +6,29 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the selections database table.
+ * The persistent class for the registrations database table.
  * 
  */
 @Entity
-@Table(name="selections")
-@NamedQuery(name="Selection.findAll", query="SELECT s FROM Selection s")
-public class Selection implements Serializable {
+@Table(name="registrations")
+@NamedQuery(name="Registration.findAll", query="SELECT r FROM Registration r")
+public class Registration implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private int idSelections;
+	private int idRegistration;
 
 	@Column(nullable=false)
-	private boolean confirmation;
+	private Object clanLeaderValidation;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
 	private Date creationDate;
 
 	@Column(nullable=false)
-	private boolean validation;
+	private Object userConfirmation;
 
 	//bi-directional many-to-one association to Clan
 	@ManyToOne
@@ -45,23 +45,23 @@ public class Selection implements Serializable {
 	@JoinColumn(name="idUsers", nullable=false)
 	private User user;
 
-	public Selection() {
+	public Registration() {
 	}
 
-	public int getIdSelections() {
-		return this.idSelections;
+	public int getIdRegistration() {
+		return this.idRegistration;
 	}
 
-	public void setIdSelections(int idSelections) {
-		this.idSelections = idSelections;
+	public void setIdRegistration(int idRegistration) {
+		this.idRegistration = idRegistration;
 	}
 
-	public boolean getConfirmation() {
-		return this.confirmation;
+	public Object getClanLeaderValidation() {
+		return this.clanLeaderValidation;
 	}
 
-	public void setConfirmation(boolean confirmation) {
-		this.confirmation = confirmation;
+	public void setClanLeaderValidation(Object clanLeaderValidation) {
+		this.clanLeaderValidation = clanLeaderValidation;
 	}
 
 	public Date getCreationDate() {
@@ -72,12 +72,12 @@ public class Selection implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public boolean getValidation() {
-		return this.validation;
+	public Object getUserConfirmation() {
+		return this.userConfirmation;
 	}
 
-	public void setValidation(boolean validation) {
-		this.validation = validation;
+	public void setUserConfirmation(Object userConfirmation) {
+		this.userConfirmation = userConfirmation;
 	}
 
 	public Clan getClan() {

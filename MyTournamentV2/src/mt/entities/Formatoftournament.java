@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,13 +6,13 @@ import java.util.List;
 
 
 /**
- * The persistent class for the formattournaments database table.
+ * The persistent class for the formatoftournaments database table.
  * 
  */
 @Entity
-@Table(name="formattournaments")
-@NamedQuery(name="Formattournament.findAll", query="SELECT f FROM Formattournament f")
-public class Formattournament implements Serializable {
+@Table(name="formatoftournaments")
+@NamedQuery(name="Formatoftournament.findAll", query="SELECT f FROM Formatoftournament f")
+public class Formatoftournament implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -20,14 +20,16 @@ public class Formattournament implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int idFormatTournaments;
 
+	private Object active;
+
 	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-one association to Tournament
-	@OneToMany(mappedBy="formattournament")
+	@OneToMany(mappedBy="formatoftournament")
 	private List<Tournament> tournaments;
 
-	public Formattournament() {
+	public Formatoftournament() {
 	}
 
 	public int getIdFormatTournaments() {
@@ -36,6 +38,14 @@ public class Formattournament implements Serializable {
 
 	public void setIdFormatTournaments(int idFormatTournaments) {
 		this.idFormatTournaments = idFormatTournaments;
+	}
+
+	public Object getActive() {
+		return this.active;
+	}
+
+	public void setActive(Object active) {
+		this.active = active;
 	}
 
 	public String getName() {
@@ -56,14 +66,14 @@ public class Formattournament implements Serializable {
 
 	public Tournament addTournament(Tournament tournament) {
 		getTournaments().add(tournament);
-		tournament.setFormattournament(this);
+		tournament.setFormatoftournament(this);
 
 		return tournament;
 	}
 
 	public Tournament removeTournament(Tournament tournament) {
 		getTournaments().remove(tournament);
-		tournament.setFormattournament(null);
+		tournament.setFormatoftournament(null);
 
 		return tournament;
 	}

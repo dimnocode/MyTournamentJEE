@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -21,6 +21,8 @@ public class User implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int idUsers;
 
+	private boolean active;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
 	private Date creationDate;
@@ -38,41 +40,39 @@ public class User implements Serializable {
 	@Column(nullable=false, length=45)
 	private String name;
 
+	@Column(nullable=false, length=128)
+	private String password;
+
 	@Column(nullable=false, length=45)
 	private String phoneNumber;
 
 	@Column(nullable=false, length=45)
 	private String pseudo;
 
+	//bi-directional many-to-many association to Clan
+	@ManyToMany(mappedBy="users")
+	private List<Clan> clans;
+
 	//bi-directional many-to-one association to Gameaccount
 	@OneToMany(mappedBy="user")
 	private List<Gameaccount> gameaccounts;
 
-	//bi-directional many-to-one association to Selection
+	//bi-directional many-to-one association to Registration
 	@OneToMany(mappedBy="user")
-	private List<Selection> selections;
+	private List<Registration> registrations;
 
 	//bi-directional many-to-one association to Unavailability
 	@OneToMany(mappedBy="user")
 	private List<Unavailability> unavailabilities;
 
-	//bi-directional many-to-many association to Clan
-	@ManyToMany
-	@JoinTable(
-		name="usersclan"
-		, joinColumns={
-			@JoinColumn(name="idUsers", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idClan", nullable=false)
-			}
-		)
-	private List<Clan> clans;
-
-	//bi-directional many-to-one association to Usersstatut
+	//bi-directional many-to-one association to Userrole
 	@ManyToOne
-	@JoinColumn(name="idUsersStatus", nullable=false)
-	private Usersstatut usersstatut;
+	@JoinColumn(name="idUserRoles", nullable=false)
+	private Userrole userrole;
+
+	//bi-directional many-to-one association to Usersclan
+	@OneToMany(mappedBy="user")
+	private List<Usersclan> usersclans;
 
 	public User() {
 	}
@@ -83,6 +83,14 @@ public class User implements Serializable {
 
 	public void setIdUsers(int idUsers) {
 		this.idUsers = idUsers;
+	}
+
+	public boolean getActive() {
+		return this.active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public Date getCreationDate() {
@@ -125,6 +133,14 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
+	public String getPassword() {
+		return this.password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
@@ -139,6 +155,14 @@ public class User implements Serializable {
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
+	}
+
+	public List<Clan> getClans() {
+		return this.clans;
+	}
+
+	public void setClans(List<Clan> clans) {
+		this.clans = clans;
 	}
 
 	public List<Gameaccount> getGameaccounts() {
@@ -163,26 +187,26 @@ public class User implements Serializable {
 		return gameaccount;
 	}
 
-	public List<Selection> getSelections() {
-		return this.selections;
+	public List<Registration> getRegistrations() {
+		return this.registrations;
 	}
 
-	public void setSelections(List<Selection> selections) {
-		this.selections = selections;
+	public void setRegistrations(List<Registration> registrations) {
+		this.registrations = registrations;
 	}
 
-	public Selection addSelection(Selection selection) {
-		getSelections().add(selection);
-		selection.setUser(this);
+	public Registration addRegistration(Registration registration) {
+		getRegistrations().add(registration);
+		registration.setUser(this);
 
-		return selection;
+		return registration;
 	}
 
-	public Selection removeSelection(Selection selection) {
-		getSelections().remove(selection);
-		selection.setUser(null);
+	public Registration removeRegistration(Registration registration) {
+		getRegistrations().remove(registration);
+		registration.setUser(null);
 
-		return selection;
+		return registration;
 	}
 
 	public List<Unavailability> getUnavailabilities() {
@@ -207,20 +231,34 @@ public class User implements Serializable {
 		return unavailability;
 	}
 
-	public List<Clan> getClans() {
-		return this.clans;
+	public Userrole getUserrole() {
+		return this.userrole;
 	}
 
-	public void setClans(List<Clan> clans) {
-		this.clans = clans;
+	public void setUserrole(Userrole userrole) {
+		this.userrole = userrole;
 	}
 
-	public Usersstatut getUsersstatut() {
-		return this.usersstatut;
+	public List<Usersclan> getUsersclans() {
+		return this.usersclans;
 	}
 
-	public void setUsersstatut(Usersstatut usersstatut) {
-		this.usersstatut = usersstatut;
+	public void setUsersclans(List<Usersclan> usersclans) {
+		this.usersclans = usersclans;
+	}
+
+	public Usersclan addUsersclan(Usersclan usersclan) {
+		getUsersclans().add(usersclan);
+		usersclan.setUser(this);
+
+		return usersclan;
+	}
+
+	public Usersclan removeUsersclan(Usersclan usersclan) {
+		getUsersclans().remove(usersclan);
+		usersclan.setUser(null);
+
+		return usersclan;
 	}
 
 }

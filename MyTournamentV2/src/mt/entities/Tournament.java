@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -51,18 +51,18 @@ public class Tournament implements Serializable {
 	@Column(nullable=false)
 	private Date startDate;
 
+	//bi-directional many-to-one association to Registration
+	@OneToMany(mappedBy="tournament")
+	private List<Registration> registrations;
+
 	//bi-directional many-to-one association to Reward
 	@OneToMany(mappedBy="tournament")
 	private List<Reward> rewards;
 
-	//bi-directional many-to-one association to Selection
-	@OneToMany(mappedBy="tournament")
-	private List<Selection> selections;
-
-	//bi-directional many-to-one association to Formattournament
+	//bi-directional many-to-one association to Formatoftournament
 	@ManyToOne
 	@JoinColumn(name="idFormatTournaments", nullable=false)
-	private Formattournament formattournament;
+	private Formatoftournament formatoftournament;
 
 	//bi-directional many-to-one association to Game
 	@ManyToOne
@@ -151,8 +151,8 @@ public class Tournament implements Serializable {
 		this.name = name;
 	}
 
-	public boolean isOnline() {
-		return online;
+	public boolean getOnline() {
+		return this.online;
 	}
 
 	public void setOnline(boolean online) {
@@ -173,6 +173,28 @@ public class Tournament implements Serializable {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public List<Registration> getRegistrations() {
+		return this.registrations;
+	}
+
+	public void setRegistrations(List<Registration> registrations) {
+		this.registrations = registrations;
+	}
+
+	public Registration addRegistration(Registration registration) {
+		getRegistrations().add(registration);
+		registration.setTournament(this);
+
+		return registration;
+	}
+
+	public Registration removeRegistration(Registration registration) {
+		getRegistrations().remove(registration);
+		registration.setTournament(null);
+
+		return registration;
 	}
 
 	public List<Reward> getRewards() {
@@ -197,34 +219,12 @@ public class Tournament implements Serializable {
 		return reward;
 	}
 
-	public List<Selection> getSelections() {
-		return this.selections;
+	public Formatoftournament getFormatoftournament() {
+		return this.formatoftournament;
 	}
 
-	public void setSelections(List<Selection> selections) {
-		this.selections = selections;
-	}
-
-	public Selection addSelection(Selection selection) {
-		getSelections().add(selection);
-		selection.setTournament(this);
-
-		return selection;
-	}
-
-	public Selection removeSelection(Selection selection) {
-		getSelections().remove(selection);
-		selection.setTournament(null);
-
-		return selection;
-	}
-
-	public Formattournament getFormattournament() {
-		return this.formattournament;
-	}
-
-	public void setFormattournament(Formattournament formattournament) {
-		this.formattournament = formattournament;
+	public void setFormatoftournament(Formatoftournament formatoftournament) {
+		this.formatoftournament = formatoftournament;
 	}
 
 	public Game getGame() {

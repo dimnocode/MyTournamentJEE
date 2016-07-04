@@ -6,22 +6,23 @@
 		transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>java:comp/env/jdbc/MyTournamentV2</jta-data-source>
-		<class>mt.objects.Clan</class>
-		<class>mt.objects.Formattournament</class>
-		<class>mt.objects.Gameaccount</class>
-		<class>mt.objects.Game</class>
-		<class>mt.objects.Location</class>
-		<class>mt.objects.Reward</class>
-		<class>mt.objects.Selection</class>
-		<class>mt.objects.Sponsor</class>
-		<class>mt.objects.Tournament</class>
-		<class>mt.objects.Typegameaccount</class>
-		<class>mt.objects.Typeofreward</class>
-		<class>mt.objects.Typeoftournament</class>
-		<class>mt.objects.Unavailability</class>
-		<class>mt.objects.User</class>
-		<class>mt.objects.Usersstatut</class>
-		<class>mt.objects.Webref</class>
+		<class>mt.entities.Clan</class>
+		<class>mt.entities.Formatoftournament</class>
+		<class>mt.entities.Gameaccountplatform</class>
+		<class>mt.entities.Gameaccount</class>
+		<class>mt.entities.Game</class>
+		<class>mt.entities.Location</class>
+		<class>mt.entities.Registration</class>
+		<class>mt.entities.Reward</class>
+		<class>mt.entities.Sponsor</class>
+		<class>mt.entities.Tournament</class>
+		<class>mt.entities.Typeofreward</class>
+		<class>mt.entities.Typeoftournament</class>
+		<class>mt.entities.Unavailability</class>
+		<class>mt.entities.Userrole</class>
+		<class>mt.entities.User</class>
+		<class>mt.entities.Usersclan</class>
+		<class>mt.entities.Webref</class>
 
 		<properties>
 			<property name="eclipselink.ddl-generation.output-mode"	value="database" />

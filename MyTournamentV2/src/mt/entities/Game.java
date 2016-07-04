@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -19,6 +19,8 @@ public class Game implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	private int idGames;
+
+	private boolean active;
 
 	@Column(nullable=false, length=45)
 	private String name;
@@ -46,6 +48,14 @@ public class Game implements Serializable {
 
 	public void setIdGames(int idGames) {
 		this.idGames = idGames;
+	}
+
+	public boolean getActive() {
+		return this.active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getName() {

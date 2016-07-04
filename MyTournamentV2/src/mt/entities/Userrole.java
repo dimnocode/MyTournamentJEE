@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,36 +6,36 @@ import java.util.List;
 
 
 /**
- * The persistent class for the usersstatuts database table.
+ * The persistent class for the userroles database table.
  * 
  */
 @Entity
-@Table(name="usersstatuts")
-@NamedQuery(name="Usersstatut.findAll", query="SELECT u FROM Usersstatut u")
-public class Usersstatut implements Serializable {
+@Table(name="userroles")
+@NamedQuery(name="Userrole.findAll", query="SELECT u FROM Userrole u")
+public class Userrole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private int idUsersStatus;
+	private int idUserRoles;
 
 	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-one association to User
-	@OneToMany(mappedBy="usersstatut")
+	@OneToMany(mappedBy="userrole")
 	private List<User> users;
 
-	public Usersstatut() {
+	public Userrole() {
 	}
 
-	public int getIdUsersStatus() {
-		return this.idUsersStatus;
+	public int getIdUserRoles() {
+		return this.idUserRoles;
 	}
 
-	public void setIdUsersStatus(int idUsersStatus) {
-		this.idUsersStatus = idUsersStatus;
+	public void setIdUserRoles(int idUserRoles) {
+		this.idUserRoles = idUserRoles;
 	}
 
 	public String getName() {
@@ -56,14 +56,14 @@ public class Usersstatut implements Serializable {
 
 	public User addUser(User user) {
 		getUsers().add(user);
-		user.setUsersstatut(this);
+		user.setUserrole(this);
 
 		return user;
 	}
 
 	public User removeUser(User user) {
 		getUsers().remove(user);
-		user.setUsersstatut(null);
+		user.setUserrole(null);
 
 		return user;
 	}

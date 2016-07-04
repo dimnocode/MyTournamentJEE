@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -20,6 +20,8 @@ public class Typeoftournament implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int idTypeOfTournaments;
 
+	private boolean active;
+
 	@Column(nullable=false, length=45)
 	private String name;
 
@@ -36,6 +38,14 @@ public class Typeoftournament implements Serializable {
 
 	public void setIdTypeOfTournaments(int idTypeOfTournaments) {
 		this.idTypeOfTournaments = idTypeOfTournaments;
+	}
+
+	public boolean getActive() {
+		return this.active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getName() {

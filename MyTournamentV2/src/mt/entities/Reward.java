@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -24,7 +24,7 @@ public class Reward implements Serializable {
 
 	//bi-directional many-to-one association to Tournament
 	@ManyToOne
-	@JoinColumn(name="idTournaments", nullable=false)
+	@JoinColumn(name="Tournaments_idTournaments", nullable=false)
 	private Tournament tournament;
 
 	//bi-directional many-to-one association to Typeofreward

@@ -1,4 +1,4 @@
-package mt.objects;
+package mt.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -20,13 +20,15 @@ public class Gameaccount implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int idGameAccounts;
 
+	private boolean active;
+
 	@Column(nullable=false, length=45)
 	private String name;
 
-	//bi-directional many-to-one association to Typegameaccount
+	//bi-directional many-to-one association to Gameaccountplatform
 	@ManyToOne
-	@JoinColumn(name="idTypeGameAccounts", nullable=false)
-	private Typegameaccount typegameaccount;
+	@JoinColumn(name="idGameAccountPlatforms", nullable=false)
+	private Gameaccountplatform gameaccountplatform;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -48,6 +50,14 @@ public class Gameaccount implements Serializable {
 		this.idGameAccounts = idGameAccounts;
 	}
 
+	public boolean getActive() {
+		return this.active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public String getName() {
 		return this.name;
 	}
@@ -56,12 +66,12 @@ public class Gameaccount implements Serializable {
 		this.name = name;
 	}
 
-	public Typegameaccount getTypegameaccount() {
-		return this.typegameaccount;
+	public Gameaccountplatform getGameaccountplatform() {
+		return this.gameaccountplatform;
 	}
 
-	public void setTypegameaccount(Typegameaccount typegameaccount) {
-		this.typegameaccount = typegameaccount;
+	public void setGameaccountplatform(Gameaccountplatform gameaccountplatform) {
+		this.gameaccountplatform = gameaccountplatform;
 	}
 
 	public User getUser() {
