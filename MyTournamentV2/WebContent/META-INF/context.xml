@@ -23,7 +23,7 @@
 	<!-- url: The JDBC connection url for connecting to your MySQL dB. -->
 
 	<Resource name="jdbc/MyTournamentV2" auth="Container" type="javax.sql.DataSource"
-		maxActive="100" maxIdle="30" maxWait="10000" username="mt" password="mt123"
+		maxActive="100" maxIdle="30" maxWait="10000" username="root" password=""
 		driverClassName="com.mysql.jdbc.Driver"
 		url="jdbc:mysql://localhost:3306/mytournament?autoReconnect=true" />
 

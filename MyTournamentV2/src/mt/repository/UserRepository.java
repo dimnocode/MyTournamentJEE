@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 
 import mt.connection.EMF;
@@ -21,7 +23,7 @@ public class UserRepository implements IRepository<User>{
 	
 	public UserRepository(HttpServletRequest http){
 		this.em = EMF.getEM();
-		this.validation = new Validation(http, new User());
+		//this.validation = new Validation(http, new User());
 	}
 	
 	public User update(User user){

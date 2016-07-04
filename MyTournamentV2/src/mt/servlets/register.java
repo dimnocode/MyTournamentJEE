@@ -48,8 +48,9 @@ public class register extends HttpServlet {
 		EMF.getEMF();
 		
 		User user = new User();
+		
 		UserRepository userRepository = new UserRepository(request);
-		userRepository.create(user);
+		//userRepository.create(user);
 		
 		//userRepository.close();
 		
