@@ -21,14 +21,14 @@ public class Registration implements Serializable {
 	private int idRegistration;
 
 	@Column(nullable=false)
-	private Object clanLeaderValidation;
+	private boolean clanLeaderValidation;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
 	private Date creationDate;
 
 	@Column(nullable=false)
-	private Object userConfirmation;
+	private boolean userConfirmation;
 
 	//bi-directional many-to-one association to Clan
 	@ManyToOne
@@ -56,11 +56,11 @@ public class Registration implements Serializable {
 		this.idRegistration = idRegistration;
 	}
 
-	public Object getClanLeaderValidation() {
+	public boolean isClanLeaderValidation() {
 		return this.clanLeaderValidation;
 	}
 
-	public void setClanLeaderValidation(Object clanLeaderValidation) {
+	public void setClanLeaderValidation(boolean clanLeaderValidation) {
 		this.clanLeaderValidation = clanLeaderValidation;
 	}
 
@@ -72,11 +72,11 @@ public class Registration implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public Object getUserConfirmation() {
+	public Object isUserConfirmation() {
 		return this.userConfirmation;
 	}
 
-	public void setUserConfirmation(Object userConfirmation) {
+	public void setUserConfirmation(boolean userConfirmation) {
 		this.userConfirmation = userConfirmation;
 	}
 

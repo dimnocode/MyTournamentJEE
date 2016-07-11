@@ -50,7 +50,7 @@ public class Gameaccount implements Serializable {
 		this.idGameAccounts = idGameAccounts;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 

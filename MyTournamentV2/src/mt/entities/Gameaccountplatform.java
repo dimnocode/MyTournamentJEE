@@ -40,7 +40,7 @@ public class Gameaccountplatform implements Serializable {
 		this.idGameAccountPlatforms = idGameAccountPlatforms;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 

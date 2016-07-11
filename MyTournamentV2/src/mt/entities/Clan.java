@@ -21,7 +21,7 @@ public class Clan implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int idClan;
 
-	private Object active;
+	private boolean active;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
@@ -67,11 +67,11 @@ public class Clan implements Serializable {
 		this.idClan = idClan;
 	}
 
-	public Object getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 

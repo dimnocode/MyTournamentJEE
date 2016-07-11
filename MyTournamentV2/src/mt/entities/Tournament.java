@@ -151,7 +151,7 @@ public class Tournament implements Serializable {
 		this.name = name;
 	}
 
-	public boolean getOnline() {
+	public boolean isOnline() {
 		return this.online;
 	}
 

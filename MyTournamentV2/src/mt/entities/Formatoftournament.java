@@ -20,7 +20,7 @@ public class Formatoftournament implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int idFormatTournaments;
 
-	private Object active;
+	private boolean active;
 
 	@Column(nullable=false, length=45)
 	private String name;
@@ -40,11 +40,11 @@ public class Formatoftournament implements Serializable {
 		this.idFormatTournaments = idFormatTournaments;
 	}
 
-	public Object getActive() {
+	public Object isActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 

@@ -50,7 +50,7 @@ public class Game implements Serializable {
 		this.idGames = idGames;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 
