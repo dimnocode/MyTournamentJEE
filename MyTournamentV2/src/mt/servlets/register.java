@@ -44,7 +44,7 @@ public class register extends HttpServlet {
 		
 		User user = new User();
 		
-		UserRepository userRepository = new UserRepository(request);
+		UserRepository userRepository = new UserRepository();
 		
 		userRepository.close();
 		

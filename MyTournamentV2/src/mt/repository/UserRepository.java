@@ -21,7 +21,7 @@ public class UserRepository implements IRepository<User>{
 		return this.validation;
 	}
 	
-	public UserRepository(HttpServletRequest http){
+	public UserRepository(){
 		this.em = EMF.getEM();
 		this.validation = new Validation(http, new User());
 	}

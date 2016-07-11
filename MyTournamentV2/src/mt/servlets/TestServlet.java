@@ -18,7 +18,9 @@ import org.apache.log4j.Logger;
 
 import mt.entities.User;
 import mt.entities.Userrole;
+import mt.repository.UserRepository;
 import mt.repository.UsersstatutRepository;
+import mt.util.Hashing;
 /**
  * Servlet implementation class TestServlet
  */
@@ -50,6 +52,7 @@ public class TestServlet extends HttpServlet {
 		//User u = new User();
 		
 		UsersstatutRepository us = new UsersstatutRepository();
+		UserRepository ur = new UserRepository();
 //		
 //		Userrole uss = us.find(1);
 //		uss.setName("User");
@@ -58,26 +61,32 @@ public class TestServlet extends HttpServlet {
 //		em.merge(uss);
 //		em.getTransaction().commit();
 		
-		
+		/*
 		User u = new User();
 		u.setName("test");
 		u.setFirstname("test");
 		u.setPseudo("t");
-		u.setPassword("pswd");
+		u.setPassword(Hashing.hash("pswd"));
 		u.setCreationDate(new Date());
 		u.setDob(new Date());
 		u.setEmail("lol@lol.com");
 		u.setPhoneNumber("000");
 		u.setUserrole(us.find(1));
-		
+		u.setActive(true);
 		em.getTransaction().begin();
 		em.persist(u);
 		em.getTransaction().commit();
 		
-		logger.log(Level.INFO, u.getName()+ " saved");
+		logger.log(Level.INFO, "hashed password : " +u.getPassword());
+*/
+		User user = ur.find(1);
 		
-		em.close();
-		emf.close();
+		
+		
+		logger.log(Level.INFO, "password from DB: " +user.getPassword());
+		
+		//em.close();
+		//emf.close();
 		/*
 		
 		Game g = new Game();
