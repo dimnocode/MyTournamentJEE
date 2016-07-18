@@ -16,13 +16,13 @@ public class Validation<T> {
 		this.entity = entity;
 	}
 	
-	public boolean validate(){
-		if(this.entity == null || this.http == null){
-			return false;
-		}
-		else{
-			return true;
+	public void validate(T entity){
+		switch(entity.getClass().getName()){
+		case "mt.entities.Tournament":
+			System.out.println(entity.getClass().getName());
+			break;
 		}
 	}
+	
 	
 }

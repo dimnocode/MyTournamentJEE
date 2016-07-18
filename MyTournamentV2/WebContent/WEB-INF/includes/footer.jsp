@@ -12,4 +12,5 @@
 	<script type="text/javascript" src="resources/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="resources/js/validationForm.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="resources/js/lang/en.js"></script>
 </footer>

@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
+import mt.entities.Tournament;
 import mt.entities.User;
 import mt.entities.Userrole;
 import mt.repository.UserRepository;
 import mt.repository.UsersstatutRepository;
+import mt.repository.Validation;
 import mt.util.Hashing;
 /**
  * Servlet implementation class TestServlet
@@ -46,13 +48,13 @@ public class TestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		EntityManager em;
-		em = emf.createEntityManager();
+		//EntityManager em;
+		//em = emf.createEntityManager();
 		
 		//User u = new User();
 		
-		UsersstatutRepository us = new UsersstatutRepository();
-		UserRepository ur = new UserRepository();
+		//UsersstatutRepository us = new UsersstatutRepository();
+		//UserRepository ur = new UserRepository();
 //		
 //		Userrole uss = us.find(1);
 //		uss.setName("User");
@@ -79,11 +81,12 @@ public class TestServlet extends HttpServlet {
 		
 		logger.log(Level.INFO, "hashed password : " +u.getPassword());
 */
-		User user = ur.find(1);
+		//User user = ur.find(1);
 		
+		Validation v = new Validation(request, new Tournament());
+		v.validate(new Tournament());
 		
-		
-		logger.log(Level.INFO, "password from DB: " +user.getPassword());
+		//logger.log(Level.INFO, "password from DB: " +user.getPassword());
 		
 		//em.close();
 		//emf.close();
