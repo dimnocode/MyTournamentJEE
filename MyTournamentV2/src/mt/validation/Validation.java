@@ -19,9 +19,9 @@ public class Validation<T> {
 		switch(entity.getClass().getName()){
 		
 		case "mt.entities.User":
-			UserValidation.validate(request);
-			
-			UserCreation.create(request, (User)entity);
+			if(UserValidation.validate(request)){
+				UserCreation.create(request, (User)entity);
+			}
 			break;
 		
 		}

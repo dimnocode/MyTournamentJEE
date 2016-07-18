@@ -83,10 +83,16 @@ public class TestServlet extends HttpServlet {
 */
 		//User user = ur.find(1);
 		
-		Validation v = new Validation(request, new Tournament());
-		v.validate(new Tournament());
-		
-		//logger.log(Level.INFO, "password from DB: " +user.getPassword());
+		//Validation v = new Validation(request, new Tournament());
+		//v.validate(new Tournament());
+		String pattern = "^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-]+\\.[a-zA-Z]{1,100}$"; //"'/^[a-z0-9_-]{3,16}$/'"
+		String nom = "lucas@$outlook.com";
+		if(nom.matches(pattern)){
+			System.out.println("OK");
+		}else{
+			System.out.println("Error");
+		}
+	//logger.log(Level.INFO, "password from DB: " +user.getPassword());
 		
 		//em.close();
 		//emf.close();

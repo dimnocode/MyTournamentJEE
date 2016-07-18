@@ -6,7 +6,9 @@ public final class UserValidation {
 	
 	public static boolean validate(HttpServletRequest request){
 		
-		request.getParameter("nameUser");
+		if(request.getParameter("nameUser").matches("(?=.*[a-zA-Z]).{3,20}$")){
+			
+		}
 		request.getParameter("firstnameUser");
 		request.getParameter("emailUser");
 		request.getParameter("phoneUser");
