@@ -54,8 +54,11 @@ $(document).ready(function(){
                     	
                     },
                     stringLength: {
-                        min: 3,
+                        min: 2,
                         max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-z\s-]+$/i
                     }
                 }
             },
@@ -65,8 +68,11 @@ $(document).ready(function(){
                     	
                     },
                     stringLength: {
-                        min: 3,
+                        min: 2,
                         max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-z\s-]+$/i
                     }
                 }
             },
@@ -80,6 +86,7 @@ $(document).ready(function(){
                         max: 35
                     },
                     emailAddress: {
+                    	
                     }
                 }
             },
@@ -89,7 +96,11 @@ $(document).ready(function(){
                     	
                     },
                     stringLength: {
-                        min: 3
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-z0-9]+$/
                     }
                 }
             },
@@ -98,6 +109,9 @@ $(document).ready(function(){
                     notEmpty: {
                     	
                     }
+                },
+                regexp:{
+                	regexp: /^\d{4}///\d{3}-\d{3}$
                 }
             },
             dobUser: {
@@ -107,7 +121,6 @@ $(document).ready(function(){
                     },
                     date: {
                         format: 'YYYY-MM-DD'
-                        	
                     }
                 }
                 
@@ -123,6 +136,9 @@ $(document).ready(function(){
                     },
                     different: {
                         field: "emailUser"
+                    },
+                    regexp:{
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
                     }
                 }
             },
