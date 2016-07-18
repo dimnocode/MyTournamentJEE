@@ -83,8 +83,22 @@ public class TestServlet extends HttpServlet {
 */
 		//User user = ur.find(1);
 		
-		Validation v = new Validation(request, new Tournament());
-		v.validate(new Tournament());
+		//Validation v = new Validation(request, new Tournament());
+		//v.validate(new Tournament());
+		
+		String name = "Pass1**";
+//		if(name.matches("^(?=.*[a-zA-Z]).{3,20}$")){
+//			System.out.println("OK");
+//		}else System.out.println("Pas OK");
+		
+//		if(name.matches("\\A[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\z")){
+//			System.out.println("OK");
+//		}else System.out.println("Pas OK");
+
+		if(name.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([A-Za-z0-9]).{3,20}$")){
+		System.out.println("OK");
+	}else System.out.println("Pas OK");
+		
 		
 		//logger.log(Level.INFO, "password from DB: " +user.getPassword());
 		
