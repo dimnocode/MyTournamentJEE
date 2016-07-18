@@ -9,152 +9,141 @@ $(document).ready(function(){
         },
         fields: {
         	emailLogin: {
-                message: "Veuillez rentrer une email valide",
                 validators: {
                     notEmpty: {
-                        message: "Adresse email est requise"
+                    	
                     },
                     stringLength: {
-                        max: 35,
-                        message: "L'adresse email fournie doit avoir maximum 35 caracteres"
+                        max: 100,
+                        
                     },
                     emailAddress: {
-                        message: "Adresse email est invalide"
+                    	
                     }
                 }
             },
             passLogin: {
                 validators: {
                     notEmpty: {
-                        message: "Mot de pass est requis"
+                    	
                     },
                     stringLength: {
                         min: 3,
-                        max: 20,
-                        message: "Mot de pass doit etre compris entre 3 et 20 caracteres"
+                        max: 20
+                        
                     },
                     different: {
-                        field: "emailForm",
-                        message: "Mot de pass doit être différent de votre adresse mail"
+                        field: "emailForm"
+                        	
                     }
                 }
             }
         }
     });
     
-    $('#formRegister').bootstrapValidator({
+    $('#formUser').bootstrapValidator({
         feedbackIcons: {
             valid: "glyphicon glyphicon-ok",
             invalid: "glyphicon glyphicon-remove",
             validating: "glyphicon glyphicon-refresh"
         },
         fields: {
-        	nameRegister: {
+        	nameUser: {
                 validators: {
                     notEmpty: {
-                        message: "name est requise"
+                    	
                     },
                     stringLength: {
                         min: 3,
-                        max: 20,
-                        message: "name doit etre comprise entre 3 et 20 caracteres"
+                        max: 20
                     }
                 }
             },
-            firstnameRegister: {
+            firstnameUser: {
                 validators: {
                     notEmpty: {
-                        message: "firstname est requise"
+                    	
                     },
                     stringLength: {
                         min: 3,
-                        max: 20,
-                        message: "firstname fournie doit etre comprise entre 6 et 35 caracteres"
+                        max: 20
                     }
                 }
             },
-        	emailRegister: {
-        		message: "Veuillez rentrer une email valide",
+        	emailUser: {
                 validators: {
                     notEmpty: {
-                        message: "Adresse email est requise"
+                    	
                     },
                     stringLength: {
                         min: 6,
-                        max: 35,
-                        message: "L'adresse email fournie doit etre comprise entre 6 et 35 caracteres"
+                        max: 35
                     },
                     emailAddress: {
-                        message: "Adresse email est invalide"
                     }
                 }
             },
-            pseudoRegister: {
+            pseudoUser: {
                 validators: {
                     notEmpty: {
-                        message: "Pseudo est requis"
+                    	
                     },
                     stringLength: {
-                        min: 3,
-                        message: "Pseudo doit avoir minimum 3 caracteres"
+                        min: 3
                     }
                 }
             },
-            phoneRegister: {
+            phoneUser: {
                 validators: {
                     notEmpty: {
-                        message: "Phone number est requis"
+                    	
                     }
                 }
             },
-            dobRegister: {
+            dobUser: {
                 validators: {
                     notEmpty: {
-                        message: "date of birth est requis"
+                    	
                     },
                     date: {
-                        format: 'YYYY-MM-DD',
-                        message: 'Date of birth is not valid'
+                        format: 'YYYY-MM-DD'
+                        	
                     }
                 }
                 
             },
-            passRegister: {
+            passUser: {
                 validators: {
                     notEmpty: {
-                        message: "Mot de pass est requis"
+                        
                     },
                     stringLength: {
                         min: 3,
-                        max: 20,
-                        message: "Mot de pass doit etre compris entre 3 et 20 caracteres"
+                        max: 20
                     },
                     different: {
-                        field: "emailRegister",
-                        message: "Mot de pass doit être différent de votre adresse mail"
+                        field: "emailUser"
                     }
                 }
             },
-            confirmeRegister: {
+            confirmUser: {
                 validators: {
                     notEmpty: {
-                        message: "Confirme est requis"
+                        
                     },
                     stringLength: {
-                        min: 3,
-                        max: 20,
-                        message: "Confirme doit etre compris entre 3 et 20 caracteres"
+                        min: 3, 
+                        max: 20
                     },
                     identical: {
-                        field: 'passRegister',
-                        message: 'The password and its confirm are not the same'
+                        field: 'passUser'
                     }
                 }
             }
         }
     });
     $('.datepicker').on('changeDate show', function(e) {
-        $('#formRegister').bootstrapValidator('revalidateField', 'dobRegister');
+        $('#formUser').bootstrapValidator('revalidateField', 'dobRegister');
     });
 })    
 

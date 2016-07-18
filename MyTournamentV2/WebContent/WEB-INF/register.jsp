@@ -9,59 +9,59 @@
 		<h1>Register</h1>
 		<br>
 		<div class="form">
-			<form action="register" method="POST" class="form-horizontal" data-toggle="validator" id="formRegister">
+			<form action="register" method="POST" class="form-horizontal" data-toggle="validator" id="formUser">
 			<fieldset>
 				<div class="form-group">
-	                <label class="col-sm-2 control-label" for="nameRegister" >Name: </label>
+	                <label class="col-sm-2 control-label" for="nameUser" >Name: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" type="text" id="nameRegister" name="nameRegister" placeholder="Name">
+	                    <input class="form-control" type="text" id="nameUser" name="nameUser" placeholder="Name">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="firstnameRegister" >Firstname: </label>
+	                <label class="col-sm-2 control-label" for="firstnameUser" >Firstname: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" type="text" id="firstnameRegister" name="firstnameRegister" placeholder="Firstname">
+	                    <input class="form-control" type="text" id="firstnameUser" name="firstnameUser" placeholder="Firstname">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="emailRegister" >Email: </label>
+	                <label class="col-sm-2 control-label" for="emailUser" >Email: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" type="email" id="emailRegister" name="emailRegister" placeholder="Email">
+	                    <input class="form-control" type="email" id="emailUser" name="emailUser" placeholder="Email">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="phoneRegister" >Phone number: </label>
+	                <label class="col-sm-2 control-label" for="phoneUser" >Phone number: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" pattern="^\d{4}/\d{3}-\d{3}$" type="text" id="phoneRegister" name="phoneRegister" placeholder="0000/000-000">
+	                    <input class="form-control" pattern="^\d{4}/\d{3}-\d{3}$" type="text" id="phoneUser" name="phoneUser" placeholder="0000/000-000">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="pseudoRegister" >Pseudo: </label>
+	                <label class="col-sm-2 control-label" for="pseudoUser" >Pseudo: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" type="text" id="pseudoRegister" name="pseudoRegister" placeholder="Pseudo">
+	                    <input class="form-control" type="text" id="pseudoUser" name="pseudoUser" placeholder="Pseudo">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="dobRegister" >Date of birth: </label>
+	                <label class="col-sm-2 control-label" for="dobUser" >Date of birth: </label>
 	                <div class="col-sm-10">
-	                    <input class="datepicker form-control" type="text" id="dobRegister" name="dobRegister" placeholder="Date of birth">
+	                    <input class="datepicker form-control" type="text" id="dobUser" name="dobUser" placeholder="Date of birth">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="passRegister">Password: </label>
+	                <label class="col-sm-2 control-label" for="passUser">Password: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" type="password" id="passRegister" name="passRegister" placeholder="Password">
+	                    <input class="form-control" type="password" id="passUser" name="passUser" placeholder="Password">
 	                </div>
 	            </div>
 	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="confirmeRegister">Confirme: </label>
+	                <label class="col-sm-2 control-label" for="confirmUser">Confirm: </label>
 	                <div class="col-sm-10">
-	                    <input class="form-control" type="password" id="confirmeRegister" name="confirmeRegister" placeholder="Confirme your password">
+	                    <input class="form-control" type="password" id="confirmUser" name="confirmUser" placeholder="Confirm your password">
 	                </div>
 	            </div>
 	            <div class="form-group">
 	                <div class="col-sm-offset-2 col-sm-10">
-	                    <button id="submitRegister" type="submit" class="btn btn-info">Register</button>
+	                    <button id="submitUser" type="submit" class="btn btn-info">Register</button>
 	                </div>
 	            </div>
 	            </fieldset>
