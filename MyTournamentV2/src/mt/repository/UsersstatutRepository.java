@@ -1,13 +1,11 @@
 package mt.repository;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
 
 import mt.connection.EMF;
-import mt.entities.User;
+
 import mt.entities.Userrole;
 
 public class UsersstatutRepository implements IRepository<Userrole>{

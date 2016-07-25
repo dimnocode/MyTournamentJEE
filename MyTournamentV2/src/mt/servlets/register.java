@@ -2,6 +2,7 @@ package mt.servlets;
 
 import java.io.IOException;
 
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +13,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
-import mt.util.Util;
 import mt.validation.UserCreation;
 import mt.validation.Validation;
 import mt.entities.User;
-import mt.repository.UserRepository;
 
 /**
  * Servlet implementation class register
@@ -46,7 +45,10 @@ public class register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		//EMF.getEMF();
+		EMF.getEMF();
+		EntityManager em = EMF.getEM();
+		
+		
 		
 		User user = new User();
 		
@@ -54,10 +56,18 @@ public class register extends HttpServlet {
 		
 		if(v.validate(request, user)){
 			UserCreation.create(request, user);
+			if(user != null){
+				logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() + " " + user.getPassword());
+				em.getTransaction().begin();
+				em.merge(user);
+				em.getTransaction().commit();
+				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+			}
 		}
-		if(user != null){
-			logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() + " " + user.getPassword());
-		}
+		
+		
+		em.close();
+		
 		doGet(request, response);
 	}
 

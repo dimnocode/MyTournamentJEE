@@ -15,8 +15,8 @@ public final class UserValidation {
 	public static boolean validate(HttpServletRequest request){
 				
 		if(
-				!request.getParameter("nameUser").matches("^[a-zA-Z_-]{3,20}$") || 
-				!request.getParameter("firstnameUser").matches("^[a-zA-Z_-]{3,20}$") ||
+				!request.getParameter("nameUser").matches("^[a-zA-Z-\\s]{3,20}$") || 
+				!request.getParameter("firstnameUser").matches("^[a-zA-Z-\\s]{3,20}$") ||
 				!request.getParameter("emailUser").matches("^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-.]+\\.[a-zA-Z]{1,100}$")||
 				!request.getParameter("pseudoUser").matches("^[a-z0-9]{4,20}$") ||
 				!request.getParameter("phoneUser").matches("^\\d{4}/\\d{3}-\\d{3}$") ||
