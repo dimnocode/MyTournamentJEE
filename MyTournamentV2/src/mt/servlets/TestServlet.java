@@ -111,6 +111,7 @@ public class TestServlet extends HttpServlet {
 			System.out.println("Error");
 		}
 	//logger.log(Level.INFO, "password from DB: " +user.getPassword());
+
 		
 		//em.close();
 		//emf.close();

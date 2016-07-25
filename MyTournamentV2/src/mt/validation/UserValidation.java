@@ -19,9 +19,6 @@ public final class UserValidation {
 		}
 
 		
-
-		request.getParameter("pseudoUser");
-		request.getParameter("phoneUser");
 		request.getParameter("dobUser");
 		request.getParameter("passUser");
 		request.getParameter("confirmUser");
