@@ -17,17 +17,7 @@ public final class UserValidation {
 		){
 			return false;
 		}
-		if()){
-			return false;
-		}
-		
-		if()){
-			return false;
-		}
-		
-		if(!request.getParameter("emailUser").matches("^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-]+\\.[a-zA-Z.]{1,100}$")){
-			return false;
-		}
+
 		
 
 		request.getParameter("pseudoUser");
