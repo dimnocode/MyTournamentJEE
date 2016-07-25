@@ -19,6 +19,9 @@ $(document).ready(function(){
                     },
                     emailAddress: {
                     	
+                    },
+                    regexp: {
+                    	regexp: /^[^-_()!{}$&µ£=:+;,/\.][a-zA-Z-.]+@[a-zA-Z-.]+\.[a-zA-Z]{2,10}$/
                     }
                 }
             },
@@ -35,6 +38,9 @@ $(document).ready(function(){
                     different: {
                         field: "emailForm"
                         	
+                    },
+                    regexp:{
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
                     }
                 }
             }
@@ -82,11 +88,14 @@ $(document).ready(function(){
                     	
                     },
                     stringLength: {
-                        min: 6,
-                        max: 35
+                        min: 1,
+                        max: 100
                     },
                     emailAddress: {
                     	
+                    },
+                    regexp: {
+                    	regexp: /^[^-_()!{}$&µ£=:+;,/\.][a-zA-Z-.]+@[a-zA-Z-.]+\.[a-zA-Z]{2,10}$/
                     }
                 }
             },
