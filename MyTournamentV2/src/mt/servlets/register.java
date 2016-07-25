@@ -59,7 +59,7 @@ public class register extends HttpServlet {
 			if(user != null){
 				logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() + " " + user.getPassword());
 				em.getTransaction().begin();
-				em.merge(user);
+				em.persist(user);
 				em.getTransaction().commit();
 				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 			}

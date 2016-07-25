@@ -11,7 +11,7 @@ import mt.entities.Userrole;
 import mt.util.Hashing;
 import mt.util.Util;
 
-public final class UserCreation {
+public final class UserCreation{
 	
 	public static void create(HttpServletRequest request, User user){
 		
@@ -30,5 +30,4 @@ public final class UserCreation {
 	private static Userrole findUserrole(int id, EntityManager em){
 		return em.find(Userrole.class, id);
 	}
-
 }

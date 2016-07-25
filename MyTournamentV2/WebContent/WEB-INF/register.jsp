@@ -66,6 +66,7 @@
 	            </div>
 	            </fieldset>
 	        </form>
+	        <div id="registerAccepted"></div>
         </div>
         <br>
         <a href="/MyTournamentV2">back to index page</a>
