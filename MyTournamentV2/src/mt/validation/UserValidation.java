@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import mt.servlets.register;
+import mt.servlets.Register;
 import mt.util.Util;
 
 public final class UserValidation {

@@ -7,7 +7,7 @@
 	
 	<div class="container spacer">
 		
-		<c:import url="includes/errmsg.jsp"/>
+		<c:import url="includes/msg.jsp"/>
 		
 		<h1>Login</h1>
 		<br>

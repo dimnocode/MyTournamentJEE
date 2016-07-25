@@ -2,9 +2,6 @@ package mt.validation;
 
 import javax.servlet.http.HttpServletRequest;
 
-import mt.entities.User;
-import mt.validation.*;
-
 public class Validation<T> {
 	
 	public boolean validate(HttpServletRequest request, T entity){

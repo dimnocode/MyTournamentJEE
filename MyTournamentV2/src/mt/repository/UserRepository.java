@@ -15,15 +15,10 @@ public class UserRepository implements IRepository<User>{
 	
 	private EntityManager em;
 	private HttpServletRequest http;
-	private Validation validation;
 
-	public Validation getvalidation() {
-		return this.validation;
-	}
 	
 	public UserRepository(){
 		this.em = EMF.getEM();
-		this.validation = new Validation(http, new User());
 	}
 	
 	public User update(User user){

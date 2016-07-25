@@ -13,13 +13,13 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <c:if test="${empty sessionScope.loggedUser}">
-                        	<li><a href="#login">Login</a></li>
-                        	<li><a href="#register">Register</a></li>
+                        	<li><a href="login">Login</a></li>
+                        	<li><a href="register">Register</a></li>
                         </c:if>
                         
                         <c:if test="${!empty sessionScope.loggedUser}">
-                        	<li>Hi, <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></li>
-                        	<li><a href="#login">Logout</a></li>
+                        	<li><a href="">Hi, <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></a></li>
+                        	<li><a href="logout.jsp">Logout</a></li>
                         </c:if>
                         
                     </ul>

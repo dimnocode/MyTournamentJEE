@@ -22,15 +22,15 @@ import mt.util.Hashing;
  * Servlet implementation class login
  */
 @WebServlet("/login")
-public class login extends HttpServlet {
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger logger = Logger.getLogger(login.class);
+	private static final Logger logger = Logger.getLogger(Login.class);
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public login() {
+    public Login() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -60,18 +60,16 @@ public class login extends HttpServlet {
 			if(loggedUser != null){
 				logger.log(Level.INFO, "User logged :" + loggedUser.getName() + " " + loggedUser.getFirstname() + " " + loggedUser.getPassword());
 				session.setAttribute("loggedUser", loggedUser);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 			} else{
 				logger.log(Level.INFO, "Incorrect email and/or password");
 				errMsg = "Incorrect email and/or password";
 				request.setAttribute("errMsg", errMsg);
+				doGet(request, response);
 			}
 		}
 		
 		
-		
-		
-		
-		doGet(request, response);
 	}
 	
 	private User userLogin(String email, String pass){

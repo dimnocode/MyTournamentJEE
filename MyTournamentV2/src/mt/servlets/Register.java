@@ -21,12 +21,12 @@ import mt.entities.User;
  * Servlet implementation class register
  */
 @WebServlet("/register")
-public class register extends HttpServlet {
+public class Register extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(register.class);
+	private static final Logger logger = Logger.getLogger(Register.class);
    
-    public register() {
+    public Register() {
         super();
     }
 
@@ -61,14 +61,16 @@ public class register extends HttpServlet {
 				em.getTransaction().begin();
 				em.persist(user);
 				em.getTransaction().commit();
-				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 			}
+		}else{
+			doGet(request, response);
 		}
 		
 		
 		em.close();
 		
-		doGet(request, response);
+		
 	}
 
 }
