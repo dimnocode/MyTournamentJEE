@@ -19,6 +19,15 @@ public final class UserValidation {
 		}
 
 		
+<<<<<<< HEAD
+=======
+		if(request.getParameter("nameUser").matches("(?=.*[a-zA-Z]).{3,20}$")){
+			
+		}
+		request.getParameter("firstnameUser");
+		request.getParameter("emailUser");
+		request.getParameter("phoneUser");
+>>>>>>> refs/remotes/origin/master
 		request.getParameter("dobUser");
 		request.getParameter("passUser");
 		request.getParameter("confirmUser");
