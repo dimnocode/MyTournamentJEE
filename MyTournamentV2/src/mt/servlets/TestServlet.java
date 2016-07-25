@@ -96,15 +96,15 @@ public class TestServlet extends HttpServlet {
 //			System.out.println("OK");
 //		}else System.out.println("Pas OK");
 
-		if(name.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([A-Za-z0-9]).{3,20}$")){
-		System.out.println("OK");
-	}else System.out.println("Pas OK");
+//		if(name.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([A-Za-z0-9]).{3,20}$")){
+//		System.out.println("OK");
+//	}else System.out.println("Pas OK");
 		
 		
 		//logger.log(Level.INFO, "password from DB: " +user.getPassword());
 
 		String pattern = "^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-]+\\.[a-zA-Z]{1,100}$"; //"'/^[a-z0-9_-]{3,16}$/'"
-		String nom = "lucas@$outlook.com";
+		String nom = "lucas@outlook.com";
 		if(nom.matches(pattern)){
 			System.out.println("OK");
 		}else{

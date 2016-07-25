@@ -6,13 +6,30 @@ public final class UserValidation {
 	
 	public static boolean validate(HttpServletRequest request){
 				
-		if(request.getParameter("nameUser").matches("^[a-zA-Z_-]{3,20}$"));
-		if(request.getParameter("firstnameUser").matches("^[a-zA-Z_-]{3,20}$"));
-		
-		if(request.getParameter("nameUser").matches("(?=.*[a-zA-Z]).{3,20}$")){
+		if(
+				!request.getParameter("nameUser").matches("^[a-zA-Z_-]{3,20}$") || 
+				!request.getParameter("firstnameUser").matches("^[a-zA-Z_-]{3,20}$") ||
+				!request.getParameter("emailUser").matches("^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-.]+\\.[a-zA-Z]{1,100}$")||
+				!request.getParameter("pseudoUser").matches("^[a-z0-9]+$") ||
+				!request.getParameter("phoneUser").matches("(?=.*[a-zA-Z][0-9]).{3,20}$")
+				
+				
+		){
+			return false;
 		}
-		request.getParameter("firstnameUser");
-		request.getParameter("emailUser");
+		if()){
+			return false;
+		}
+		
+		if()){
+			return false;
+		}
+		
+		if(!request.getParameter("emailUser").matches("^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-]+\\.[a-zA-Z.]{1,100}$")){
+			return false;
+		}
+		
+
 		request.getParameter("pseudoUser");
 		request.getParameter("phoneUser");
 		request.getParameter("dobUser");
