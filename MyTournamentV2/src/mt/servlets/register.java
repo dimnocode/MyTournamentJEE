@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import mt.connection.EMF;
 import mt.util.Util;
+import mt.validation.Validation;
 import mt.entities.User;
 import mt.repository.UserRepository;
 
@@ -20,6 +24,7 @@ import mt.repository.UserRepository;
 public class register extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = Logger.getLogger(register.class);
    
     public register() {
         super();
@@ -40,14 +45,16 @@ public class register extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		EMF.getEMF();
+		//EMF.getEMF();
 		
 		User user = new User();
 		
-		UserRepository userRepository = new UserRepository();
+		Validation<User> v = new Validation<User>(request, user);
 		
-		userRepository.close();
 		
+		if(user != null){
+			logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() );
+		}
 		doGet(request, response);
 	}
 

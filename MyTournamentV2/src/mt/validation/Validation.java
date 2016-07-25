@@ -7,12 +7,10 @@ import mt.validation.*;
 
 public class Validation<T> {
 
-	private HttpServletRequest request;
-	private T entity;
-	
 	public Validation(HttpServletRequest request, T entity){
-		this.request = request;
-		this.entity = entity;
+		
+		this.checkType(request, entity);
+
 	}
 	
 	private void checkType(HttpServletRequest request, T entity){

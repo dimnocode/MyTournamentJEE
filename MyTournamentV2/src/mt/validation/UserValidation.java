@@ -2,9 +2,15 @@ package mt.validation;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+import mt.servlets.register;
 import mt.util.Util;
 
 public final class UserValidation {
+	
+	private static final Logger logger = Logger.getLogger(UserValidation.class);
 	
 	public static boolean validate(HttpServletRequest request){
 				
@@ -29,7 +35,7 @@ public final class UserValidation {
 			return false;
 		}
 				
-		
+		logger.log(Level.INFO, "User validated" );
 		return true;
 		
 	}
