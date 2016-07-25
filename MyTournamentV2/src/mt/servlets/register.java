@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
 import mt.util.Util;
+import mt.validation.UserCreation;
 import mt.validation.Validation;
 import mt.entities.User;
 import mt.repository.UserRepository;
@@ -49,11 +50,13 @@ public class register extends HttpServlet {
 		
 		User user = new User();
 		
-		Validation<User> v = new Validation<User>(request, user);
+		Validation<User> v = new Validation<User>();
 		
-		
+		if(v.validate(request, user)){
+			UserCreation.create(request, user);
+		}
 		if(user != null){
-			logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() );
+			logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() + " " + user.getPassword());
 		}
 		doGet(request, response);
 	}

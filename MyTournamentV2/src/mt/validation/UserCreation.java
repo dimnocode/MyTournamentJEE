@@ -16,7 +16,7 @@ public final class UserCreation {
 		user.setFirstname(request.getParameter("firstnameUser"));
 		user.setEmail(request.getParameter("emailUser"));
 		user.setPseudo(request.getParameter("pseudoUser"));
-		user.setPassword(Hashing.hash(request.getParameter("passwordUser")));
+		user.setPassword(Hashing.hash(request.getParameter("passUser")));
 		user.setDob(Util.stringToDate(request.getParameter("dobUser")));
 		user.setCreationDate(new Date());
 		
