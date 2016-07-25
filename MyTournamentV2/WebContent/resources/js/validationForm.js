@@ -29,18 +29,6 @@ $(document).ready(function(){
                 validators: {
                     notEmpty: {
                     	
-                    },
-                    stringLength: {
-                        min: 3,
-                        max: 20
-                        
-                    },
-                    different: {
-                        field: "emailForm"
-                        	
-                    },
-                    regexp:{
-                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
                     }
                 }
             }

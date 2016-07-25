@@ -6,6 +6,9 @@
 	<c:import url="includes/header.jsp"/>
 	
 	<div class="container spacer">
+		
+		<c:import url="includes/errmsg.jsp"/>
+		
 		<h1>Login</h1>
 		<br>
 		<div class="form">
@@ -25,7 +28,7 @@
 	            </div>
 	            <div class="form-group">
 	                <div class="col-sm-offset-2 col-sm-10">
-	                    <button type="submit" class="btn btn-info">Login</button>
+	                    <button type="submit" class="btn btn-info" name="btnLogin" id="btnLogin">Login</button>
 	                </div>
 	            </div>
 	            </fieldset>

@@ -12,8 +12,16 @@
                         <li><a href="#information">Information</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#login">Login</a></li>
-                        <li><a href="#register">Register</a></li>
+                        <c:if test="${empty sessionScope.loggedUser}">
+                        	<li><a href="#login">Login</a></li>
+                        	<li><a href="#register">Register</a></li>
+                        </c:if>
+                        
+                        <c:if test="${!empty sessionScope.loggedUser}">
+                        	<li>Hi, <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></li>
+                        	<li><a href="#login">Logout</a></li>
+                        </c:if>
+                        
                     </ul>
                 </div>
             </div>
