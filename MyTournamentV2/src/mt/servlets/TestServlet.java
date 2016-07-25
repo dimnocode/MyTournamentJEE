@@ -84,11 +84,11 @@ public class TestServlet extends HttpServlet {
 		//User user = ur.find(1);
 		
 		//Validation v = new Validation(request, new Tournament());
-<<<<<<< HEAD
+
 		//v.validate(new Tournament());
 
 		
-		String name = "Pass1**";
+//		String name = "Pass1**";
 //		if(name.matches("^(?=.*[a-zA-Z]).{3,20}$")){
 //			System.out.println("OK");
 //		}else System.out.println("Pas OK");
@@ -113,17 +113,6 @@ public class TestServlet extends HttpServlet {
 		}
 	//logger.log(Level.INFO, "password from DB: " +user.getPassword());
 
-=======
-		//v.validate(new Tournament());
-		String pattern = "^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-]+\\.[a-zA-Z]{1,100}$"; //"'/^[a-z0-9_-]{3,16}$/'"
-		String nom = "lucas@$outlook.com";
-		if(nom.matches(pattern)){
-			System.out.println("OK");
-		}else{
-			System.out.println("Error");
-		}
-	//logger.log(Level.INFO, "password from DB: " +user.getPassword());
->>>>>>> refs/remotes/origin/master
 		
 		//em.close();
 		//emf.close();
