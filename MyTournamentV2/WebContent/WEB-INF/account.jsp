@@ -26,7 +26,7 @@
 		   
 		</dl>
 		<h3>Game accounts</h3><br>
-		<form action="gameAccount" method="POST" class="form-inline" data-toggle="validator" id="formGameAccount">
+		<form action="" method="POST" class="form-inline" data-toggle="validator" id="formGameAccount">
 			<fieldset>
 				<div class="form-group">
 	                <label class="control-label" for="nameGameAccount" >Name: </label>

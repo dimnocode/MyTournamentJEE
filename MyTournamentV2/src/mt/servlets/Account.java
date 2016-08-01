@@ -63,22 +63,32 @@ public class Account extends HttpServlet {
 		EMF.getEMF();
 		EntityManager em = EMF.getEM();
 		
+		HttpSession session = request.getSession();
+		
+		User loggedUser = (User)session.getAttribute("loggedUser");
+		User user = new User();
+		user = userLogin(loggedUser.getEmail(), loggedUser.getPassword());
+		
 		Gameaccount gameAccount = new Gameaccount();
 		Validation<Gameaccount> v = new Validation<Gameaccount>();
+
 		
 		if(v.validate(request, gameAccount)){
 			GameAccountCreation.create(request, gameAccount);
 			if(gameAccount != null){
 				logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
 				em.getTransaction().begin();
+				user.addGameaccount(gameAccount);
 				em.persist(gameAccount);
+				em.merge(user);
 				em.getTransaction().commit();
-				response.sendRedirect("account");
-				//reprend pas les donnée dans la db this.getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
+				
 			}
 		}else{
-			doGet(request, response);
+			response.sendRedirect("account");
+			logger.log(Level.INFO, "GameAccount not valid");
 		}
+		em.close();
 		doGet(request, response);
 	}
 	private List<Gameaccount> find(int idUsers){
@@ -98,6 +108,15 @@ public class Account extends HttpServlet {
 			return null;
 		}
 		return platforms;
+	}
+	private User userLogin(String email, String pass){
+		User user = new User();
+		try{
+			user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return user;
 	}
 
 }

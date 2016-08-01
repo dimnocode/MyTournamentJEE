@@ -23,3 +23,6 @@ footer{
 .col-md-3{
 	margin-top:10px;
 }
+.form-inline .form-group{
+	margin-left:10px;
+}

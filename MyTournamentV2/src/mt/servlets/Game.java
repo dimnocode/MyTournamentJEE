@@ -2,7 +2,9 @@ package mt.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
@@ -48,6 +50,7 @@ public class Game extends HttpServlet {
 		request.setAttribute("gameaccount", gameaccount);
 		request.setAttribute("listGame", findByIdPlatform(gameaccount.getPlatform().getIdPlatforms()));
 		
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/game.jsp").forward(request, response);
 	}
 
@@ -56,6 +59,17 @@ public class Game extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		Map<String, String[]> map = request.getParameterMap();
+		for (Object key: map.keySet())
+	    {
+	            String keyStr = (String) key;
+	            String[] value = (String[])map.get(keyStr);
+	            String val = (Arrays.toString(value));
+	            val = val.substring(1,val.length()-1);
+	            logger.log(Level.INFO,"Key " + (String)key + "   :   " + val );
+	    }
+		
 		doGet(request, response);
 	}
 	
@@ -77,4 +91,5 @@ public class Game extends HttpServlet {
 		}
 		return games;
 	}
+	
 }

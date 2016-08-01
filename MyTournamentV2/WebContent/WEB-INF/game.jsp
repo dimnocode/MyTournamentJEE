@@ -19,12 +19,13 @@
 		</table>
 	
 		<h1>Add new games</h1><br>
-		<form method="POST" action="game">
+		<form method="POST" action="">
+			<input type="hidden" name="idGameAccounts" value="<c:out value="${gameaccount.idGameAccounts }"/>">
 			<div class="row">
 				<c:forEach items="${listGame}" var="item">
 			  		<div class="col-md-3">
 			  			<label class="checkbox-inline">
-	  						<input type="checkbox" id="game-${item.idGames }" name="${item.idGames }" value="${item.idGames }"> ${item.name }
+	  						<input type="checkbox" id="game-${item.idGames }" name="${item.idGames }" value="${item.idGames }"> <c:out value="${item.name }"/>
 						</label>
 			  		</div>
 				</c:forEach>

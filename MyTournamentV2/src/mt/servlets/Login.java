@@ -63,6 +63,7 @@ public class Login extends HttpServlet {
 			if(loggedUser != null){
 				logger.log(Level.INFO, "User logged :" + loggedUser.getName() + " " + loggedUser.getFirstname() + " " + loggedUser.getPassword());
 				session.setAttribute("loggedUser", loggedUser);
+				
 				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 			} else{
 				logger.log(Level.INFO, "Incorrect email and/or password");
@@ -70,19 +71,7 @@ public class Login extends HttpServlet {
 				request.setAttribute("errMsg", errMsg);
 				doGet(request, response);
 			}
-		}
-		
-		Map<String, String[]> map = request.getParameterMap();
-		for (Object key: map.keySet())
-	    {
-	            String keyStr = (String) key;
-	            String[] value = (String[])map.get(keyStr);
-	            String val = (Arrays.toString(value));
-	            val = val.substring(1,val.length()-1);
-	            System.out.println("Key " + (String)key + "   :   " + val );
-	    }
-		
-		
+		}	
 	}
 	
 	private User userLogin(String email, String pass){
