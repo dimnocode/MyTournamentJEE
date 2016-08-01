@@ -2,6 +2,8 @@ package mt.servlets;
 
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
 
 import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
@@ -52,6 +54,7 @@ public class Login extends HttpServlet {
 		String errMsg = null;
 		
 		String btnLogin = request.getParameter("btnLogin");
+		//request.getParameterNames()
 		
 		
 		if(btnLogin != null){
@@ -68,6 +71,16 @@ public class Login extends HttpServlet {
 				doGet(request, response);
 			}
 		}
+		
+		Map<String, String[]> map = request.getParameterMap();
+		for (Object key: map.keySet())
+	    {
+	            String keyStr = (String) key;
+	            String[] value = (String[])map.get(keyStr);
+	            String val = (Arrays.toString(value));
+	            val = val.substring(1,val.length()-1);
+	            System.out.println("Key " + (String)key + "   :   " + val );
+	    }
 		
 		
 	}
