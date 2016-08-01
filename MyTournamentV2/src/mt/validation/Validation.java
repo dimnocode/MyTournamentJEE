@@ -9,6 +9,9 @@ public class Validation<T> {
 		
 		case "mt.entities.User":
 			return UserValidation.validate(request);
+			
+		case "mt.entities.Gameaccount":
+			return GameAccountValidation.validate(request);
 		}
 		return false;
 	}

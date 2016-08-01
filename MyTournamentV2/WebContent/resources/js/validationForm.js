@@ -155,6 +155,29 @@ $(document).ready(function(){
             }
         }
     });
+    $('#formGameAccount').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	nameGameAccount: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-z0-9]+$/
+                    }
+                }
+            }
+        }
+    });
     $('.datepicker').on('changeDate show', function(e) {
         $('#formUser').bootstrapValidator('revalidateField', 'dobRegister');
     });

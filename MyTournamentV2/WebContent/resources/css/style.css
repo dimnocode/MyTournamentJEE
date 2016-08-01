@@ -17,3 +17,6 @@ header{
 footer{
 	height: 200px;
 }
+tr{
+	cursor: pointer;
+}

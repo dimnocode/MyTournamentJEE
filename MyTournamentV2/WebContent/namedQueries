@@ -1,0 +1,16 @@
+@NamedQueries({
+	@NamedQuery (name="Gameaccountplatform.findAll", query="SELECT g FROM Gameaccountplatform g"),
+	@NamedQuery (name="Gameaccountplatform.find", query="SELECT g FROM Gameaccountplatform g WHERE g.idGameAccountPlatforms = :idGameAccountPlatforms")
+})
+
+@NamedQueries({
+	@NamedQuery (name="Gameaccount.findAll", query="SELECT g FROM Gameaccount g"),
+	@NamedQuery (name="Gameaccount.findByUser", query="SELECT g FROM Gameaccount g WHERE g.user.idUsers = :idUsers"),
+	@NamedQuery (name="Gameaccount.findByIdGameaccount", query="SELECT g FROM Gameaccount g WHERE g.idGameAccounts = :idGameAccounts")
+})
+
+@NamedQueries({
+
+	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+	@NamedQuery(name="User.login", query="SELECT u FROM User u WHERE u.email = :email AND u.password = :pass")
+})

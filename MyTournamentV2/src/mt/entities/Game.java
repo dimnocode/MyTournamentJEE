@@ -27,7 +27,7 @@ public class Game implements Serializable {
 
 	//bi-directional many-to-one association to Gameaccount
 	@ManyToOne
-	@JoinColumn(name="GameAccounts_idGameAccounts", nullable=false)
+	@JoinColumn(name="idGameAccounts", nullable=false)
 	private Gameaccount gameaccount;
 
 	//bi-directional many-to-one association to Webref

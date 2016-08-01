@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="gameaccountplatforms")
-@NamedQuery(name="Gameaccountplatform.findAll", query="SELECT g FROM Gameaccountplatform g")
+@NamedQueries({
+	@NamedQuery (name="Gameaccountplatform.findAll", query="SELECT g FROM Gameaccountplatform g"),
+	@NamedQuery (name="Gameaccountplatform.find", query="SELECT g FROM Gameaccountplatform g WHERE g.idGameAccountPlatforms = :idGameAccountPlatforms")
+})
 public class Gameaccountplatform implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +26,7 @@ public class Gameaccountplatform implements Serializable {
 	private boolean active;
 
 	@Column(nullable=false, length=45)
-	private String nom;
+	private String name;
 
 	//bi-directional many-to-one association to Gameaccount
 	@OneToMany(mappedBy="gameaccountplatform")
@@ -48,12 +51,12 @@ public class Gameaccountplatform implements Serializable {
 		this.active = active;
 	}
 
-	public String getNom() {
-		return this.nom;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Gameaccount> getGameaccounts() {

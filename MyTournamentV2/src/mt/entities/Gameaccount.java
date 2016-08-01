@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="gameaccounts")
-@NamedQuery(name="Gameaccount.findAll", query="SELECT g FROM Gameaccount g")
+@NamedQueries({
+	@NamedQuery (name="Gameaccount.findAll", query="SELECT g FROM Gameaccount g"),
+	@NamedQuery (name="Gameaccount.findByUser", query="SELECT g FROM Gameaccount g WHERE g.user.idUsers = :idUsers"),
+	@NamedQuery (name="Gameaccount.findByIdGameaccount", query="SELECT g FROM Gameaccount g WHERE g.idGameAccounts = :idGameAccounts")
+})
 public class Gameaccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
