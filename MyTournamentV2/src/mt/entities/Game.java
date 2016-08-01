@@ -11,7 +11,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="games")
-@NamedQuery(name="Game.findAll", query="SELECT g FROM Game g")
+@NamedQueries({
+	@NamedQuery (name="Game.findAll", query="SELECT g FROM Game g"),
+	@NamedQuery (name="Game.findByPlatform", query="SELECT g FROM Game g WHERE g.platform.idPlatforms = :idPlatforms ORDER BY g.name ASC")
+})
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 

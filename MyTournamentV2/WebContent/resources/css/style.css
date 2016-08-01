@@ -17,6 +17,9 @@ header{
 footer{
 	height: 200px;
 }
-tr{
+.table-hover{
 	cursor: pointer;
+}
+.col-md-3{
+	margin-top:10px;
 }

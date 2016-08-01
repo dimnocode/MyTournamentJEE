@@ -23,21 +23,29 @@
 		  <dd><c:out value="${sessionScope.loggedUser.phoneNumber}"></c:out></dd>
 		  
 		  <br>
-		  
-		  <dt>Game account</dt>
-		  <c:forEach items="${listGameAccount }" var="item">
-		  		<c:if test="${item.active }">
-		  			<dd>${item.name }</dd>
-		  			
-		  		</c:if>
-		  	
-		  </c:forEach>
-		  <dd><hr></dd>
-		  <dd><a href="gameAccount"><input type="submit" value="new" class="btn btn-info"></a></dd>
-		  
-		  
+		   
 		</dl>
-		
+		<h3>Game accounts</h3><br>
+		<form action="gameAccount" method="POST" class="form-inline" data-toggle="validator" id="formGameAccount">
+			<fieldset>
+				<div class="form-group">
+	                <label class="control-label" for="nameGameAccount" >Name: </label>
+	                <input class="form-control" type="text" id="nameGameAccount" name="nameGameAccount" placeholder="Name">
+	            </div>
+	            <div class="form-group">
+  					<label class="control-label" for="namePlateform">Platform:</label>
+  						<select class="form-control" name="namePlateform" id="namePlateform">
+  							<c:forEach items="${listPlatforms }" var="item">
+  								<option value="${item.idPlatforms }">${item.name }</option>
+  							</c:forEach>
+	  					</select>
+				</div>
+				<div class="form-group">
+	                 <button type="submit" class="btn btn-info" name="btnGameAccout" id="btnGameAccout">Create</button>
+	            </div>
+	            </fieldset>
+	        </form>
+	        <br>
 		<table class="table table-striped table-hover">
 			<tr>
 				<th>Name</th>

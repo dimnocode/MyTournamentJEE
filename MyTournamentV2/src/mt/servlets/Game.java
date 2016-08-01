@@ -1,6 +1,7 @@
 package mt.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -45,6 +46,7 @@ public class Game extends HttpServlet {
 			response.sendRedirect("error");
 		}
 		request.setAttribute("gameaccount", gameaccount);
+		request.setAttribute("listGame", findByIdPlatform(gameaccount.getPlatform().getIdPlatforms()));
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/game.jsp").forward(request, response);
 	}
@@ -65,5 +67,14 @@ public class Game extends HttpServlet {
 			return null;
 		}
 		return gameAccount;
+	}
+	private List<Game> findByIdPlatform(int idPlatforms){
+		List<Game> games = new ArrayList<Game>();
+		try{
+			games = EMF.getEM().createNamedQuery("Game.findByPlatform").setParameter("idPlatforms", idPlatforms).getResultList();
+		}catch(NoResultException e){
+			return null;
+		}
+		return games;
 	}
 }
