@@ -1,6 +1,7 @@
 package mt.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -15,7 +16,6 @@ import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
 import mt.entities.Gameaccount;
-import mt.entities.Gameaccountplatform;
 import mt.entities.User;
 
 /**
@@ -57,7 +57,7 @@ public class Account extends HttpServlet {
 		doGet(request, response);
 	}
 	private List<Gameaccount> find(int idUsers){
-		List<Gameaccount> gameAccounts = null;
+		List<Gameaccount> gameAccounts = new ArrayList<Gameaccount>();
 		try{
 			gameAccounts = EMF.getEM().createNamedQuery("Gameaccount.findByUser").setParameter("idUsers", idUsers).getResultList();
 		}catch(NoResultException e){

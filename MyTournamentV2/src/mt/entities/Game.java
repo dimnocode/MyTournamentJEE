@@ -25,10 +25,18 @@ public class Game implements Serializable {
 	@Column(nullable=false, length=45)
 	private String name;
 
-	//bi-directional many-to-one association to Gameaccount
-	@ManyToOne
-	@JoinColumn(name="idGameAccounts", nullable=false)
-	private Gameaccount gameaccount;
+	//bi-directional many-to-many association to Gameaccount
+	@ManyToMany
+	@JoinTable(
+		name="gameaccountsgames"
+		, joinColumns={
+			@JoinColumn(name="idGames", nullable=false)
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idGameAccounts", nullable=false)
+			}
+		)
+	private List<Gameaccount> gameaccounts;
 
 	//bi-directional many-to-one association to Webref
 	@ManyToOne
@@ -38,6 +46,11 @@ public class Game implements Serializable {
 	//bi-directional many-to-one association to Tournament
 	@OneToMany(mappedBy="game")
 	private List<Tournament> tournaments;
+
+	//bi-directional many-to-one association to Platform
+	@ManyToOne
+	@JoinColumn(name="idPlatforms", nullable=false)
+	private Platform platform;
 
 	public Game() {
 	}
@@ -50,7 +63,7 @@ public class Game implements Serializable {
 		this.idGames = idGames;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
@@ -66,12 +79,12 @@ public class Game implements Serializable {
 		this.name = name;
 	}
 
-	public Gameaccount getGameaccount() {
-		return this.gameaccount;
+	public List<Gameaccount> getGameaccounts() {
+		return this.gameaccounts;
 	}
 
-	public void setGameaccount(Gameaccount gameaccount) {
-		this.gameaccount = gameaccount;
+	public void setGameaccounts(List<Gameaccount> gameaccounts) {
+		this.gameaccounts = gameaccounts;
 	}
 
 	public Webref getWebref() {
@@ -102,6 +115,14 @@ public class Game implements Serializable {
 		tournament.setGame(null);
 
 		return tournament;
+	}
+
+	public Platform getPlatform() {
+		return this.platform;
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
 	}
 
 }

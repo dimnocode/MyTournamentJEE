@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQuery(name="Typeofreward.findAll", query="SELECT t FROM Typeofreward t")
 public class Typeofreward implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)

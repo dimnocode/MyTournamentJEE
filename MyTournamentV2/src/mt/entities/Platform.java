@@ -6,22 +6,22 @@ import java.util.List;
 
 
 /**
- * The persistent class for the gameaccountplatforms database table.
+ * The persistent class for the platforms database table.
  * 
  */
 @Entity
-@Table(name="gameaccountplatforms")
+@Table(name="platforms")
 @NamedQueries({
-	@NamedQuery (name="Gameaccountplatform.findAll", query="SELECT g FROM Gameaccountplatform g"),
-	@NamedQuery (name="Gameaccountplatform.find", query="SELECT g FROM Gameaccountplatform g WHERE g.idGameAccountPlatforms = :idGameAccountPlatforms")
+	@NamedQuery (name="Platform.findAll", query="SELECT p FROM Platform p"),
+	@NamedQuery (name="Platform.find", query="SELECT p FROM Platform p WHERE p.idPlatforms = :idPlatforms")
 })
-public class Gameaccountplatform implements Serializable {
+public class Platform implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
-	private int idGameAccountPlatforms;
+	private int idPlatforms;
 
 	private boolean active;
 
@@ -29,18 +29,22 @@ public class Gameaccountplatform implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Gameaccount
-	@OneToMany(mappedBy="gameaccountplatform")
+	@OneToMany(mappedBy="platform")
 	private List<Gameaccount> gameaccounts;
 
-	public Gameaccountplatform() {
+	//bi-directional many-to-one association to Game
+	@OneToMany(mappedBy="platform")
+	private List<Game> games;
+
+	public Platform() {
 	}
 
-	public int getIdGameAccountPlatforms() {
-		return this.idGameAccountPlatforms;
+	public int getIdPlatforms() {
+		return this.idPlatforms;
 	}
 
-	public void setIdGameAccountPlatforms(int idGameAccountPlatforms) {
-		this.idGameAccountPlatforms = idGameAccountPlatforms;
+	public void setIdPlatforms(int idPlatforms) {
+		this.idPlatforms = idPlatforms;
 	}
 
 	public boolean isActive() {
@@ -69,16 +73,38 @@ public class Gameaccountplatform implements Serializable {
 
 	public Gameaccount addGameaccount(Gameaccount gameaccount) {
 		getGameaccounts().add(gameaccount);
-		gameaccount.setGameaccountplatform(this);
+		gameaccount.setPlatform(this);
 
 		return gameaccount;
 	}
 
 	public Gameaccount removeGameaccount(Gameaccount gameaccount) {
 		getGameaccounts().remove(gameaccount);
-		gameaccount.setGameaccountplatform(null);
+		gameaccount.setPlatform(null);
 
 		return gameaccount;
+	}
+
+	public List<Game> getGames() {
+		return this.games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public Game addGame(Game game) {
+		getGames().add(game);
+		game.setPlatform(this);
+
+		return game;
+	}
+
+	public Game removeGame(Game game) {
+		getGames().remove(game);
+		game.setPlatform(null);
+
+		return game;
 	}
 
 }

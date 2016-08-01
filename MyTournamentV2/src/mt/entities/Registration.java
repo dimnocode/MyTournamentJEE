@@ -72,7 +72,7 @@ public class Registration implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public Object isUserConfirmation() {
+	public boolean isUserConfirmation() {
 		return this.userConfirmation;
 	}
 

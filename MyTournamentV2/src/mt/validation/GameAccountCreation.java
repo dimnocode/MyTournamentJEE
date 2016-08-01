@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import mt.connection.EMF;
 import mt.entities.Gameaccount;
-import mt.entities.Gameaccountplatform;
+import mt.entities.Platform;
 import mt.entities.User;
 
 
@@ -19,18 +19,18 @@ public class GameAccountCreation {
 		
 		gameAccount.setName(request.getParameter("nameGameAccount"));
 		gameAccount.setActive(true);
-		gameAccount.setGameaccountplatform(findGameaccountplatform(request.getParameter("namePlateform")));	
+		gameAccount.setPlatform(findPlatform(request.getParameter("namePlateform")));	
 		gameAccount.setUser((User)session.getAttribute("loggedUser"));
 		
 		
 	}
 	
-	private static Gameaccountplatform findGameaccountplatform(String id){
+	private static Platform findPlatform(String id){
 		System.out.println(id);
-		int idGameAccountPlatforms = Integer.parseInt(id);
-		Gameaccountplatform plateform = new Gameaccountplatform();
+		int idPlatform = Integer.parseInt(id);
+		Platform plateform = new Platform();
 		try{
-			plateform = (Gameaccountplatform)EMF.getEM().createNamedQuery("Gameaccountplatform.find").setParameter("idGameAccountPlatforms", idGameAccountPlatforms).getSingleResult();
+			plateform = (Platform)EMF.getEM().createNamedQuery("Platform.find").setParameter("idPlatforms", idPlatform).getSingleResult();
 		}catch(NoResultException e){
 			return null;
 		}

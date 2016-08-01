@@ -90,7 +90,7 @@ public class User implements Serializable {
 		this.idUsers = idUsers;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 

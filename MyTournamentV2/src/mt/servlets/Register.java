@@ -61,7 +61,8 @@ public class Register extends HttpServlet {
 				em.getTransaction().begin();
 				em.persist(user);
 				em.getTransaction().commit();
-				this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+				//this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+				response.sendRedirect("login");
 			}
 		}else{
 			doGet(request, response);

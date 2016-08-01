@@ -16,6 +16,7 @@ import java.util.List;
 	@NamedQuery (name="Gameaccount.findByUser", query="SELECT g FROM Gameaccount g WHERE g.user.idUsers = :idUsers"),
 	@NamedQuery (name="Gameaccount.findByIdGameaccount", query="SELECT g FROM Gameaccount g WHERE g.idGameAccounts = :idGameAccounts")
 })
+
 public class Gameaccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -29,19 +30,19 @@ public class Gameaccount implements Serializable {
 	@Column(nullable=false, length=45)
 	private String name;
 
-	//bi-directional many-to-one association to Gameaccountplatform
-	@ManyToOne
-	@JoinColumn(name="idGameAccountPlatforms", nullable=false)
-	private Gameaccountplatform gameaccountplatform;
-
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="idUsers", nullable=false)
 	private User user;
 
-	//bi-directional many-to-one association to Game
-	@OneToMany(mappedBy="gameaccount")
+	//bi-directional many-to-many association to Game
+	@ManyToMany(mappedBy="gameaccounts")
 	private List<Game> games;
+
+	//bi-directional many-to-one association to Platform
+	@ManyToOne
+	@JoinColumn(name="idPlatforms", nullable=false)
+	private Platform platform;
 
 	public Gameaccount() {
 	}
@@ -54,7 +55,7 @@ public class Gameaccount implements Serializable {
 		this.idGameAccounts = idGameAccounts;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
@@ -68,14 +69,6 @@ public class Gameaccount implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Gameaccountplatform getGameaccountplatform() {
-		return this.gameaccountplatform;
-	}
-
-	public void setGameaccountplatform(Gameaccountplatform gameaccountplatform) {
-		this.gameaccountplatform = gameaccountplatform;
 	}
 
 	public User getUser() {
@@ -94,18 +87,12 @@ public class Gameaccount implements Serializable {
 		this.games = games;
 	}
 
-	public Game addGame(Game game) {
-		getGames().add(game);
-		game.setGameaccount(this);
-
-		return game;
+	public Platform getPlatform() {
+		return this.platform;
 	}
 
-	public Game removeGame(Game game) {
-		getGames().remove(game);
-		game.setGameaccount(null);
-
-		return game;
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
 	}
 
 }

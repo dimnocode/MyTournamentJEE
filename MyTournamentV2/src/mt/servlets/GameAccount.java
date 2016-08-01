@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
 import mt.entities.Gameaccount;
-import mt.entities.Gameaccountplatform;
+import mt.entities.Platform;
 import mt.validation.GameAccountCreation;
 import mt.validation.Validation;
 
@@ -42,7 +42,7 @@ public class GameAccount extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		request.setAttribute("listGameAccountPlatforms", findAll());
+		request.setAttribute("listPlatforms", findAll());
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/gameAccount.jsp").forward(request, response);
 	}
@@ -73,13 +73,13 @@ public class GameAccount extends HttpServlet {
 		}
 	}
 	
-	private List<Gameaccountplatform> findAll(){
-		List<Gameaccountplatform> gaps = null;
+	private List<Platform> findAll(){
+		List<Platform> platforms = null;
 		try{
-			gaps = EMF.getEM().createNamedQuery("Gameaccountplatform.findAll").getResultList();
+			platforms = EMF.getEM().createNamedQuery("Platform.findAll").getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
-		return gaps;
+		return platforms;
 	}
 }

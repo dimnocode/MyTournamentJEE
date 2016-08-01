@@ -40,7 +40,7 @@ public class Typeoftournament implements Serializable {
 		this.idTypeOfTournaments = idTypeOfTournaments;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 

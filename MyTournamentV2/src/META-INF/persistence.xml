@@ -8,10 +8,10 @@
 		<jta-data-source>java:comp/env/jdbc/MyTournamentV2</jta-data-source>
 		<class>mt.entities.Clan</class>
 		<class>mt.entities.Formatoftournament</class>
-		<class>mt.entities.Gameaccountplatform</class>
 		<class>mt.entities.Gameaccount</class>
 		<class>mt.entities.Game</class>
 		<class>mt.entities.Location</class>
+		<class>mt.entities.Platform</class>
 		<class>mt.entities.Registration</class>
 		<class>mt.entities.Reward</class>
 		<class>mt.entities.Sponsor</class>

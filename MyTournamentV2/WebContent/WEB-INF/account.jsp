@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html">
 <html>
 <c:import url="includes/head.jsp"/>
 <body>
@@ -41,7 +41,7 @@
 		<table class="table table-striped table-hover">
 			<tr>
 				<th>Name</th>
-				<th>Plateform</th>
+				<th>Platform</th>
 				<th>Add game</th>
 				<th>Edit</th>
 				<th>Delete</th>
@@ -51,7 +51,7 @@
 				<c:if test="${item.active }">
 					<tr id="gameAccount-${item.idGameAccounts }">
 				  			<td><c:out value="${item.name }"/></td>
-				  			<td><c:out value="${item.gameaccountplatform.name }"/></td>
+				  			<td><c:out value="${item.platform.name }"/></td>
 				  			<td><form method="POST" action="game"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="submit" class="btn btn-info btn-sm "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></form></td>
 				  			<td><form method="POST" action="game"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="button" class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></form></td>
 				  			<td><form method="POST" action="game"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="button" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
