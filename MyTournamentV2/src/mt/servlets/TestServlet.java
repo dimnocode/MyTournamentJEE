@@ -1,9 +1,7 @@
 package mt.servlets;
 
 import java.io.IOException;
-import java.util.Date;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -13,15 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import mt.entities.Tournament;
-import mt.entities.User;
-import mt.entities.Userrole;
-import mt.repository.UserRepository;
-import mt.repository.UsersstatutRepository;
-import mt.util.Hashing;
 /**
  * Servlet implementation class TestServlet
  */

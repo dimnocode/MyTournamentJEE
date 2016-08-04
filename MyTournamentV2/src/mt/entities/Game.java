@@ -11,7 +11,20 @@ import java.util.List;
  */
 @Entity
 @Table(name="games")
-@NamedQuery(name="Game.findAll", query="SELECT g FROM Game g")
+@NamedQueries({
+	@NamedQuery (name="Game.findAll", query="SELECT g FROM Game g"),
+	@NamedQuery (name="Game.findById", query="SELECT g FROM Game g WHERE g.idGames = :idGames"),
+	@NamedQuery (name="Game.findByPlatform", query="SELECT g FROM Game g WHERE g.platform.idPlatforms = :idPlatforms AND g.idGames NOT IN ("
+			+ "SELECT g.idGames FROM g.gameaccounts AS ga WHERE ga.idGameAccounts = :idGameAccounts)ORDER BY g.name ASC")
+})
+/*
+ * select g.idGames, g.name from games as g
+	WHERE g.idPlatforms = 2
+	AND g.idGames NOT IN(
+    select ga.idGames from gameaccountsgames as ga
+    WHERE ga.idGameAccounts = 1
+    )
+ * */
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 

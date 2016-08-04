@@ -2,10 +2,7 @@ package mt.servlets;
 
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
 
-import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,23 +13,23 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import mt.connection.EMF;
 import mt.entities.User;
 import mt.util.Hashing;
+import mt.util.NmdQueries;
 
 /**
  * Servlet implementation class login
  */
 @WebServlet("/login")
-public class Login extends HttpServlet {
+public class SrvLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger logger = Logger.getLogger(Login.class);
+	private static final Logger logger = Logger.getLogger(SrvLogin.class);
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public SrvLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -58,41 +55,19 @@ public class Login extends HttpServlet {
 		
 		
 		if(btnLogin != null){
-			User loggedUser = userLogin(request.getParameter("emailLogin"), Hashing.hash(request.getParameter("passLogin")));
+			
+			User loggedUser = NmdQueries.userLogin(request.getParameter("emailLogin"), Hashing.hash(request.getParameter("passLogin")));
 			
 			if(loggedUser != null){
 				logger.log(Level.INFO, "User logged :" + loggedUser.getName() + " " + loggedUser.getFirstname() + " " + loggedUser.getPassword());
 				session.setAttribute("loggedUser", loggedUser);
-				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath());
 			} else{
 				logger.log(Level.INFO, "Incorrect email and/or password");
 				errMsg = "Incorrect email and/or password";
 				request.setAttribute("errMsg", errMsg);
 				doGet(request, response);
 			}
-		}
-		
-		Map<String, String[]> map = request.getParameterMap();
-		for (Object key: map.keySet())
-	    {
-	            String keyStr = (String) key;
-	            String[] value = (String[])map.get(keyStr);
-	            String val = (Arrays.toString(value));
-	            val = val.substring(1,val.length()-1);
-	            System.out.println("Key " + (String)key + "   :   " + val );
-	    }
-		
-		
+		}	
 	}
-	
-	private User userLogin(String email, String pass){
-		User user = new User();
-		try{
-			user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
-		}catch(NoResultException e){
-			return null;
-		}
-		return user;
-	}
-
 }
