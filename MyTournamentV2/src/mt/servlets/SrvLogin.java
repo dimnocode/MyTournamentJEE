@@ -21,15 +21,15 @@ import mt.util.NmdQueries;
  * Servlet implementation class login
  */
 @WebServlet("/login")
-public class Login extends HttpServlet {
+public class SrvLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger logger = Logger.getLogger(Login.class);
+	private static final Logger logger = Logger.getLogger(SrvLogin.class);
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public SrvLogin() {
         super();
         // TODO Auto-generated constructor stub
     }

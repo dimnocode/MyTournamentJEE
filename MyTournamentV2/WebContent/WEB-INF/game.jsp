@@ -12,10 +12,13 @@
 				<th>Game</th>
 				<th>Delete</th>
 			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-			</tr>
+			<c:forEach items="${gameaccount.games }" var="item">
+				<tr>
+					<td><c:out value="${item.name }"/></td>
+					<td><form method="POST" action="game"><input type="hidden" name="idGames" value="<c:out value='${item.idGames }'/>"><button type="button" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+				</tr>
+			</c:forEach>
+			
 		</table>
 	
 		<h1>Add new games</h1><br>

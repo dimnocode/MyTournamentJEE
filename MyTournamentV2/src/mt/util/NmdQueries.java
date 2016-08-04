@@ -10,11 +10,12 @@ import javax.persistence.NoResultException;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
+import mt.entities.Game;
 import mt.entities.Gameaccount;
 import mt.entities.Platform;
 import mt.entities.User;
 import mt.entities.Userrole;
-import mt.servlets.Game;
+import mt.servlets.SrvGameAccountGames;
 
 
 
@@ -85,9 +86,19 @@ public final class NmdQueries {
 	//Queries GAMES
 	//---------------------------------------------------------
 	
+	//Get game by Id
+	public static Game findGameById(int idGames){
+		Game game = new Game();
+		try{
+			game = (Game) EMF.getEM().createNamedQuery("Game.findById").setParameter("idGames", idGames).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return game;
+	}
 	//Get all games
-	public static List<Game> findAllGames(){
-		List<Game> games = new ArrayList<Game>();
+	public static List<SrvGameAccountGames> findAllGames(){
+		List<SrvGameAccountGames> games = new ArrayList<SrvGameAccountGames>();
 		try{
 			games = EMF.getEM().createNamedQuery("Game.findAll").getResultList();
 		}catch(NoResultException e){
@@ -96,10 +107,10 @@ public final class NmdQueries {
 		return games;
 	}
 	//Get list game by id
-	public static List<Game> findByIdPlatform(int idPlatforms){
-		List<Game> games = new ArrayList<Game>();
+	public static List<SrvGameAccountGames> findGamesByPlatform(int idPlatforms, int idGameAccounts){
+		List<SrvGameAccountGames> games = new ArrayList<SrvGameAccountGames>();
 		try{
-			games = EMF.getEM().createNamedQuery("Game.findByPlatform").setParameter("idPlatforms", idPlatforms).getResultList();
+			games = EMF.getEM().createNamedQuery("Game.findByPlatform").setParameter("idPlatforms", idPlatforms).setParameter("idGameAccounts", idGameAccounts).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}

@@ -21,12 +21,12 @@ import mt.entities.User;
  * Servlet implementation class register
  */
 @WebServlet("/register")
-public class Register extends HttpServlet {
+public class SrvRegister extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(Register.class);
+	private static final Logger logger = Logger.getLogger(SrvRegister.class);
    
-    public Register() {
+    public SrvRegister() {
         super();
     }
 

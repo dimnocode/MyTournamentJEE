@@ -26,13 +26,13 @@ import mt.validation.Validation;
  * Servlet implementation class Account
  */
 @WebServlet("/account")
-public class Account extends HttpServlet {
+public class SrvAccount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = Logger.getLogger(Account.class);
+	private static final Logger logger = Logger.getLogger(SrvAccount.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Account() {
+    public SrvAccount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -50,6 +50,7 @@ public class Account extends HttpServlet {
 			
 			ServletContext context = request.getSession().getServletContext();	
 			
+			//request.setAttribute("flagUpdate", false);
 			request.setAttribute("listGameAccount", NmdQueries.findGameAccounts(user.getIdUsers()));
 			request.setAttribute("listPlatforms", context.getAttribute("platforms") );//NmdQueries.findAllPlatforms()
 			
@@ -68,29 +69,36 @@ public class Account extends HttpServlet {
 		EMF.getEMF();
 		EntityManager em = EMF.getEM();
 		
+		String btnGameAccount = request.getParameter("btnGameAccount");
+		String btnEditUser = request.getParameter("btnEditUser");
 		
-		if(Util.getLoggedUser(request) != null){
-			Gameaccount gameAccount = new Gameaccount();
-			Validation<Gameaccount> v = new Validation<Gameaccount>();
+		if(btnGameAccount != null){
+			if(Util.getLoggedUser(request) != null){
+				Gameaccount gameAccount = new Gameaccount();
+				Validation<Gameaccount> v = new Validation<Gameaccount>();
 
-			if(v.validate(request, gameAccount)){
-				GameAccountCreation.create(request, gameAccount);
-				if(gameAccount != null){
-					logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
-					em.getTransaction().begin();
-					em.persist(gameAccount);
-					em.getTransaction().commit();
+				if(v.validate(request, gameAccount)){
+					GameAccountCreation.create(request, gameAccount);
+					if(gameAccount != null){
+						logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
+						em.getTransaction().begin();
+						em.persist(gameAccount);
+						em.getTransaction().commit();
+					}
+				}else{
+					response.sendRedirect("account");
+					logger.log(Level.INFO, "GameAccount not valid");
 				}
-			}else{
-				response.sendRedirect("account");
-				logger.log(Level.INFO, "GameAccount not valid");
+				em.close();
 			}
-			em.close();
-			doGet(request, response);
+			else{
+				response.sendRedirect("error");
+			}
 		}
-		else{
-			response.sendRedirect("error");
+		if(btnEditUser != null){
+			request.setAttribute("flagUpdate", true);
 		}
+		doGet(request, response);
 	}
 	
 	
