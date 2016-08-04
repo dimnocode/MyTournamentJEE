@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import mt.servlets.Register;
 import mt.util.Util;
 
 public final class UserValidation {
@@ -20,7 +19,7 @@ public final class UserValidation {
 				!request.getParameter("emailUser").matches("^[^-_()!{}$&µ£=:+;,/\\.][a-zA-Z-.]+@[a-zA-Z-.]+\\.[a-zA-Z]{1,100}$")||
 				!request.getParameter("pseudoUser").matches("^[a-z0-9]{4,20}$") ||
 				!request.getParameter("phoneUser").matches("^\\d{4}/\\d{3}-\\d{3}$") ||
-				!request.getParameter("passUser").matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([A-Za-z0-9]){3,20}$")
+				(!request.getParameter("passUser").matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([A-Za-z0-9]){3,20}$") && request.getParameter("passUser")!= "")
 				
 		){
 			return false;
