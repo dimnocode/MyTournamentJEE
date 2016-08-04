@@ -2,10 +2,7 @@ package mt.servlets;
 
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
 
-import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import mt.connection.EMF;
 import mt.entities.User;
 import mt.util.Hashing;
+import mt.util.NmdQueries;
 
 /**
  * Servlet implementation class login
@@ -58,13 +55,13 @@ public class Login extends HttpServlet {
 		
 		
 		if(btnLogin != null){
-			User loggedUser = userLogin(request.getParameter("emailLogin"), Hashing.hash(request.getParameter("passLogin")));
+			
+			User loggedUser = NmdQueries.userLogin(request.getParameter("emailLogin"), Hashing.hash(request.getParameter("passLogin")));
 			
 			if(loggedUser != null){
 				logger.log(Level.INFO, "User logged :" + loggedUser.getName() + " " + loggedUser.getFirstname() + " " + loggedUser.getPassword());
 				session.setAttribute("loggedUser", loggedUser);
-				
-				this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+				response.sendRedirect(request.getContextPath());
 			} else{
 				logger.log(Level.INFO, "Incorrect email and/or password");
 				errMsg = "Incorrect email and/or password";
@@ -73,15 +70,4 @@ public class Login extends HttpServlet {
 			}
 		}	
 	}
-	
-	private User userLogin(String email, String pass){
-		User user = new User();
-		try{
-			user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
-		}catch(NoResultException e){
-			return null;
-		}
-		return user;
-	}
-
 }

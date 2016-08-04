@@ -1,25 +1,24 @@
 package mt.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
 import mt.entities.Gameaccount;
-import mt.entities.Platform;
 import mt.entities.User;
+import mt.util.NmdQueries;
+import mt.util.Util;
 import mt.validation.GameAccountCreation;
 import mt.validation.Validation;
 
@@ -43,16 +42,22 @@ public class Account extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
+
+		User user = Util.getLoggedUser(request);
 		
-		User user = new User();
-		user = (User)session.getAttribute("loggedUser");
-		
-		session.getAttribute("loggedUser");
-		request.setAttribute("listGameAccount", find(user.getIdUsers()));
-		request.setAttribute("listPlatforms", findAll());
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
+		if(user != null){
+			//session.getAttribute("loggedUser");
+			
+			ServletContext context = request.getSession().getServletContext();	
+			
+			request.setAttribute("listGameAccount", NmdQueries.findGameAccounts(user.getIdUsers()));
+			request.setAttribute("listPlatforms", context.getAttribute("platforms") );//NmdQueries.findAllPlatforms()
+			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
+		}
+		else{
+			response.sendRedirect("error");
+		}
 	}
 
 	/**
@@ -63,60 +68,31 @@ public class Account extends HttpServlet {
 		EMF.getEMF();
 		EntityManager em = EMF.getEM();
 		
-		HttpSession session = request.getSession();
 		
-		User loggedUser = (User)session.getAttribute("loggedUser");
-		User user = new User();
-		user = userLogin(loggedUser.getEmail(), loggedUser.getPassword());
-		
-		Gameaccount gameAccount = new Gameaccount();
-		Validation<Gameaccount> v = new Validation<Gameaccount>();
+		if(Util.getLoggedUser(request) != null){
+			Gameaccount gameAccount = new Gameaccount();
+			Validation<Gameaccount> v = new Validation<Gameaccount>();
 
-		
-		if(v.validate(request, gameAccount)){
-			GameAccountCreation.create(request, gameAccount);
-			if(gameAccount != null){
-				logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
-				em.getTransaction().begin();
-				user.addGameaccount(gameAccount);
-				em.persist(gameAccount);
-				em.merge(user);
-				em.getTransaction().commit();
-				
+			if(v.validate(request, gameAccount)){
+				GameAccountCreation.create(request, gameAccount);
+				if(gameAccount != null){
+					logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
+					em.getTransaction().begin();
+					em.persist(gameAccount);
+					em.getTransaction().commit();
+				}
+			}else{
+				response.sendRedirect("account");
+				logger.log(Level.INFO, "GameAccount not valid");
 			}
-		}else{
-			response.sendRedirect("account");
-			logger.log(Level.INFO, "GameAccount not valid");
+			em.close();
+			doGet(request, response);
 		}
-		em.close();
-		doGet(request, response);
-	}
-	private List<Gameaccount> find(int idUsers){
-		List<Gameaccount> gameAccounts = new ArrayList<Gameaccount>();
-		try{
-			gameAccounts = EMF.getEM().createNamedQuery("Gameaccount.findByUser").setParameter("idUsers", idUsers).getResultList();
-		}catch(NoResultException e){
-			return null;
+		else{
+			response.sendRedirect("error");
 		}
-		return gameAccounts;
 	}
-	private List<Platform> findAll(){
-		List<Platform> platforms = null;
-		try{
-			platforms = EMF.getEM().createNamedQuery("Platform.findAll").getResultList();
-		}catch(NoResultException e){
-			return null;
-		}
-		return platforms;
-	}
-	private User userLogin(String email, String pass){
-		User user = new User();
-		try{
-			user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
-		}catch(NoResultException e){
-			return null;
-		}
-		return user;
-	}
-
+	
+	
+	
 }

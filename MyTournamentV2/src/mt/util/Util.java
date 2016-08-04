@@ -1,9 +1,13 @@
 package mt.util;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import mt.entities.User;
 
 public final class Util {
 	
@@ -22,15 +26,13 @@ public final class Util {
 		return null;
 	}
 	
+	public static User getLoggedUser(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		
+		User user = new User();
+		user = (User)session.getAttribute("loggedUser");
+		
+		return user;
+	}
 	
-	//METHODE QUI DEVRONT UTILISER LES REGEX, RETURN TRUE SI CA MATCH.
-	public static boolean checkStringLength(String string){
-		return true;
-	}
-	public static boolean checkPhoneNumber(String phoneNumber){
-		return true;
-	}
-	public static boolean checkEmail(String email){
-		return true;
-	}
 }

@@ -2,13 +2,12 @@ package mt.validation;
 
 import java.util.Date;
 
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 import mt.connection.EMF;
 import mt.entities.User;
-import mt.entities.Userrole;
 import mt.util.Hashing;
+import mt.util.NmdQueries;
 import mt.util.Util;
 
 public final class UserCreation{
@@ -24,10 +23,8 @@ public final class UserCreation{
 		user.setDob(Util.stringToDate(request.getParameter("dobUser")));
 		user.setCreationDate(new Date());
 		user.setActive(true);
-		user.setUserrole(findUserrole(2,EMF.getEM()));
+		user.setUserrole(NmdQueries.findUserrole(2,EMF.getEM()));
 	}
 	
-	private static Userrole findUserrole(int id, EntityManager em){
-		return em.find(Userrole.class, id);
-	}
+	
 }
