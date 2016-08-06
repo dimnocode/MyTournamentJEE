@@ -43,19 +43,25 @@ public class SrvGameAccountGames extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		if(Util.getLoggedUser(request) != null ){
-			Gameaccount gameaccount = new Gameaccount();
-			try {
-				gameaccount = NmdQueries.findGameAccount(Integer.parseInt(request.getParameter("idGameAccounts")));
-			} catch (Exception e) {
-				logger.log(Level.WARN, e.getMessage());
+		String idGameAccount = request.getParameter("idGameAccounts");
+		System.out.println(idGameAccount);
+		if(Util.getLoggedUser(request) != null){
+			if(idGameAccount != null){
+				Gameaccount gameaccount = new Gameaccount();
+				try {
+					gameaccount = NmdQueries.findGameAccount(Integer.parseInt(idGameAccount));
+				} catch (Exception e) {
+					logger.log(Level.WARN, e.getMessage());
+					response.sendRedirect("error");
+				}
+				request.setAttribute("gameaccount", gameaccount);
+				request.setAttribute("listGame", NmdQueries.findGamesByPlatform(gameaccount.getPlatform().getIdPlatforms(),gameaccount.getIdGameAccounts()));
+				
+				this.getServletContext().getRequestDispatcher("/WEB-INF/game.jsp").forward(request, response);
+			}
+			else{
 				response.sendRedirect("error");
 			}
-			request.setAttribute("gameaccount", gameaccount);
-			request.setAttribute("listGame", NmdQueries.findGamesByPlatform(gameaccount.getPlatform().getIdPlatforms(),gameaccount.getIdGameAccounts()));
-			
-			this.getServletContext().getRequestDispatcher("/WEB-INF/game.jsp").forward(request, response);
 		}
 		else{
 			response.sendRedirect("error");
@@ -71,6 +77,34 @@ public class SrvGameAccountGames extends HttpServlet {
 		EMF.getEMF();
 		EntityManager em = EMF.getEM();
 		
+		/*
+		String btnGameRemove = request.getParameter("btnGameRemove");
+		
+		if(btnGameRemove != null){
+			int idGame = 0;
+			int idGameAccount = 0;
+			try{
+				idGame = Integer.parseInt(request.getParameter("idGames"));
+				idGameAccount = Integer.parseInt(request.getParameter("idGameAccounts"));
+			}catch(Exception e){
+				logger.log(Level.WARN, e.getMessage());
+			}
+			Gameaccount ga = NmdQueries.findGameAccount(idGameAccount);
+			Game g = NmdQueries.findGameById(idGame);
+			
+			logger.log(Level.INFO,"List game of gameAccount: "+ ga.getGames().size());
+			
+			em.getTransaction().begin();
+			ga.getGames().remove(g);
+			g.getGameaccounts().remove(ga);
+			//em.merge(ga);
+			//em.merge(g);
+			
+			logger.log(Level.INFO,"List game of gameAccount: "+ ga.getGames().size());
+			logger.log(Level.INFO,"Game and GameAccount removed ");
+			em.getTransaction().commit();
+		}
+		*/
 		Map<String, String[]> map = request.getParameterMap();
 		int idGameAccount = 0;
 		try{
@@ -78,24 +112,24 @@ public class SrvGameAccountGames extends HttpServlet {
 		}catch(Exception e){
 			logger.log(Level.WARN, e.getMessage());
 		}
-		
+			
 		Gameaccount ga = NmdQueries.findGameAccount(idGameAccount);
 		Game g = new Game();
 		Map<String, String[]> myMap = new HashMap<String, String[]>(map);
 		myMap.remove("idGameAccounts");
-		
+			
 		em.getTransaction().begin();
 		for (Object key: myMap.keySet())
 	    {
-				g = NmdQueries.findGameById(Integer.parseInt(key.toString()));
-				ga.getGames().add(g);
-				g.getGameaccounts().add(ga);
-				em.merge(g);
-				em.merge(ga);
-				
-				logger.log(Level.INFO,"Game and GameAccount updated ");
-	            logger.log(Level.INFO,"Size: "+ myMap.size() );
-	    }
+			g = NmdQueries.findGameById(Integer.parseInt(key.toString()));
+			ga.getGames().add(g);
+			g.getGameaccounts().add(ga);
+			em.merge(g);
+			em.merge(ga);
+					
+			logger.log(Level.INFO,"Game and GameAccount updated ");
+            logger.log(Level.INFO,"Size: "+ myMap.size() );
+        }
 		em.getTransaction().commit();
 		em.close();
 		doGet(request, response);

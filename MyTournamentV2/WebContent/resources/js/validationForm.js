@@ -178,6 +178,60 @@ $(document).ready(function(){
             }
         }
     });
+    $('#formUserPasswordEdit').bootstrapValidator({
+    	feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	passUserEdit: {
+            	validators: {
+            		notEmpty: {
+                        
+                    },
+            		stringLength: {
+                        min: 3,
+                        max: 20
+                    },
+                    regexp:{
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
+                    }
+            	}
+            },
+        	newPassUserEdit: {
+            	validators: {
+            		notEmpty: {
+                        
+                    },
+            		stringLength: {
+                        min: 3,
+                        max: 20
+                    },
+                    regexp:{
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
+                    },
+                    different: {
+                    	field: "passUserEdit"
+                    }
+            	}
+            },
+            confirmUserEdit: {
+            	validators: {
+            		notEmpty: {
+                        
+                    },
+            		stringLength: {
+                        min: 3,
+                        max: 20
+                    },
+                    identical: {
+                        field: 'newPassUserEdit'
+                    }
+            	}
+            }
+        }
+    });
     $('.datepicker').on('changeDate show', function(e) {
         $('#formUser').bootstrapValidator('revalidateField', 'dobRegister');
     });
