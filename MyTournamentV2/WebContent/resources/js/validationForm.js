@@ -135,7 +135,7 @@ $(document).ready(function(){
                         field: "emailUser"
                     },
                     regexp:{
-                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]+)$/
                     }
                 }
             },
@@ -195,7 +195,7 @@ $(document).ready(function(){
                         max: 20
                     },
                     regexp:{
-                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]+)$/
                     }
             	}
             },
@@ -209,7 +209,7 @@ $(document).ready(function(){
                         max: 20
                     },
                     regexp:{
-                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]+)$/
                     },
                     different: {
                     	field: "passUserEdit"

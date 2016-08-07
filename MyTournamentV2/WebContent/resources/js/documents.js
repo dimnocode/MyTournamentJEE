@@ -21,13 +21,14 @@ $(document).ready(function(){
 		$('#gameByGameAccount').prev().prev().show();
 	}
 	$(document).on('click', '#changePassword',function(){
-		$('#divPassword').slideToggle();
 		if($(this).attr("class") == "btn btn-primary"){
 			$(this).removeClass("btn-primary").addClass("btn-success");
 			$('#formUserPasswordEdit').find('.form-control').attr("disabled",false);
+			$('#divPassword').show();
 		}else{
 			$(this).removeClass("btn-success").addClass("btn-primary");
 			$('#formUserPasswordEdit').find('.form-control').attr("disabled",true);
+			$('#divPassword').hide();
 		}
 		
 		

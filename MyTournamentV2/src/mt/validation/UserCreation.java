@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import mt.connection.EMF;
 import mt.entities.User;
 import mt.util.Hashing;
@@ -11,7 +14,7 @@ import mt.util.NmdQueries;
 import mt.util.Util;
 
 public final class UserCreation{
-	
+	private static final Logger logger = Logger.getLogger(UserCreation.class);
 	public static void create(HttpServletRequest request, User user){
 		
 		user.setName(request.getParameter("nameUser"));
@@ -36,9 +39,14 @@ public final class UserCreation{
 		user.setDob(Util.stringToDate(request.getParameter("dobUser")));
 	}
 	//METHODE QUI SERVIRA A UPDATE LE PASSWORD
-	public static void updatePassword(HttpServletRequest request, User user){
-		if(user.getPassword() == Hashing.hash(request.getParameter("passUserEdit"))){
+	public static boolean updatePassword(HttpServletRequest request, User user){
+		if(user.getPassword().equals(Hashing.hash(request.getParameter("passUserEdit")))){
 			user.setPassword(Hashing.hash(request.getParameter("newPassUserEdit")));
+			logger.log(Level.INFO, "New pass: " +request.getParameter("newPassUserEdit") + " : " +  Hashing.hash(request.getParameter("newPassUserEdit")));
+			return true;
+		}else{
+			logger.log(Level.INFO, "Your actual password is not found" );
+			return false;
 		}
 	}
 	

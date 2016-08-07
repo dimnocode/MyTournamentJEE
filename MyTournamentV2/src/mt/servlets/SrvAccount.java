@@ -74,7 +74,9 @@ public class SrvAccount extends HttpServlet {
 		String btnEditUser = request.getParameter("btnEditUser");
 		String btnChangeUser = request.getParameter("btnChangeUser");
 		String btnEditPasswordUser = request.getParameter("btnEditPasswordUser");
+		
 		String successMsg = null;
+		String errMsg = null;
 		//CREATION D UN GAMEACCOUNT
 		if(btnGameAccount != null){
 			if(Util.getLoggedUser(request) != null){
@@ -104,29 +106,33 @@ public class SrvAccount extends HttpServlet {
 			request.setAttribute("flagUpdate", true);
 		}
 		//FORMULAIRE UPDATE LE PASSWORD USER
-		//N EST PAS FONCTIONNELLE, VOIR LE FICHIER USERVALIDATION 
 		if(btnEditPasswordUser != null){
-			successMsg = "Your password be changed";
+			
 			
 			User user = Util.getLoggedUser(request);
 			Validation<User> v = new Validation<User>();
 			
 			if(v.validate(request, user)){
-				UserCreation.updatePassword(request, user);
-				if(user != null){
-					logger.log(Level.INFO, "User password update :" + user.getPassword());
-					em.getTransaction().begin();
-					em.merge(user);
-					em.getTransaction().commit();
-					em.close();
-					
-					request.setAttribute("successMsg", successMsg);
-					request.setAttribute("flagUpdate", false);
+				if(UserCreation.updatePassword(request, user)){
+					if(user != null){
+						successMsg = "Your password be changed";
+						logger.log(Level.INFO, "User password updated :" + user.getPassword());
+						em.getTransaction().begin();
+						em.merge(user);
+						em.getTransaction().commit();
+						em.close();
+						
+						request.setAttribute("successMsg", successMsg);
+						request.setAttribute("flagUpdate", false);
+					}
+				}else{
+					errMsg = "Your actual password is not found";
+					request.setAttribute("errMsg", errMsg);
+					request.setAttribute("flagUpdate", true);
 				}
+				
 			}
 			
-			request.setAttribute("successMsg", successMsg);
-			request.setAttribute("flagUpdate", false);
 		}
 		//FORMULAIRE UPDATE LES INFORMATIONS USER
 		if(btnChangeUser != null){
