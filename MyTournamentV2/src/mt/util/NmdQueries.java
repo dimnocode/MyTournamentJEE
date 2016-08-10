@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
+import mt.entities.Clan;
 import mt.entities.Formatoftournament;
 import mt.entities.Game;
 import mt.entities.Gameaccount;
@@ -17,7 +18,6 @@ import mt.entities.Platform;
 import mt.entities.Typeoftournament;
 import mt.entities.User;
 import mt.entities.Userrole;
-import mt.servlets.SrvGameAccountGames;
 
 
 
@@ -48,6 +48,15 @@ public final class NmdQueries {
 	public static Userrole findUserrole(int id, EntityManager em){
 		return em.find(Userrole.class, id);
 	}
+	public static User findUserById(int idUsers){
+		User user = new User();
+		try{
+			user = (User) EMF.getEM().createNamedQuery("User.findById").setParameter("idUsers", idUsers).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return user;
+	}
 	//Get all userRoles 
 	public static List<Userrole> findAllUserroles(){
 		List<Userrole> userRoles = null;
@@ -57,6 +66,20 @@ public final class NmdQueries {
 			return null;
 		}
 		return userRoles;
+	}
+	//---------------------------------------------------------
+	//Queries CLAN
+	//---------------------------------------------------------
+		
+	//Get clan by id
+	public static Clan findClanById(int idClans){
+		Clan clan = new Clan();
+		try{
+			clan = (Clan) EMF.getEM().createNamedQuery("Clan.findById").setParameter("idClans", idClans).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return clan;
 	}
 	
 	//---------------------------------------------------------

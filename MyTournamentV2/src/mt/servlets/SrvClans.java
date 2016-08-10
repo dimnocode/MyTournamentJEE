@@ -1,6 +1,7 @@
 package mt.servlets;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -14,7 +15,9 @@ import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
 import mt.entities.Clan;
+import mt.entities.User;
 import mt.entities.Usersclan;
+import mt.util.NmdQueries;
 import mt.util.Util;
 import mt.validation.ClanCreation;
 import mt.validation.Validation;
@@ -70,6 +73,27 @@ public class SrvClans extends HttpServlet {
 					logger.log(Level.INFO, "Clan created :" + clan.getNom());
 					em.getTransaction().begin();
 					em.persist(clan);
+					em.getTransaction().commit();
+					
+					User loggedUser = Util.getLoggedUser(request);
+					User user = NmdQueries.findUserById(loggedUser.getIdUsers());
+					Clan c = NmdQueries.findClanById(clan.getIdClan());
+					
+					
+					userClan.setAddedDateTime(new Date());
+					userClan.setClanLeader(true);
+					userClan.setClan(c);
+					userClan.setUser(user);
+					
+					c.getUsersclans().add(userClan);
+					user.getUsersclans().add(userClan);
+					
+					em.getTransaction().begin();
+					em.merge(c);
+					em.merge(user);
+					em.getTransaction().commit();
+					
+					em.getTransaction().begin();
 					em.persist(userClan);
 					em.getTransaction().commit();
 					successMsg = "Clan created and user is leader with success";
