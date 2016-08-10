@@ -77,7 +77,7 @@ public class SrvGameAccountGames extends HttpServlet {
 		EMF.getEMF();
 		EntityManager em = EMF.getEM();
 		
-		/*
+		
 		String btnGameRemove = request.getParameter("btnGameRemove");
 		
 		if(btnGameRemove != null){
@@ -92,47 +92,67 @@ public class SrvGameAccountGames extends HttpServlet {
 			Gameaccount ga = NmdQueries.findGameAccount(idGameAccount);
 			Game g = NmdQueries.findGameById(idGame);
 			
+			Game game = new Game();
+			Gameaccount gameaccount = new Gameaccount();
+			
+			for(Game item : ga.getGames()){
+				if(item.getIdGames() == g.getIdGames()){
+					game = item;
+				}	
+			}
+			for(Gameaccount item : g.getGameaccounts()){
+				if(item.getIdGameAccounts() == ga.getIdGameAccounts()){
+					gameaccount = item;
+				}	
+			}
 			logger.log(Level.INFO,"List game of gameAccount: "+ ga.getGames().size());
 			
+			try{
+				em.getTransaction().begin();
+				ga.getGames().remove(game);
+				g.getGameaccounts().remove(gameaccount);
+				em.merge(ga);
+				em.merge(g);
+				logger.log(Level.INFO,"List game of gameAccount: "+ gameaccount.getGames().size());
+				logger.log(Level.INFO,"Game and GameAccount removed ");
+				em.getTransaction().commit();
+			}catch(Exception e){
+				logger.log(Level.WARN, e.getMessage());
+			}finally {
+				em.close();
+			}
+			doGet(request, response);
+		}
+		else{
+			Map<String, String[]> map = request.getParameterMap();
+			int idGameAccount = 0;
+			try{
+				idGameAccount = Integer.parseInt(map.get("idGameAccounts")[0]);
+			}catch(Exception e){
+				logger.log(Level.WARN, e.getMessage());
+			}
+				
+			Gameaccount ga = NmdQueries.findGameAccount(idGameAccount);
+			Game g = new Game();
+			Map<String, String[]> myMap = new HashMap<String, String[]>(map);
+			myMap.remove("idGameAccounts");
+				
 			em.getTransaction().begin();
-			ga.getGames().remove(g);
-			g.getGameaccounts().remove(ga);
-			//em.merge(ga);
-			//em.merge(g);
-			
-			logger.log(Level.INFO,"List game of gameAccount: "+ ga.getGames().size());
-			logger.log(Level.INFO,"Game and GameAccount removed ");
+			for (Object key: myMap.keySet())
+		    {
+				g = NmdQueries.findGameById(Integer.parseInt(key.toString()));
+				ga.getGames().add(g);
+				g.getGameaccounts().add(ga);
+				em.merge(g);
+				em.merge(ga);
+						
+				logger.log(Level.INFO,"Game and GameAccount updated ");
+	            logger.log(Level.INFO,"Size: "+ myMap.size() );
+	        }
 			em.getTransaction().commit();
+			em.close();
+			doGet(request, response);
 		}
-		*/
-		Map<String, String[]> map = request.getParameterMap();
-		int idGameAccount = 0;
-		try{
-			idGameAccount = Integer.parseInt(map.get("idGameAccounts")[0]);
-		}catch(Exception e){
-			logger.log(Level.WARN, e.getMessage());
-		}
-			
-		Gameaccount ga = NmdQueries.findGameAccount(idGameAccount);
-		Game g = new Game();
-		Map<String, String[]> myMap = new HashMap<String, String[]>(map);
-		myMap.remove("idGameAccounts");
-			
-		em.getTransaction().begin();
-		for (Object key: myMap.keySet())
-	    {
-			g = NmdQueries.findGameById(Integer.parseInt(key.toString()));
-			ga.getGames().add(g);
-			g.getGameaccounts().add(ga);
-			em.merge(g);
-			em.merge(ga);
-					
-			logger.log(Level.INFO,"Game and GameAccount updated ");
-            logger.log(Level.INFO,"Size: "+ myMap.size() );
-        }
-		em.getTransaction().commit();
-		em.close();
-		doGet(request, response);
 	}
 	
 	

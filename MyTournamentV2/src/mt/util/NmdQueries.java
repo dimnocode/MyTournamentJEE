@@ -99,8 +99,8 @@ public final class NmdQueries {
 		return game;
 	}
 	//Get all games
-	public static List<SrvGameAccountGames> findAllGames(){
-		List<SrvGameAccountGames> games = new ArrayList<SrvGameAccountGames>();
+	public static List<Game> findAllGames(){
+		List<Game> games = new ArrayList<Game>();
 		try{
 			games = EMF.getEM().createNamedQuery("Game.findAll").getResultList();
 		}catch(NoResultException e){
@@ -109,14 +109,14 @@ public final class NmdQueries {
 		return games;
 	}
 	//Get list game by id
-	public static List<SrvGameAccountGames> findGamesByPlatform(int idPlatforms, int idGameAccounts){
-		List<SrvGameAccountGames> games = new ArrayList<SrvGameAccountGames>();
+	public static List<Gameaccount> findGamesByPlatform(int idPlatforms, int idGameAccounts){
+		List<Gameaccount> gameAccount = new ArrayList<Gameaccount>();
 		try{
-			games = EMF.getEM().createNamedQuery("Game.findByPlatform").setParameter("idPlatforms", idPlatforms).setParameter("idGameAccounts", idGameAccounts).getResultList();
+			gameAccount = EMF.getEM().createNamedQuery("Game.findByPlatform").setParameter("idPlatforms", idPlatforms).setParameter("idGameAccounts", idGameAccounts).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
-		return games;
+		return gameAccount;
 	}
 	
 	//---------------------------------------------------------
