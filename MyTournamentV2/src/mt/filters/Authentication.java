@@ -9,7 +9,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -20,7 +19,7 @@ import mt.util.Util;
 /**
  * Servlet Filter implementation class authentication
  */
-@WebFilter(filterName = "Authentication", urlPatterns = {"/account", "/game"})
+@WebFilter(filterName = "Authentication", urlPatterns = {"/account", "/game", "/tournament"})
 public class Authentication implements Filter {
 
 	private static final Logger logger = Logger.getLogger(Authentication.class);
@@ -48,7 +47,7 @@ public class Authentication implements Filter {
 		User user = Util.getLoggedUser(req);
 		
 		if(user == null){
-			HttpServletResponse resp = (HttpServletResponse) response;
+//			HttpServletResponse resp = (HttpServletResponse) response;
 			logger.log(Level.INFO, "User is not logged : " + req.getServletPath());
 			
 			req.setAttribute("errMsg", "You are not logged in");
@@ -59,11 +58,8 @@ public class Authentication implements Filter {
 		}else{
 			req.getServletContext().getContextPath();
 			logger.log(Level.INFO, "User is logged: " + req.getServletPath());
-			chain.doFilter(request, response);
-			
-		}
-		
-		
+			chain.doFilter(request, response);			
+		}		
 	}
 
 	/**
