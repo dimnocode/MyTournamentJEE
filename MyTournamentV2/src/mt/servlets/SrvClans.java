@@ -82,21 +82,24 @@ public class SrvClans extends HttpServlet {
 					
 					userClan.setAddedDateTime(new Date());
 					userClan.setClanLeader(true);
-					userClan.setClan(c);
+					
+					user.addUsersclan(userClan);
 					userClan.setUser(user);
 					
-					c.getUsersclans().add(userClan);
-					user.getUsersclans().add(userClan);
+					c.addUsersclan(userClan);
+					userClan.setClan(c);
+					//userClan.setClan(c);
+					//userClan.setUser(user);
+					
+					//c.getUsersclans().add(userClan);
+					//user.getUsersclans().add(userClan);
 					
 					em.getTransaction().begin();
-					em.merge(c);
 					em.merge(user);
-					em.getTransaction().commit();
-					
-					em.getTransaction().begin();
+					em.merge(c);
 					em.persist(userClan);
 					em.getTransaction().commit();
-					successMsg = "Clan created and user is leader with success";
+					successMsg = "Clan created and user is leader with success ";
 					request.setAttribute("successMsg", successMsg);
 				}
 			}else{
