@@ -20,20 +20,23 @@ public class Gameaccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idGameAccounts;
 
 	private boolean active;
 
+	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-one association to Platform
 	@ManyToOne
-	@JoinColumn(name="idPlatforms")
+	@JoinColumn(name="idPlatforms", nullable=false)
 	private Platform platform;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers")
+	@JoinColumn(name="idUsers", nullable=false)
 	private User user;
 
 	//bi-directional many-to-many association to Game
@@ -51,7 +54,7 @@ public class Gameaccount implements Serializable {
 		this.idGameAccounts = idGameAccounts;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 

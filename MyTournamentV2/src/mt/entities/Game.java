@@ -21,10 +21,13 @@ public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idGames;
 
 	private boolean active;
 
+	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-many association to Gameaccount
@@ -32,17 +35,17 @@ public class Game implements Serializable {
 	@JoinTable(
 		name="gameaccountsgames"
 		, joinColumns={
-			@JoinColumn(name="idGames")
+			@JoinColumn(name="idGames", nullable=false)
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idGameAccounts")
+			@JoinColumn(name="idGameAccounts", nullable=false)
 			}
 		)
 	private List<Gameaccount> gameaccounts;
 
 	//bi-directional many-to-one association to Platform
 	@ManyToOne
-	@JoinColumn(name="idPlatforms")
+	@JoinColumn(name="idPlatforms", nullable=false)
 	private Platform platform;
 
 	//bi-directional many-to-one association to Webref
@@ -65,7 +68,7 @@ public class Game implements Serializable {
 		this.idGames = idGames;
 	}
 
-	public boolean isActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 

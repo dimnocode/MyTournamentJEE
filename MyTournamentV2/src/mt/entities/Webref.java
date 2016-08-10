@@ -10,15 +10,20 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="webref")
 @NamedQuery(name="Webref.findAll", query="SELECT w FROM Webref w")
 public class Webref implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idWebRef;
 
+	@Column(length=100)
 	private String locationWeb;
 
+	@Column(length=100)
 	private String logo;
 
 	//bi-directional many-to-one association to Clan

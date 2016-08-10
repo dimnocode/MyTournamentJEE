@@ -17,26 +17,34 @@ public class Tournament implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idTournaments;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date creationDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date endDate;
 
+	@Column(nullable=false)
 	private int maxPlayers;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date modificationDate;
 
+	@Column(nullable=false, length=45)
 	private String name;
 
+	@Column(nullable=false)
 	private boolean online;
 
 	private float price;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date startDate;
 
 	//bi-directional many-to-one association to Registration
@@ -49,12 +57,12 @@ public class Tournament implements Serializable {
 
 	//bi-directional many-to-one association to Formatoftournament
 	@ManyToOne
-	@JoinColumn(name="idFormatTournaments")
+	@JoinColumn(name="idFormatTournaments", nullable=false)
 	private Formatoftournament formatoftournament;
 
 	//bi-directional many-to-one association to Game
 	@ManyToOne
-	@JoinColumn(name="idGames")
+	@JoinColumn(name="idGames", nullable=false)
 	private Game game;
 
 	//bi-directional many-to-one association to Location
@@ -62,23 +70,23 @@ public class Tournament implements Serializable {
 	@JoinColumn(name="idLocations")
 	private Location location;
 
-	//bi-directional many-to-one association to Typeoftournament
-	@ManyToOne
-	@JoinColumn(name="idTypeOfTournaments")
-	private Typeoftournament typeoftournament;
-
 	//bi-directional many-to-many association to Sponsor
 	@ManyToMany
 	@JoinTable(
 		name="tournamentsponsor"
 		, joinColumns={
-			@JoinColumn(name="idTournaments")
+			@JoinColumn(name="idTournaments", nullable=false)
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idSponsors")
+			@JoinColumn(name="idSponsors", nullable=false)
 			}
 		)
 	private List<Sponsor> sponsors;
+
+	//bi-directional many-to-one association to Typeoftournament
+	@ManyToOne
+	@JoinColumn(name="idTypeOfTournaments", nullable=false)
+	private Typeoftournament typeoftournament;
 
 	public Tournament() {
 	}
@@ -135,7 +143,7 @@ public class Tournament implements Serializable {
 		return this.online;
 	}
 
-	public void isOnline(boolean online) {
+	public void setOnline(boolean online) {
 		this.online = online;
 	}
 
@@ -223,20 +231,20 @@ public class Tournament implements Serializable {
 		this.location = location;
 	}
 
-	public Typeoftournament getTypeoftournament() {
-		return this.typeoftournament;
-	}
-
-	public void setTypeoftournament(Typeoftournament typeoftournament) {
-		this.typeoftournament = typeoftournament;
-	}
-
 	public List<Sponsor> getSponsors() {
 		return this.sponsors;
 	}
 
 	public void setSponsors(List<Sponsor> sponsors) {
 		this.sponsors = sponsors;
+	}
+
+	public Typeoftournament getTypeoftournament() {
+		return this.typeoftournament;
+	}
+
+	public void setTypeoftournament(Typeoftournament typeoftournament) {
+		this.typeoftournament = typeoftournament;
 	}
 
 }

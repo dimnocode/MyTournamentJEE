@@ -16,6 +16,8 @@ public class Unavailability implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idUnavailabilities;
 
 	private int day;
@@ -28,7 +30,7 @@ public class Unavailability implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers")
+	@JoinColumn(name="idUsers", nullable=false)
 	private User user;
 
 	public Unavailability() {

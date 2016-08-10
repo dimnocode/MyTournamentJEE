@@ -16,12 +16,17 @@ public class Sponsor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idSponsors;
 
+	@Column(length=100)
 	private String email;
 
+	@Column(nullable=false, length=45)
 	private String nom;
 
+	@Column(length=45)
 	private String phoneNumber;
 
 	//bi-directional many-to-one association to Location

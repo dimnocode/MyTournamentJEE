@@ -16,9 +16,12 @@ public class Usersclan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idUsersClans;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date addedDateTime;
 
 	private boolean clanLeader;
@@ -28,12 +31,12 @@ public class Usersclan implements Serializable {
 
 	//bi-directional many-to-one association to Clan
 	@ManyToOne
-	@JoinColumn(name="idClan")
+	@JoinColumn(name="idClan", nullable=false)
 	private Clan clan;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers")
+	@JoinColumn(name="idUsers", nullable=false)
 	private User user;
 
 	public Usersclan() {
@@ -55,7 +58,7 @@ public class Usersclan implements Serializable {
 		this.addedDateTime = addedDateTime;
 	}
 
-	public boolean isClanLeader() {
+	public boolean getClanLeader() {
 		return this.clanLeader;
 	}
 

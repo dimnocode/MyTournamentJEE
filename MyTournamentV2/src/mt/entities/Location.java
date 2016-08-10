@@ -16,14 +16,20 @@ public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private int idLocations;
 
+	@Column(nullable=false, length=45)
 	private String country;
 
+	@Column(nullable=false, length=45)
 	private String street;
 
+	@Column(nullable=false, length=45)
 	private String town;
 
+	@Column(nullable=false, length=45)
 	private String zipCode;
 
 	//bi-directional many-to-one association to Sponsor

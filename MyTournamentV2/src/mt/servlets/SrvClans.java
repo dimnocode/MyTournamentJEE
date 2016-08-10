@@ -77,8 +77,9 @@ public class SrvClans extends HttpServlet {
 					
 					User loggedUser = Util.getLoggedUser(request);
 					User user = NmdQueries.findUserById(loggedUser.getIdUsers());
+					logger.log(Level.INFO, "User : "+user.getPseudo());
 					Clan c = NmdQueries.findClanById(clan.getIdClan());
-					
+					logger.log(Level.INFO, "Clan : "+clan.getNom());
 					
 					userClan.setAddedDateTime(new Date());
 					userClan.setClanLeader(true);
