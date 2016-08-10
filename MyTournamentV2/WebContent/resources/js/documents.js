@@ -2,6 +2,9 @@ $(document).ready(function(){
 	 $('.datepicker').datepicker({
 		    format: 'yyyy-mm-dd'
 		 });
+	$('.datetimepicker').datetimepicker({
+		format: 'YYYY-MM-DD HH:mm:ss'
+	})
 	
 	if($('table').children().children().length > 6){
 		$('#nameGameAccount').attr('disabled',true);

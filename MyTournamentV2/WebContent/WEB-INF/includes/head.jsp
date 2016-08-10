@@ -5,5 +5,6 @@
 	
 	<link rel="stylesheet" type="text/css" href="resources/css/datepicker.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/datetimePicker.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 </head>

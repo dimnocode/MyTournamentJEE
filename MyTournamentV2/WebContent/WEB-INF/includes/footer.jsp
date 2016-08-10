@@ -12,5 +12,10 @@
 	<script type="text/javascript" src="resources/js/bootstrapValidator.min.js"></script>
 	<script type="text/javascript" src="resources/js/validationForm.js"></script>
 	<script type="text/javascript" src="resources/js/bootstrap-datepicker.js"></script>
+	
+	<script type="text/javascript" src="resources/js/datetimePicker/moment.js"></script>
+	<script type="text/javascript" src="resources/js/datetimePicker/collapse.js"></script>
+	<script type="text/javascript" src="resources/js/datetimePicker/transition.js"></script>
+	<script type="text/javascript" src="resources/js/datetimePicker/datetimePicker.js"></script>
 	<script type="text/javascript" src="resources/js/lang/en.js"></script>
 </footer>

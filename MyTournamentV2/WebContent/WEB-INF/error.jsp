@@ -8,6 +8,8 @@
 	
 	<div class="container">
 		<h1>ERROR</h1>
+		
+		<c:import url="includes/msg.jsp"/>
 	</div>
 	
 	<c:import url="includes/footer.jsp"/>
