@@ -8,6 +8,7 @@
  	<div class="container">
  		<h2>Welcome <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></h2>
  		<br>
+ 		<c:import url="includes/msg.jsp"/>
  		<form class="form-inline" method="POST" action="">
  			<div class="form-group">
  				<h3>Account info </h3>
@@ -37,64 +38,86 @@
 			</dl>
  		</c:if>
  		<c:if test="${flagUpdate }">
- 			
- 		  	<form action="" method="POST" class="form-horizontal" data-toggle="validator" id="formUser">
-			<fieldset>
-				<div class="form-group">
-	                <label class="col-sm-2 control-label" for="nameUser" >Name: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" type="text" id="nameUser" name="nameUser" placeholder="Name" value="<c:out value="${sessionScope.loggedUser.firstname}"></c:out>">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="firstnameUser" >Firstname: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" type="text" id="firstnameUser" name="firstnameUser" placeholder="Firstname" value="<c:out value="${sessionScope.loggedUser.name}"></c:out>">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="emailUser" >Email: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" type="email" id="emailUser" name="emailUser" placeholder="Email" value="<c:out value="${sessionScope.loggedUser.email}"></c:out>">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="phoneUser" >Phone number: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" pattern="^\d{4}/\d{3}-\d{3}$" type="text" id="phoneUser" name="phoneUser" placeholder="0000/000-000" value="<c:out value="${sessionScope.loggedUser.phoneNumber}"></c:out>">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="pseudoUser" >Pseudo: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" type="text" id="pseudoUser" name="pseudoUser" placeholder="Pseudo" value="<c:out value="${sessionScope.loggedUser.pseudo}"></c:out>">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="dobUser" >Date of birth: </label>
-	                <div class="col-sm-4">
-	                    <input class="datepicker form-control" type="text" id="dobUser" name="dobUser" placeholder="Date of birth" value="<fmt:formatDate value="${sessionScope.loggedUser.dob}" pattern="yyyy-MM-dd"/>">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="passUser">Password: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" type="password" id="passUser" name="passUser" placeholder="Password">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label" for="confirmUser">Confirm: </label>
-	                <div class="col-sm-4">
-	                    <input class="form-control" type="password" id="confirmUser" name="confirmUser" placeholder="Confirm your password">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <div class="col-sm-offset-2 col-sm-4">
-	                    <button id="submitUser" type="submit" class="btn btn-info">Register</button>
-	                </div>
-	            </div>
-	            </fieldset>
-	        </form>
+ 			<div class="row">
+ 				<div class="col-sm-6">
+ 					<form action="" method="POST" class="form-horizontal" data-toggle="validator" id="formUser">
+						<fieldset>
+						<div class="form-group">
+				            <label class="col-sm-2 control-label" for="nameUser" >Name: </label>
+				            <div class="col-sm-7">
+				                <input class="form-control" type="text" id="nameUser" name="nameUser" placeholder="Name" value="<c:out value="${sessionScope.loggedUser.firstname}"></c:out>">
+				            </div>
+				        </div>
+				        <div class="form-group">
+				           <label class="col-sm-2 control-label" for="firstnameUser" >Firstname: </label>
+				                <div class="col-sm-7">
+				                    <input class="form-control" type="text" id="firstnameUser" name="firstnameUser" placeholder="Firstname" value="<c:out value="${sessionScope.loggedUser.name}"/>">
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <label class="col-sm-2 control-label" for="emailUser" >Email: </label>
+				                <div class="col-sm-7">
+				                    <input class="form-control" type="email" id="emailUser" name="emailUser" placeholder="Email" value="<c:out value="${sessionScope.loggedUser.email}"></c:out>">
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <label class="col-sm-2 control-label" for="phoneUser" >Phone number: </label>
+				                <div class="col-sm-7">
+				                    <input class="form-control" pattern="^\d{4}/\d{3}-\d{3}$" type="text" id="phoneUser" name="phoneUser" placeholder="0000/000-000" value="<c:out value="${sessionScope.loggedUser.phoneNumber}"></c:out>">
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <label class="col-sm-2 control-label" for="pseudoUser" >Pseudo: </label>
+				                <div class="col-sm-7">
+				                    <input class="form-control" type="text" id="pseudoUser" name="pseudoUser" placeholder="Pseudo" value="<c:out value="${sessionScope.loggedUser.pseudo}"></c:out>">
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <label class="col-sm-2 control-label" for="dobUser" >Date of birth: </label>
+				                <div class="col-sm-7">
+				                    <input class="datepicker form-control" type="text" id="dobUser" name="dobUser" placeholder="Date of birth" value="<fmt:formatDate value="${sessionScope.loggedUser.dob}" pattern="yyyy-MM-dd"/>">
+				                </div>
+				            </div>
+				            <div class="form-group">
+				                <div class="col-sm-offset-2 col-sm-4">
+				                    <button id="btnChangeUser" name="btnChangeUser" type="submit" class="btn btn-info">Change</button>
+				                    <button id="changePassword" type="button" class="btn btn-primary">Password</button>
+				                </div>
+				            </div>
+				        </fieldset>
+	        		</form>
+ 				</div>
+ 				<div id="divPassword" class="col-sm-6">
+ 					<form action="" method="POST" class="form-horizontal" data-toggle="validator" id="formUserPasswordEdit">
+						<fieldset>
+						<div class="form-group">
+			                <label class="col-sm-2 control-label" for="passUserEdit">Password: </label>
+			                <div class="col-sm-7">
+			                    <input class="form-control" disabled type="password" id="passUserEdit" name="passUserEdit" placeholder="Password">
+			                </div>
+			            </div>
+						<div class="form-group">
+			                <label class="col-sm-2 control-label" for="newPassUserEdit">New password: </label>
+			                <div class="col-sm-7">
+			                    <input class="form-control" disabled type="password" id="newPassUserEdit" name="newPassUserEdit" placeholder="Password">
+			                </div>
+			            </div>
+			            <div class="form-group">
+			                <label class="col-sm-2 control-label" for="confirmUserEdit">Confirm: </label>
+			                <div class="col-sm-7">
+			                    <input class="form-control" disabled type="password" id="confirmUserEdit" name="confirmUserEdit" placeholder="Confirm your password">
+			                </div>
+			            </div>
+			            <div class="form-group">
+			                <div class="col-sm-offset-2 col-sm-4">
+			                    <button id="btnEditPasswordUser" name="btnEditPasswordUser" type="submit" class="btn btn-info">Change</button>
+			                </div>
+			            </div>
+			            </fieldset>
+			        </form>
+ 				</div>
+ 			</div>
+ 		  	
  		</c:if>
  		
 		<h3>Game accounts</h3><br>

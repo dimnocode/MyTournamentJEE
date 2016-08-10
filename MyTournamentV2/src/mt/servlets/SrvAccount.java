@@ -20,6 +20,7 @@ import mt.entities.User;
 import mt.util.NmdQueries;
 import mt.util.Util;
 import mt.validation.GameAccountCreation;
+import mt.validation.UserCreation;
 import mt.validation.Validation;
 
 /**
@@ -71,7 +72,12 @@ public class SrvAccount extends HttpServlet {
 		
 		String btnGameAccount = request.getParameter("btnGameAccount");
 		String btnEditUser = request.getParameter("btnEditUser");
+		String btnChangeUser = request.getParameter("btnChangeUser");
+		String btnEditPasswordUser = request.getParameter("btnEditPasswordUser");
 		
+		String successMsg = null;
+		String errMsg = null;
+		//CREATION D UN GAMEACCOUNT
 		if(btnGameAccount != null){
 			if(Util.getLoggedUser(request) != null){
 				Gameaccount gameAccount = new Gameaccount();
@@ -95,8 +101,59 @@ public class SrvAccount extends HttpServlet {
 				response.sendRedirect("error");
 			}
 		}
+		//BOUTON POUR AFFICHER LES FORMULAIRE DE MODIFICATION
 		if(btnEditUser != null){
 			request.setAttribute("flagUpdate", true);
+		}
+		//FORMULAIRE UPDATE LE PASSWORD USER
+		if(btnEditPasswordUser != null){
+			
+			
+			User user = Util.getLoggedUser(request);
+			Validation<User> v = new Validation<User>();
+			
+			if(v.validate(request, user)){
+				if(UserCreation.updatePassword(request, user)){
+					if(user != null){
+						successMsg = "Your password be changed";
+						logger.log(Level.INFO, "User password updated :" + user.getPassword());
+						em.getTransaction().begin();
+						em.merge(user);
+						em.getTransaction().commit();
+						em.close();
+						
+						request.setAttribute("successMsg", successMsg);
+						request.setAttribute("flagUpdate", false);
+					}
+				}else{
+					errMsg = "Your actual password is not found";
+					request.setAttribute("errMsg", errMsg);
+					request.setAttribute("flagUpdate", true);
+				}
+				
+			}
+			
+		}
+		//FORMULAIRE UPDATE LES INFORMATIONS USER
+		if(btnChangeUser != null){
+			successMsg = "Your information be changed";
+			
+			User user = Util.getLoggedUser(request);
+			Validation<User> v = new Validation<User>();
+		
+			if(v.validate(request, user)){
+				UserCreation.updateInfo(request, user);
+				if(user != null){
+					logger.log(Level.INFO, "User update :" + user.getName() + " " + user.getFirstname() + " " + user.getPseudo() + "" + user.getPhoneNumber());
+					em.getTransaction().begin();
+					em.merge(user);
+					em.getTransaction().commit();
+					em.close();
+					
+					request.setAttribute("successMsg", successMsg);
+					request.setAttribute("flagUpdate", false);
+				}
+			}
 		}
 		doGet(request, response);
 	}

@@ -51,7 +51,6 @@ public class SrvRegister extends HttpServlet {
 		
 		
 		User user = new User();
-		
 		Validation<User> v = new Validation<User>();
 		
 		if(v.validate(request, user)){

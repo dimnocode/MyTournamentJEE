@@ -2,20 +2,38 @@ $(document).ready(function(){
 	 $('.datepicker').datepicker({
 		    format: 'yyyy-mm-dd'
 		 });
-	/*$(document).on('keyup','#passUser',function(){
-		if($(this).val() != ""){
-			$(this).attr('name','passUser');
+	if($('table').children().children().length > 6){
+		$('#nameGameAccount').attr('disabled',true);
+		$('#namePlateform').attr('disabled',true);
+		$('#nameGameAccount').attr('placeholder','You have 5 game account')
+		$('#btnGameAccount').attr('disabled',true);
+	}else{
+		$('#nameGameAccount').attr('disabled',false);
+		$('#namePlateform').attr('disabled',false);
+		$('#btnGameAccount').attr('disabled',false);
+		$('#nameGameAccount').attr('placeholder','Name');
+	}
+	if($('#gameByGameAccount').children().children().length == 0){
+		$('#gameByGameAccount').hide();
+		$('#gameByGameAccount').prev().prev().hide();
+	}else{
+		$('#gameByGameAccount').show();
+		$('#gameByGameAccount').prev().prev().show();
+	}
+	$(document).on('click', '#changePassword',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success");
+			$('#formUserPasswordEdit').find('.form-control').attr("disabled",false);
+			$('#divPassword').show();
 		}else{
-			$(this).attr('name','passUserUpdate');
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$('#formUserPasswordEdit').find('.form-control').attr("disabled",true);
+			$('#divPassword').hide();
 		}
-	})*/
-	
-	$(document).on('click','a[href^="#"]',function () {
-        var ou = $(this).attr("href").substr(1);
-        var saut = $("a[name='" + ou + "']");
-        $('html,body').animate({scrollTop: $(saut).offset().top}, 1000);
-        return false;
-    });
+		
+		
+		
+	})
 });
 
 /**/

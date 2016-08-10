@@ -135,7 +135,7 @@ $(document).ready(function(){
                         field: "emailUser"
                     },
                     regexp:{
-                    	regexp: /^(?=.*[0-9])(?=.*[a-z])([a-zA-Z0-9]+)$/
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]+)$/
                     }
                 }
             },
@@ -175,6 +175,60 @@ $(document).ready(function(){
                     	regexp: /^[a-z0-9]+$/
                     }
                 }
+            }
+        }
+    });
+    $('#formUserPasswordEdit').bootstrapValidator({
+    	feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	passUserEdit: {
+            	validators: {
+            		notEmpty: {
+                        
+                    },
+            		stringLength: {
+                        min: 3,
+                        max: 20
+                    },
+                    regexp:{
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]+)$/
+                    }
+            	}
+            },
+        	newPassUserEdit: {
+            	validators: {
+            		notEmpty: {
+                        
+                    },
+            		stringLength: {
+                        min: 3,
+                        max: 20
+                    },
+                    regexp:{
+                    	regexp: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]+)$/
+                    },
+                    different: {
+                    	field: "passUserEdit"
+                    }
+            	}
+            },
+            confirmUserEdit: {
+            	validators: {
+            		notEmpty: {
+                        
+                    },
+            		stringLength: {
+                        min: 3,
+                        max: 20
+                    },
+                    identical: {
+                        field: 'newPassUserEdit'
+                    }
+            	}
             }
         }
     });
