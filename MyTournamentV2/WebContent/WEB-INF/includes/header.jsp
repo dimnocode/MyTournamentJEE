@@ -11,7 +11,8 @@
                     	<li><a href="/MyTournamentV2">Index</a></li>
                     	<c:if test="${!empty sessionScope.loggedUser}">
                         	<li><a href="account">Account</a></li>
-                        	<li><a href="tournament">Tournament</a></li>
+                        	<li><a href="tournaments">Tournaments</a></li>
+                        	<li><a href="clans">Clans</a></li>
                         </c:if>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

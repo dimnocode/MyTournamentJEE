@@ -57,7 +57,7 @@
 				            <div class="form-group">
 				                <label class="col-sm-2 control-label" for="emailUser" >Email: </label>
 				                <div class="col-sm-7">
-				                    <input class="form-control" type="email" id="emailUser" name="emailUser" placeholder="Email" value="<c:out value="${sessionScope.loggedUser.email}"></c:out>">
+				                    <input class="form-control" disabled type="email" id="emailUser" name="emailUser" placeholder="Email" value="<c:out value="${sessionScope.loggedUser.email}"></c:out>">
 				                </div>
 				            </div>
 				            <div class="form-group">
@@ -69,7 +69,7 @@
 				            <div class="form-group">
 				                <label class="col-sm-2 control-label" for="pseudoUser" >Pseudo: </label>
 				                <div class="col-sm-7">
-				                    <input class="form-control" type="text" id="pseudoUser" name="pseudoUser" placeholder="Pseudo" value="<c:out value="${sessionScope.loggedUser.pseudo}"></c:out>">
+				                    <input class="form-control" disabled type="text" id="pseudoUser" name="pseudoUser" placeholder="Pseudo" value="<c:out value="${sessionScope.loggedUser.pseudo}"></c:out>">
 				                </div>
 				            </div>
 				            <div class="form-group">
