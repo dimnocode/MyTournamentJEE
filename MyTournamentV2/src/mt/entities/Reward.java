@@ -15,21 +15,18 @@ public class Reward implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idRewards;
 
-	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-one association to Tournament
 	@ManyToOne
-	@JoinColumn(name="Tournaments_idTournaments", nullable=false)
+	@JoinColumn(name="Tournaments_idTournaments")
 	private Tournament tournament;
 
 	//bi-directional many-to-one association to Typeofreward
 	@ManyToOne
-	@JoinColumn(name="idTypeOfRewards", nullable=false)
+	@JoinColumn(name="idTypeOfRewards")
 	private Typeofreward typeofreward;
 
 	public Reward() {

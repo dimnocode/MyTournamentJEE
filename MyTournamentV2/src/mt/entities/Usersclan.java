@@ -16,25 +16,24 @@ public class Usersclan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idUsersClans;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
 	private Date addedDateTime;
+
+	private boolean clanLeader;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date removedDateTime;
 
 	//bi-directional many-to-one association to Clan
 	@ManyToOne
-	@JoinColumn(name="idClan", nullable=false)
+	@JoinColumn(name="idClan")
 	private Clan clan;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers", nullable=false)
+	@JoinColumn(name="idUsers")
 	private User user;
 
 	public Usersclan() {
@@ -54,6 +53,14 @@ public class Usersclan implements Serializable {
 
 	public void setAddedDateTime(Date addedDateTime) {
 		this.addedDateTime = addedDateTime;
+	}
+
+	public boolean isClanLeader() {
+		return this.clanLeader;
+	}
+
+	public void setClanLeader(boolean clanLeader) {
+		this.clanLeader = clanLeader;
 	}
 
 	public Date getRemovedDateTime() {

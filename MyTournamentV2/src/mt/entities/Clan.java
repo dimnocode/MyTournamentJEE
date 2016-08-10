@@ -17,31 +17,14 @@ public class Clan implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idClan;
 
 	private boolean active;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
 	private Date creationDate;
 
-	@Column(nullable=false, length=45)
 	private String nom;
-
-	//bi-directional many-to-many association to User
-	@ManyToMany
-	@JoinTable(
-		name="usersclans"
-		, joinColumns={
-			@JoinColumn(name="idClan", nullable=false)
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idUsers", nullable=false)
-			}
-		)
-	private List<User> users;
 
 	//bi-directional many-to-one association to Webref
 	@ManyToOne
@@ -89,14 +72,6 @@ public class Clan implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
-	}
-
-	public List<User> getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
 	}
 
 	public Webref getWebref() {

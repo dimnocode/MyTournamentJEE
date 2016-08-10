@@ -1,6 +1,12 @@
+@NamedQuery(name="Clan.findAll", query="SELECT c FROM Clan c")
+
+@NamedQuery(name="Formatoftournament.findAll", query="SELECT f FROM Formatoftournament f")
+
 @NamedQueries({
-	@NamedQuery (name="Gameaccountplatform.findAll", query="SELECT g FROM Gameaccountplatform g"),
-	@NamedQuery (name="Gameaccountplatform.find", query="SELECT g FROM Gameaccountplatform g WHERE g.idGameAccountPlatforms = :idGameAccountPlatforms")
+	@NamedQuery (name="Game.findAll", query="SELECT g FROM Game g"),
+	@NamedQuery (name="Game.findById", query="SELECT g FROM Game g WHERE g.idGames = :idGames"),
+	@NamedQuery (name="Game.findByPlatform", query="SELECT g FROM Game g WHERE g.platform.idPlatforms = :idPlatforms AND g.idGames NOT IN ("
+			+ "SELECT g.idGames FROM g.gameaccounts AS ga WHERE ga.idGameAccounts = :idGameAccounts)ORDER BY g.name ASC")
 })
 
 @NamedQueries({
@@ -9,8 +15,35 @@
 	@NamedQuery (name="Gameaccount.findByIdGameaccount", query="SELECT g FROM Gameaccount g WHERE g.idGameAccounts = :idGameAccounts")
 })
 
+@NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
+
+@NamedQueries({
+	@NamedQuery (name="Platform.findAll", query="SELECT p FROM Platform p"),
+	@NamedQuery (name="Platform.find", query="SELECT p FROM Platform p WHERE p.idPlatforms = :idPlatforms")
+})
+
+@NamedQuery(name="Registration.findAll", query="SELECT r FROM Registration r")
+
+@NamedQuery(name="Reward.findAll", query="SELECT r FROM Reward r")
+
+@NamedQuery(name="Sponsor.findAll", query="SELECT s FROM Sponsor s")
+
+@NamedQuery(name="Tournament.findAll", query="SELECT t FROM Tournament t")
+
+@NamedQuery(name="Typeofreward.findAll", query="SELECT t FROM Typeofreward t")
+
+@NamedQuery(name="Typeoftournament.findAll", query="SELECT t FROM Typeoftournament t")
+
+@NamedQuery(name="Unavailability.findAll", query="SELECT u FROM Unavailability u")
+
 @NamedQueries({
 
 	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
 	@NamedQuery(name="User.login", query="SELECT u FROM User u WHERE u.email = :email AND u.password = :pass")
 })
+
+@NamedQuery(name="Userrole.findAll", query="SELECT u FROM Userrole u")
+
+@NamedQuery(name="Usersclan.findAll", query="SELECT u FROM Usersclan u")
+
+@NamedQuery(name="Webref.findAll", query="SELECT w FROM Webref w")

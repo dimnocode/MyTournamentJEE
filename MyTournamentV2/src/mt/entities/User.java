@@ -17,46 +17,31 @@ import java.util.List;
 	@NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
 	@NamedQuery(name="User.login", query="SELECT u FROM User u WHERE u.email = :email AND u.password = :pass")
 })
-
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idUsers;
 
 	private boolean active;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
 	private Date creationDate;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
 	private Date dob;
 
-	@Column(nullable=false, length=100)
 	private String email;
 
-	@Column(nullable=false, length=45)
 	private String firstname;
 
-	@Column(nullable=false, length=45)
 	private String name;
 
-	@Column(nullable=false, length=128)
 	private String password;
 
-	@Column(nullable=false, length=45)
 	private String phoneNumber;
 
-	@Column(nullable=false, length=45)
 	private String pseudo;
-
-	//bi-directional many-to-many association to Clan
-	@ManyToMany(mappedBy="users")
-	private List<Clan> clans;
 
 	//bi-directional many-to-one association to Gameaccount
 	@OneToMany(mappedBy="user")
@@ -72,7 +57,7 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Userrole
 	@ManyToOne
-	@JoinColumn(name="idUserRoles", nullable=false)
+	@JoinColumn(name="idUserRoles")
 	private Userrole userrole;
 
 	//bi-directional many-to-one association to Usersclan
@@ -90,7 +75,7 @@ public class User implements Serializable {
 		this.idUsers = idUsers;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 
@@ -160,14 +145,6 @@ public class User implements Serializable {
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
-	}
-
-	public List<Clan> getClans() {
-		return this.clans;
-	}
-
-	public void setClans(List<Clan> clans) {
-		this.clans = clans;
 	}
 
 	public List<Gameaccount> getGameaccounts() {

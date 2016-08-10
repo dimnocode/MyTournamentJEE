@@ -17,25 +17,14 @@ import java.util.List;
 	@NamedQuery (name="Game.findByPlatform", query="SELECT g FROM Game g WHERE g.platform.idPlatforms = :idPlatforms AND g.idGames NOT IN ("
 			+ "SELECT g.idGames FROM g.gameaccounts AS ga WHERE ga.idGameAccounts = :idGameAccounts)ORDER BY g.name ASC")
 })
-/*
- * select g.idGames, g.name from games as g
-	WHERE g.idPlatforms = 2
-	AND g.idGames NOT IN(
-    select ga.idGames from gameaccountsgames as ga
-    WHERE ga.idGameAccounts = 1
-    )
- * */
 public class Game implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idGames;
 
 	private boolean active;
 
-	@Column(nullable=false, length=45)
 	private String name;
 
 	//bi-directional many-to-many association to Gameaccount
@@ -43,13 +32,18 @@ public class Game implements Serializable {
 	@JoinTable(
 		name="gameaccountsgames"
 		, joinColumns={
-			@JoinColumn(name="idGames", nullable=false)
+			@JoinColumn(name="idGames")
 			}
 		, inverseJoinColumns={
-			@JoinColumn(name="idGameAccounts", nullable=false)
+			@JoinColumn(name="idGameAccounts")
 			}
 		)
 	private List<Gameaccount> gameaccounts;
+
+	//bi-directional many-to-one association to Platform
+	@ManyToOne
+	@JoinColumn(name="idPlatforms")
+	private Platform platform;
 
 	//bi-directional many-to-one association to Webref
 	@ManyToOne
@@ -59,11 +53,6 @@ public class Game implements Serializable {
 	//bi-directional many-to-one association to Tournament
 	@OneToMany(mappedBy="game")
 	private List<Tournament> tournaments;
-
-	//bi-directional many-to-one association to Platform
-	@ManyToOne
-	@JoinColumn(name="idPlatforms", nullable=false)
-	private Platform platform;
 
 	public Game() {
 	}
@@ -76,7 +65,7 @@ public class Game implements Serializable {
 		this.idGames = idGames;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 
@@ -98,6 +87,14 @@ public class Game implements Serializable {
 
 	public void setGameaccounts(List<Gameaccount> gameaccounts) {
 		this.gameaccounts = gameaccounts;
+	}
+
+	public Platform getPlatform() {
+		return this.platform;
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
 	}
 
 	public Webref getWebref() {
@@ -128,14 +125,6 @@ public class Game implements Serializable {
 		tournament.setGame(null);
 
 		return tournament;
-	}
-
-	public Platform getPlatform() {
-		return this.platform;
-	}
-
-	public void setPlatform(Platform platform) {
-		this.platform = platform;
 	}
 
 }

@@ -16,18 +16,13 @@ public class Registration implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idRegistration;
 
-	@Column(nullable=false)
 	private boolean clanLeaderValidation;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
 	private Date creationDate;
 
-	@Column(nullable=false)
 	private boolean userConfirmation;
 
 	//bi-directional many-to-one association to Clan
@@ -37,12 +32,12 @@ public class Registration implements Serializable {
 
 	//bi-directional many-to-one association to Tournament
 	@ManyToOne
-	@JoinColumn(name="idTournaments", nullable=false)
+	@JoinColumn(name="idTournaments")
 	private Tournament tournament;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers", nullable=false)
+	@JoinColumn(name="idUsers")
 	private User user;
 
 	public Registration() {

@@ -16,33 +16,29 @@ import java.util.List;
 	@NamedQuery (name="Gameaccount.findByUser", query="SELECT g FROM Gameaccount g WHERE g.user.idUsers = :idUsers"),
 	@NamedQuery (name="Gameaccount.findByIdGameaccount", query="SELECT g FROM Gameaccount g WHERE g.idGameAccounts = :idGameAccounts")
 })
-
 public class Gameaccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(unique=true, nullable=false)
 	private int idGameAccounts;
 
 	private boolean active;
 
-	@Column(nullable=false, length=45)
 	private String name;
+
+	//bi-directional many-to-one association to Platform
+	@ManyToOne
+	@JoinColumn(name="idPlatforms")
+	private Platform platform;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="idUsers", nullable=false)
+	@JoinColumn(name="idUsers")
 	private User user;
 
 	//bi-directional many-to-many association to Game
 	@ManyToMany(mappedBy="gameaccounts")
 	private List<Game> games;
-
-	//bi-directional many-to-one association to Platform
-	@ManyToOne
-	@JoinColumn(name="idPlatforms", nullable=false)
-	private Platform platform;
 
 	public Gameaccount() {
 	}
@@ -55,7 +51,7 @@ public class Gameaccount implements Serializable {
 		this.idGameAccounts = idGameAccounts;
 	}
 
-	public boolean getActive() {
+	public boolean isActive() {
 		return this.active;
 	}
 
@@ -69,6 +65,14 @@ public class Gameaccount implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Platform getPlatform() {
+		return this.platform;
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
 	}
 
 	public User getUser() {
@@ -85,14 +89,6 @@ public class Gameaccount implements Serializable {
 
 	public void setGames(List<Game> games) {
 		this.games = games;
-	}
-
-	public Platform getPlatform() {
-		return this.platform;
-	}
-
-	public void setPlatform(Platform platform) {
-		this.platform = platform;
 	}
 
 }
