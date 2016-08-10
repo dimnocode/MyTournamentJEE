@@ -29,8 +29,7 @@ public final class Util {
 	public static User getLoggedUser(HttpServletRequest request){
 		HttpSession session = request.getSession();
 		
-		User user = new User();
-		user = (User)session.getAttribute("loggedUser");
+		User user = (User)session.getAttribute("loggedUser");
 		
 		return user;
 	}

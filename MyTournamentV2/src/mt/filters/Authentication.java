@@ -9,19 +9,18 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import mt.entities.User;
-import mt.servlets.SrvRegister;
 import mt.util.Util;
 
 /**
  * Servlet Filter implementation class authentication
  */
-@WebFilter(servletNames = {"", "/admin"})
+@WebFilter(filterName = "Authentication", urlPatterns = {"/account", "/game"})
 public class Authentication implements Filter {
 
 	private static final Logger logger = Logger.getLogger(Authentication.class);
@@ -47,12 +46,24 @@ public class Authentication implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		User user = Util.getLoggedUser(req);
-
-
-		req.getServletContext().getContextPath();
-		logger.log(Level.INFO, "Origin path : " + req.getServletContext().getContextPath());
-
-		chain.doFilter(request, response);
+		
+		if(user == null){
+			HttpServletResponse resp = (HttpServletResponse) response;
+			logger.log(Level.INFO, "User is not logged : " + req.getServletPath());
+			
+			req.setAttribute("errMsg", "You are not logged in");
+//			resp.sendRedirect("error?errMsg=NotLoggedIn");
+			
+			req.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+			
+		}else{
+			req.getServletContext().getContextPath();
+			logger.log(Level.INFO, "User is logged: " + req.getServletPath());
+			chain.doFilter(request, response);
+			
+		}
+		
+		
 	}
 
 	/**

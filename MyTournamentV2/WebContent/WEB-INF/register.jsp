@@ -5,7 +5,7 @@
 <body>
 	<c:import url="includes/header.jsp"/>
 	
-	<div class="container spacer">
+	<div class="container">
 		<h1>Register</h1>
 		<br>
 		<div class="form">

@@ -3,7 +3,7 @@
 <html>
 <c:import url="includes/head.jsp"/>
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50">
+<body>
 	<c:import url="includes/header.jsp"/>
 	
 	<div class="container">

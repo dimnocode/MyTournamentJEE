@@ -5,11 +5,9 @@
 <body>
 	<c:import url="includes/header.jsp"/>
 	
-	<div class="container spacer">
-		
-		<c:import url="includes/msg.jsp"/>
-		
+	<div class="container">		
 		<h1>Login</h1>
+		<c:import url="includes/msg.jsp"/>
 		<br>
 		<div class="form">
 			<form action="" method="POST" class="form-horizontal" data-toggle="validator" id="formLogin">
