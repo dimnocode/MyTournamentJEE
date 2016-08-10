@@ -9,70 +9,106 @@
 	<div class="container spacer">
 		<h1>New tournament</h1>
 		<br>
-		<div class="form">
-			<form action="tournament" method="POST" class="form-horizontal" data-toggle="validator" id="formTournament">
-			<fieldset>
-				<div class="form-group">
-	                <label class="col-sm-2 control-label" for="nameTournament" >Name: </label>
-	                <div class="col-sm-5">
-	                    <input class="form-control" type="text" id="nameTournament" name="nameTournament" placeholder="Name">
-	                </div>
-	            </div>
-	            <div class="form-group">
-	                <label class="col-sm-2 control-label">Online: </label>
-	                <div class="col-sm-10">
-	                <label style="margin-top:6px;">
-		                 <input type="checkbox" id="onlineTournament" name="onlineTournament" value="1">
-	                </label>
-	                </div>
+		<form action="tournament" method="POST" class="form-horizontal" data-toggle="validator" id="formTournament">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form">
+					
+					<fieldset>
+						<div class="form-group">
+			                <label class="col-sm-2 control-label" for="nameTournament" >Name: </label>
+			                <div class="col-sm-5">
+			                    <input class="form-control" type="text" id="nameTournament" name="nameTournament" placeholder="Name">
+			                </div>
+			            </div>
+			            <div class="form-group">
+			                <label class="col-sm-2 control-label">Online: </label>
+			                <div class="col-sm-5">
+			                <label style="margin-top:6px;">
+				                 <input type="checkbox" checked id="onlineTournament" name="onlineTournament" value="1">
+			                </label>
+			                </div>
+			            </div>
+			            <div class="form-group">
+		  					<label class="col-sm-2 control-label" for="typeTournament">Type:</label>
+		  					<div class="col-sm-5">
+					            <select class="form-control" name="typeTournament" id="typeTournament">	
+					            	<c:forEach items="${listTypeOfTournament }" var="item">		
+				  						<option value="${item.name }">${item.name}</option>
+				  					</c:forEach>
+					  			</select>
+				  			</div>
+				  		</div>
+			            <div class="form-group">
+		  					<label class="col-sm-2 control-label" for="formatTournament">Format:</label>
+		  					<div class="col-sm-5">
+					            <select class="form-control" name="formatTournament" id="formatTournament">	
+					            	<c:forEach items="${listFormatOfTournament }" var="item">		
+				  						<option value="${item.idFormatTournaments }">${item.name}</option>
+				  					</c:forEach>
+					  			</select>
+				  			</div>
+				  		</div>
+			            <div class="form-group">
+		  					<label class="col-sm-2 control-label" for="maxPlayerTournament">Max players:</label>
+		  					<div class="col-sm-5">
+					            <input class="form-control" type="number" min="3" max="1000" id="maxPlayerTournament" name="maxPlayerTournament" placeholder="Max player">
+				  			</div>
+				  		</div>
+			            <div class="form-group">
+			                <label class="col-sm-2 control-label" for="startDateTournament" >Start date: </label>
+			                <div class="col-sm-5">
+			                    <input class="datepicker form-control" type="text" id="startDateTournament" name="startDateTournament" placeholder="Start date">
+			                </div>
+			            </div>
+			            <div class="form-group">
+			                <label class="col-sm-2 control-label" for="endDateTournament" >End date: </label>
+			                <div class="col-sm-5">
+			                    <input class="datepicker form-control" type="text" id="endDateTournament" name="endDateTournament" placeholder="End date">
+			                </div>
+			            </div>
+			            
+			        
+        		</div>
+			</div>
+			<div class="col-md-6">
+			<div id="location">
+	            	<div class="form-group">
+		                <label class="col-sm-2 control-label" for="streetTournament" >Street: </label>
+		                <div class="col-sm-5">
+		                    <input class="form-control" type="text" id="streetTournament" name="nameTournament" placeholder="Street">
+		                </div>
+		            </div>
+		            <div class="form-group">
+		                <label class="col-sm-2 control-label" for="townTournament" >Town: </label>
+		                <div class="col-sm-5">
+		                    <input class="form-control" type="text" id="townTournament" name="townTournament" placeholder="Town">
+		                </div>
+		            </div>
+		            <div class="form-group">
+		                <label class="col-sm-2 control-label" for="zipCodeTournament" >Zip code: </label>
+		                <div class="col-sm-5">
+		                    <input class="form-control" type="text" id="zipCodeTournament" name="zipCodeTournament" placeholder="Zip code">
+		                </div>
+		            </div>
+		            <div class="form-group">
+		                <label class="col-sm-2 control-label" for="countryTournament" >Country: </label>
+		                <div class="col-sm-5">
+		                    <input class="form-control" type="text" id="countryTournament" name="countryTournament" placeholder="Country">
+		                </div>
+		            </div>
 	            </div>
 	            
-	            <div class="form-group">
-  					<label class="col-sm-2 control-label" for="typeTournament">Type:</label>
-  					<div class="col-sm-4">
-			            <select class="form-control" name="typeTournament" id="typeTournament">	
-			            	<c:forEach items="${listTypeOfTournament }" var="item">		
-		  						<option value="${item.name }">${item.name}</option>
-		  					</c:forEach>
-			  			</select>
-		  			</div>
-		  		</div>
-	            <div class="form-group">
-  					<label class="col-sm-2 control-label" for="formatTournament">Format:</label>
-  					<div class="col-sm-3">
-			            <select class="form-control" name="formatTournament" id="formatTournament">	
-			            	<c:forEach items="${listFormatOfTournament }" var="item">		
-		  						<option value="${item.name }">${item.name}</option>
-		  					</c:forEach>
-			  			</select>
-		  			</div>
-		  		</div>
-	            <div class="form-group">
-  					<label class="col-sm-2 control-label" for="maxPlayerTournament">Max players:</label>
-  					<div class="col-sm-2">
-			            <select class="form-control" name="maxPlayerTournament" id="maxPlayerTournament">		
-		  					<option value="2">2</option>
-		  					<option value="4">4</option>
-		  					<option value="6">6</option>
-		  					<option value="8">8</option>
-		  					<option value="10">10</option>
-		  					<option value="12">12</option>
-		  					<option value="14">14</option>
-		  					<option value="16">16</option>
-		  					<option value="18">18</option>
-		  					<option value="20">20</option>
-			  			</select>
-		  			</div>
-		  		</div>
-	            <div class="form-group">
-	                <div class="col-sm-offset-2 col-sm-10">
-	                    <button id="submitTournament" type="submit" class="btn btn-info">Create</button>
-	                </div>
-	            </div>
-	            </fieldset>
-	        </form>
-	        <div id="registerAccepted"></div>
-        </div>
+			</div>
+		
+		</div>
+			<div class="form-group">
+			     <div class="col-sm-offset-2 col-sm-10">
+			           <button id="submitTournament" type="submit" class="btn btn-info">Create</button>
+			     </div>
+			</div>
+			</fieldset>
+		</form>
 		
 		
 	</div>

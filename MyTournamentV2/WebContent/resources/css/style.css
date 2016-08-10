@@ -26,7 +26,7 @@ footer{
 .form-inline .form-group{
 	margin-left:10px;
 }
-#divPassword{
+#divPassword, #location{
 	display: none;
 }
 

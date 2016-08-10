@@ -2,6 +2,7 @@ $(document).ready(function(){
 	 $('.datepicker').datepicker({
 		    format: 'yyyy-mm-dd'
 		 });
+	
 	if($('table').children().children().length > 6){
 		$('#nameGameAccount').attr('disabled',true);
 		$('#namePlateform').attr('disabled',true);
@@ -30,10 +31,15 @@ $(document).ready(function(){
 			$('#formUserPasswordEdit').find('.form-control').attr("disabled",true);
 			$('#divPassword').hide();
 		}
-		
-		
-		
 	})
+	$(document).on('click','#onlineTournament',function(){
+		if($(this).is(":checked")){
+			$('#location').hide()
+		}else{
+			$('#location').show()
+		}
+	})
+	
 });
 
 /**/

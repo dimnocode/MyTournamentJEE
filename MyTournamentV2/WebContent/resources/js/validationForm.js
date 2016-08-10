@@ -115,12 +115,8 @@ $(document).ready(function(){
                 validators: {
                     notEmpty: {
                     	
-                    },
-                    date: {
-                        format: 'YYYY-MM-DD'
                     }
                 }
-                
             },
             passUser: {
                 validators: {
