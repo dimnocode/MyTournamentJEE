@@ -10,9 +10,11 @@ import javax.persistence.NoResultException;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
+import mt.entities.Formatoftournament;
 import mt.entities.Game;
 import mt.entities.Gameaccount;
 import mt.entities.Platform;
+import mt.entities.Typeoftournament;
 import mt.entities.User;
 import mt.entities.Userrole;
 import mt.servlets.SrvGameAccountGames;
@@ -130,5 +132,35 @@ public final class NmdQueries {
 			return null;
 		}
 		return platforms;
+	}
+	
+	//---------------------------------------------------------
+	//Queries TYPE OF TOURNAMENTS
+	//---------------------------------------------------------
+	
+	//Get list type of tournament
+	public static List<Typeoftournament> findAllTypeOfTournament(){
+		List<Typeoftournament> typeOfTournament = null;
+		try{
+			typeOfTournament = EMF.getEM().createNamedQuery("Typeoftournament.findAll").getResultList();
+		}catch(NoResultException e){
+			return null;
+		}
+		return typeOfTournament;
+	}
+	
+	//---------------------------------------------------------
+	//Queries FORMAT OF TOURNAMENT
+	//---------------------------------------------------------
+		
+	//Get list format or tournament
+	public static List<Formatoftournament> findAllFormatOfTournament(){
+		List<Formatoftournament> FormatOfTournament = null;
+		try{
+			FormatOfTournament = EMF.getEM().createNamedQuery("Formatoftournament.findAll").getResultList();
+		}catch(NoResultException e){
+			return null;
+		}
+		return FormatOfTournament;
 	}
 }

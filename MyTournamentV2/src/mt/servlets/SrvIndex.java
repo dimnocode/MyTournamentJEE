@@ -36,6 +36,8 @@ public class SrvIndex extends HttpServlet {
 		context.setAttribute("userRoles", NmdQueries.findAllUserroles());
 		context.setAttribute("platforms", NmdQueries.findAllPlatforms());
 		context.setAttribute("games", NmdQueries.findAllGames());
+		context.setAttribute("formatOfTournament", NmdQueries.findAllFormatOfTournament());
+		context.setAttribute("typeOfTournament", NmdQueries.findAllTypeOfTournament());
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
