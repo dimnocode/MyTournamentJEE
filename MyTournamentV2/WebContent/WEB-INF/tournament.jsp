@@ -6,7 +6,7 @@
 <body>
 	<c:import url="includes/header.jsp" />
 
-	<div class="container spacer">
+	<div class="container">
 		<h1>New tournament</h1>
 		<br>
 		<form action="tournament" method="POST" class="form-horizontal"
@@ -78,6 +78,15 @@
 								<input class="datetimepicker form-control" type="text"
 									id="endDateTournament" name="endDateTournament"
 									placeholder="End date">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label" for="priceTournament">Price
+							</label>
+							<div class="col-sm-5">
+								<input class="form-control" type="number" min="0"
+									id="priceTournament" name="priceTournament"
+									placeholder="Price">
 							</div>
 						</div>
 					</div>

@@ -228,8 +228,148 @@ $(document).ready(function(){
             }
         }
     });
+    $('#formClan').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	nameClan: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            }
+        }
+    });
+    $('#formTournament').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	nameTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            },
+            maxPlayerTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    regexp: {
+                    	regexp: /^[0-9]+$/
+                    }
+                }
+            },
+            startDateTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    }
+                }
+            },
+            endDateTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    }
+                }
+            },
+            priceTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    regexp: {
+                    	regexp: /^[0-9]+$/
+                    }
+                }
+            },
+            streetTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            },
+            townTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            },
+            zipCodeTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[0-9]+$/
+                    }
+                }
+            },
+            countryTournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z]+$/
+                    }
+                }
+            }
+        }
+    });
     $('.datepicker').on('changeDate show', function(e) {
         $('#formUser').bootstrapValidator('revalidateField', 'dobRegister');
+    });
+    $('.datetimepicker').on('dp.change dp.show', function(e) {
+        $('#formTournament').bootstrapValidator('revalidateField', 'startDateTournament');
+        $('#formTournament').bootstrapValidator('revalidateField', 'endDateTournament');
     });
 })    
 

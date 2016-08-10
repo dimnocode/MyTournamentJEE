@@ -9,7 +9,21 @@
 	<div class="container">
 		<h1>List of clan</h1>
 		
-		<h3><a href="clan">New clan</a> </h3>
+		<br>
+		<hr>
+		<div class="row">
+			<form action="" method="POST" class="form-inline" data-toggle="validator" id="formClan">
+			<fieldset>
+				<div class="form-group">
+	                <label class="control-label" for="nameClan" >Name: </label>
+	                <input class="form-control" type="text" id="nameClan" name="nameClan" placeholder="Name">
+	            </div>
+				<div class="form-group">
+	                 <button type="submit" class="btn btn-info" name="btnClan" id="btnClan">Create</button>
+	            </div>
+	            </fieldset>
+	        </form>
+		</div>
 	</div>
 	
 	<c:import url="includes/footer.jsp"/>
