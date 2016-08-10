@@ -63,7 +63,7 @@
             <div class="col-md-4" style="padding-top: 50px;" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><a name="login"></a>Login</h4>
+                        <h4><a></a>Login</h4>
                     </div>
                     <div class="panel-body" style="height:200px;">
                         <p>blablabla</p><br/>
@@ -76,7 +76,7 @@
             <div class="col-md-4" style="padding-top: 50px;" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><a name="register"></a>Register</h4>
+                        <h4><a></a>Register</h4>
                     </div>
                     <div class="panel-body" style="height:200px;">
                         <p>blablabla</p><br/>
@@ -89,7 +89,7 @@
             <div class="col-md-4" style="padding-top: 50px;" >
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><a name="information"></a>Information</h4>
+                        <h4><a></a>Information</h4>
                     </div>
                     <div class="panel-body" style="height:200px;">
                         <p>blablabla</p><br/>
