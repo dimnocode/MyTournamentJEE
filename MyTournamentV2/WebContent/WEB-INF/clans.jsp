@@ -8,7 +8,7 @@
 	
 	<div class="container">
 		<h1>List of clan</h1>
-		
+		<c:import url="includes/msg.jsp"/>
 		<br>
 		<hr>
 		<div class="row">

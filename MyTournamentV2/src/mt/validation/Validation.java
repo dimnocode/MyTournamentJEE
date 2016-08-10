@@ -12,6 +12,9 @@ public class Validation<T> {
 			
 		case "mt.entities.Gameaccount":
 			return GameAccountValidation.validate(request);
+		
+		case "mt.entities.Clan":
+			return ClanValidation.validate(request);
 		}
 		return false;
 	}
