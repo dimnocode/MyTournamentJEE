@@ -2,7 +2,7 @@
 <footer>
 	<div class="container">
 		<hr>
-		<p>Project Java by Lucas & Dimitri </p>
+		<p>Project Java by Lucas et Dimitri</p>
 	</div>
 	
 	
