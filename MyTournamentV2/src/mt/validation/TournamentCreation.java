@@ -15,16 +15,18 @@ public final class TournamentCreation {
 		tournament.setGame(null); //NMDQUERY OR CONTEXT ?
 		tournament.setTypeoftournament(null); //NMDQUERY OR CONTEXT ?
 		tournament.setFormatoftournament(null);  //NMDQUERY OR CONTEXT ?
+		tournament.setMaxPlayers(Integer.parseInt(request.getParameter("maxPlayerTournament")));
 		tournament.setStartDate(Util.stringToDate(request.getParameter("startDateTournament")));
 		tournament.setEndDate(Util.stringToDate(request.getParameter("endDateTournament")));
 		tournament.setCreationDate(new Date());
 		tournament.setModificationDate(new Date());
+		tournament.setPrice(Float.parseFloat(request.getParameter("priceTournament")));
 		
 		if(request.getParameter("onlineTournament") != null) {
-			
 			tournament.setOnline(true);
-			tournament.set
+			tournament.setLocation(null); // A crée avant le tournoi
 		}
+		
 		
 	}
 

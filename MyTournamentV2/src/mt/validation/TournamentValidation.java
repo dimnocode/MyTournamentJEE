@@ -19,11 +19,13 @@ public final class TournamentValidation {
 				!request.getParameter("typeTournament").matches("\\d+") ||
 				!request.getParameter("formatTournament").matches("\\d+")||
 				!request.getParameter("maxPlayerTournament").matches("\\d+") ||
+				!request.getParameter("priceTournament").matches("\\d+") ||
 				Util.stringToDate(request.getParameter("startDateTournament")) == null ||
 				Util.stringToDate(request.getParameter("endDateTournament")) == null ||
 				(request.getParameter("onlineTournament") == null) && (
 				!request.getParameter("streetTournament").matches("[a-zA-Z-\\s]{4,20}") ||
 				!request.getParameter("cityTournament").matches("[a-zA-Z-\\s]{4,20}") ||
+				!request.getParameter("zipcodeTournament").matches("[a-zA-Z-\\s]{4,20}") ||
 				!request.getParameter("countryTournament").matches("[a-zA-Z-\\s]{4,20}"))
 				
 			){
