@@ -49,6 +49,7 @@ public class SrvClans extends HttpServlet {
 		if(user != null){
 			request.setAttribute("listClan", user.getClans());
 			
+			logger.log(Level.INFO, user.getClans().size());
 			this.getServletContext().getRequestDispatcher("/WEB-INF/clans.jsp").forward(request, response);		
 		}
 		else{
@@ -133,7 +134,9 @@ public class SrvClans extends HttpServlet {
 					userClan.setClan(clan);
 					
 					user.addUsersclan(userClan);
+					user.getClans().add(clan);
 					clan.addUsersclan(userClan);
+					clan.getUsers().add(user);
 					
 					em.merge(user);
 					em.merge(clan);
