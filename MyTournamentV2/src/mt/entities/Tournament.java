@@ -33,6 +33,7 @@ public class Tournament implements Serializable {
 	private int maxPlayers;
 
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable=false)
 	private Date modificationDate;
 
 	@Column(nullable=false, length=45)
@@ -87,6 +88,11 @@ public class Tournament implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idTypeOfTournaments", nullable=false)
 	private Typeoftournament typeoftournament;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="creatorUser", nullable=false)
+	private User user;
 
 	public Tournament() {
 	}
@@ -245,6 +251,14 @@ public class Tournament implements Serializable {
 
 	public void setTypeoftournament(Typeoftournament typeoftournament) {
 		this.typeoftournament = typeoftournament;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

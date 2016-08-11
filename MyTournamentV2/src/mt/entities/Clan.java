@@ -13,10 +13,10 @@ import java.util.List;
 @Entity
 @Table(name="clans")
 @NamedQueries({
+
 	@NamedQuery(name="Clan.findAll", query="SELECT c FROM Clan c"),
 	@NamedQuery(name="Clan.findById", query="SELECT c FROM Clan c WHERE c.idClan = :idClans")
 })
-
 public class Clan implements Serializable {
 	private static final long serialVersionUID = 1L;
 

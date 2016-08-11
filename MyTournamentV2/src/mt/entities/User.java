@@ -66,6 +66,10 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Registration> registrations;
 
+	//bi-directional many-to-one association to Tournament
+	@OneToMany(mappedBy="user")
+	private List<Tournament> tournaments;
+
 	//bi-directional many-to-one association to Unavailability
 	@OneToMany(mappedBy="user")
 	private List<Unavailability> unavailabilities;
@@ -212,6 +216,28 @@ public class User implements Serializable {
 		registration.setUser(null);
 
 		return registration;
+	}
+
+	public List<Tournament> getTournaments() {
+		return this.tournaments;
+	}
+
+	public void setTournaments(List<Tournament> tournaments) {
+		this.tournaments = tournaments;
+	}
+
+	public Tournament addTournament(Tournament tournament) {
+		getTournaments().add(tournament);
+		tournament.setUser(this);
+
+		return tournament;
+	}
+
+	public Tournament removeTournament(Tournament tournament) {
+		getTournaments().remove(tournament);
+		tournament.setUser(null);
+
+		return tournament;
 	}
 
 	public List<Unavailability> getUnavailabilities() {
