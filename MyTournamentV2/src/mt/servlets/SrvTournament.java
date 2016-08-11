@@ -32,18 +32,18 @@ public class SrvTournament extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		if(Util.getLoggedUser(request) != null){
+			
+			
 			ServletContext context = request.getSession().getServletContext();	
 			
 			request.setAttribute("listFormatOfTournament", context.getAttribute("formatOfTournament"));
 			request.setAttribute("listTypeOfTournament", context.getAttribute("typeOfTournament"));
+			request.setAttribute("listGames", context.getAttribute("games"));
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/tournament.jsp").forward(request, response);
-		}else{
-			response.sendRedirect("error");
-		}
+	
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+			response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

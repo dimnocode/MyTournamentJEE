@@ -24,6 +24,17 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label class="col-sm-2 control-label" for="gameTournament">Game:</label>
+							<div class="col-sm-5">
+								<select class="form-control" name="gameTournament"
+									id="gameTournament">
+									<c:forEach items="${listGames }" var="item">
+										<option value="${item.idGames}">${item.name}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-2 control-label">Online: </label>
 							<div class="col-sm-5">
 								<label style="margin-top: 6px;"> <input type="checkbox"
@@ -37,7 +48,7 @@
 								<select class="form-control" name="typeTournament"
 									id="typeTournament">
 									<c:forEach items="${listTypeOfTournament }" var="item">
-										<option value="${item.name }">${item.name}</option>
+										<option value="${item.idTypeOfTournaments }">${item.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -102,11 +113,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label" for="townTournament">Town:
+							<label class="col-sm-2 control-label" for="cityTournament">Town:
 							</label>
 							<div class="col-sm-5">
-								<input class="form-control" type="text" id="townTournament"
-									name="townTournament" placeholder="Town">
+								<input class="form-control" type="text" id="cityTournament"
+									name="cityTournament" placeholder="City">
 							</div>
 						</div>
 						<div class="form-group">

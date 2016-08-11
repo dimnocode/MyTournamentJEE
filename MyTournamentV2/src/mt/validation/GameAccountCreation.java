@@ -21,8 +21,7 @@ public class GameAccountCreation {
 		gameAccount.setActive(true);
 		gameAccount.setPlatform(findPlatform(request.getParameter("namePlateform")));	
 		gameAccount.setUser((User)session.getAttribute("loggedUser"));
-		
-		
+				
 	}
 	
 	private static Platform findPlatform(String id){
