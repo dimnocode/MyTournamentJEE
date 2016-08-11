@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	 $('.datepicker').datepicker({
-		    format: 'YYYY-MM-DD'
+		    format: 'yyyy-mm-dd'
 		 });
 	$('.datetimepicker').datetimepicker({
 		format: 'YYYY-MM-DD HH:mm:ss'
@@ -42,7 +42,13 @@ $(document).ready(function(){
 			$('#location').show()
 		}
 	})
-	
+	$(document).on('click','.nameClan',function(){
+		if($(this).next().next().attr("class") == "userClan"){
+			$(this).next().next().removeClass('userClan');
+		}else{
+			$(this).next().next().addClass('userClan');
+		}
+	})
 });
 
 /**/

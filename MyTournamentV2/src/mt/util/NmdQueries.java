@@ -57,6 +57,15 @@ public final class NmdQueries {
 		}
 		return user;
 	}
+	public static User findUserByUnique(String email, String pseudo){
+		User user = new User();
+		try{
+			user = (User) EMF.getEM().createNamedQuery("User.findByUnique").setParameter("email", email).setParameter("pseudo", pseudo).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return user;
+	}
 	//Get all userRoles 
 	public static List<Userrole> findAllUserroles(){
 		List<Userrole> userRoles = null;

@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html">
 <html>
 <c:import url="includes/head.jsp"/>
@@ -24,6 +25,40 @@
 	            </fieldset>
 	        </form>
 		</div>
+		<c:forEach items="${listClan}" var="item">
+		<form method="POST" action="clans" class="form-inline">
+			<div class="form-group">
+				<h3><c:out value="${item.name }"/></h3>
+			</div>&nbsp;&nbsp;
+			<c:if test="${listUserClan == null}">
+				<input type="hidden" name="idClan" value="<c:out value='${item.idClan }'/>"><button type="submit" name="btnShowClan" class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+			</c:if>
+			<c:if test="${listUserClan != null}">
+				<input type="hidden" name="idClan" value="<c:out value='${item.idClan }'/>"><button type="submit" name="btnHideClan" class="btn btn-success btn-sm "><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+			</c:if>
+		</form>
+		</c:forEach>
+		
+		<c:if test="${listUserClan != null}">
+			<table class="table table-striped">
+					<tr>
+						<th>Pseudo</th>
+						<th>Email</th>
+						<th>Name</th>
+						<th>Firstname</th>
+					</tr>
+					<tr>
+					<c:forEach items="${listUserClan }" var="item">
+							<tr id="userClan-${item.idUsers }">
+						  			<td><c:out value="${item.pseudo }"/></td>
+						  			<td><c:out value="${item.email }"/></td>
+						  			<td><c:out value="${item.name }"/></td>
+						  			<td><c:out value="${item.firstname }"/></td>
+						  	</tr>
+				    </c:forEach>
+					</tr>
+				</table>
+		</c:if>
 	</div>
 	
 	<c:import url="includes/footer.jsp"/>

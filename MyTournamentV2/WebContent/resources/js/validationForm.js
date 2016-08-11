@@ -251,6 +251,46 @@ $(document).ready(function(){
             }
         }
     });
+    $('#formUserClan').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	emailUserClan: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 1,
+                        max: 100
+                    },
+                    emailAddress: {
+                    	
+                    },
+                    regexp: {
+                    	regexp: /^[^-_()!{}$&µ£=:+;,/\.][a-zA-Z-.]+@[a-zA-Z-.]+\.[a-zA-Z]{2,10}$/
+                    }
+                }
+            },
+            pseudoUserClan: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-z0-9]+$/
+                    }
+                }
+            }
+        }
+    });
     $('#formTournament').bootstrapValidator({
         feedbackIcons: {
             valid: "glyphicon glyphicon-ok",

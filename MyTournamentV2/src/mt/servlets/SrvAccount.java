@@ -1,6 +1,8 @@
 package mt.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
@@ -15,8 +17,10 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
+import mt.entities.Clan;
 import mt.entities.Gameaccount;
 import mt.entities.User;
+import mt.entities.Usersclan;
 import mt.util.NmdQueries;
 import mt.util.Util;
 import mt.validation.GameAccountCreation;
@@ -54,6 +58,18 @@ public class SrvAccount extends HttpServlet {
 			//request.setAttribute("flagUpdate", false);
 			request.setAttribute("listGameAccount", NmdQueries.findGameAccounts(user.getIdUsers()));
 			request.setAttribute("listPlatforms", context.getAttribute("platforms") );//NmdQueries.findAllPlatforms()
+			
+	
+			Clan clan = new Clan();
+			List<Clan> listClan = new ArrayList<Clan>();
+			for(Usersclan item : user.getUsersclans()){
+				if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader()){
+					clan = NmdQueries.findClanById(item.getClan().getIdClan());
+					listClan.add(clan);
+				}
+			}
+			
+			request.setAttribute("listClan", listClan);
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
 		}

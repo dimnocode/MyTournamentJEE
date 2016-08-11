@@ -26,6 +26,9 @@ footer{
 .form-inline .form-group{
 	margin-left:10px;
 }
+.userClan{
+	display:none;
+}
 #divPassword, #location{
 	display: none;
 }
