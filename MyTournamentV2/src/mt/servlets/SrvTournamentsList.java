@@ -14,13 +14,13 @@ import mt.util.Util;
  * Servlet implementation class SrvTournament
  */
 @WebServlet("/tournaments")
-public class SrvTournaments extends HttpServlet {
+public class SrvTournamentsList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SrvTournaments() {
+    public SrvTournamentsList() {
         super();
         // TODO Auto-generated constructor stub
     }
