@@ -32,7 +32,7 @@ public class Clan implements Serializable {
 	private Date creationDate;
 
 	@Column(nullable=false, length=45)
-	private String nom;
+	private String name;
 
 	//bi-directional many-to-many association to User
 	@ManyToMany
@@ -87,12 +87,12 @@ public class Clan implements Serializable {
 		this.creationDate = creationDate;
 	}
 
-	public String getNom() {
-		return this.nom;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<User> getUsers() {

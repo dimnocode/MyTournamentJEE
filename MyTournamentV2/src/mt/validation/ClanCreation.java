@@ -14,7 +14,7 @@ public class ClanCreation {
 public static void create(HttpServletRequest request, Clan clan, Usersclan userClan){
 		
 		
-		clan.setNom(request.getParameter("nameClan"));
+		clan.setName(request.getParameter("nameClan"));
 		clan.setActive(true);
 		clan.setCreationDate(new Date());
 		

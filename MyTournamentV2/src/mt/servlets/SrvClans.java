@@ -68,7 +68,7 @@ public class SrvClans extends HttpServlet {
 					
 					User loggedUser = new User();
 					loggedUser = Util.getLoggedUser(request);
-					logger.log(Level.INFO, loggedUser.getPseudo() + " created the clan : " + clan.getNom());
+					logger.log(Level.INFO, loggedUser.getPseudo() + " created the clan : " + clan.getName());
 					
 					em.getTransaction().begin();
 					em.persist(clan);
