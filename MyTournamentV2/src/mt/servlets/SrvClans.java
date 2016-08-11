@@ -1,7 +1,9 @@
 package mt.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -47,9 +49,17 @@ public class SrvClans extends HttpServlet {
 		User user = Util.getLoggedUser(request);
 		
 		if(user != null){
-			request.setAttribute("listClan", user.getClans());
 			
-			logger.log(Level.INFO, user.getClans().size());
+			Clan clan = new Clan();
+			List<Clan> listClan = new ArrayList<Clan>();
+			for(Usersclan item : user.getUsersclans()){
+				if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader()){
+					clan = NmdQueries.findClanById(item.getClan().getIdClan());
+					listClan.add(clan);
+				}
+			}
+			
+			request.setAttribute("listClan", listClan);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/clans.jsp").forward(request, response);		
 		}
 		else{
@@ -68,8 +78,6 @@ public class SrvClans extends HttpServlet {
 		EntityManager em = EMF.getEM();
 		
 		String btnClan = request.getParameter("btnClan");
-		String btnShowClan = request.getParameter("btnShowClan");
-		String btnHideClan = request.getParameter("btnHideClan");
 		String btnUserClan = request.getParameter("btnUserClan");
 		String successMsg = null;
 		String errMsg = null;
@@ -112,7 +120,7 @@ public class SrvClans extends HttpServlet {
 					doGet(request, response);
 				}
 			}else{
-				response.sendRedirect("clans");
+				doGet(request, response);
 				logger.log(Level.INFO, "Clan not valid");
 			}
 			
@@ -120,8 +128,6 @@ public class SrvClans extends HttpServlet {
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
 			User user = new User();
-			
-			
 				user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
 				if(user != null){
 					Usersclan userClan = new Usersclan();
@@ -148,26 +154,17 @@ public class SrvClans extends HttpServlet {
 					em.close();
 					//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
 					//dispatcher.forward(request, response);
-					response.sendRedirect("account");
+					doGet(request, response);
 					logger.log(Level.INFO, user.getPseudo()+ " is added in " + clan.getName() + "with success");
 				}else{
-					errMsg = "player is not found";
+					errMsg = request.getParameter("pseudoUserClan")+ " is not found";
 					
 					request.setAttribute("errMsg", errMsg);
 					//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
 					//dispatcher.forward(request, response);
-					response.sendRedirect("account");
+					doGet(request, response);
 					logger.log(Level.INFO, "error");
 				}
-		}
-		if(btnShowClan != null){
-			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
-			request.setAttribute("listUserClan", clan.getUsers());
-			doGet(request, response);
-		}
-		if(btnHideClan != null){
-			request.setAttribute("listUserClan", null);
-			doGet(request, response);
 		}
 		
 	}

@@ -25,40 +25,51 @@
 	            </fieldset>
 	        </form>
 		</div>
-		<c:forEach items="${listClan}" var="item">
-		<form method="POST" action="clans" class="form-inline">
-			<div class="form-group">
-				<h3><c:out value="${item.name }"/></h3>
-			</div>&nbsp;&nbsp;
-			<c:if test="${listUserClan == null}">
-				<input type="hidden" name="idClan" value="<c:out value='${item.idClan }'/>"><button type="submit" name="btnShowClan" class="btn btn-primary btn-sm "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+		<c:if test="${listClan != null }">
+			<c:forEach items="${listClan}" var="items" >
+				<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3><br>
+				<div class="userClan">
+					<form action="clans" method="POST" class="form-inline" data-toggle="validator" class="formUserClan">
+					<fieldset>
+					<input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>">
+						<div class="form-group">
+			                <label class="control-label" for="pseudoUserClan" >Pseudo: </label>
+			                <input class="form-control pseudoUserClan" type="text"  name="pseudoUserClan" placeholder="Pseudo">
+			            </div>
+			            <div class="form-group">
+			                <label class="control-label" for="emailUserClan" >Email: </label>
+			                <input class="form-control emailUserClan" type="text" name="emailUserClan" placeholder="Email">
+			            </div>
+						<div class="form-group">
+			                 <button type="submit" class="btn btn-info" name="btnUserClan" id="btnUserClan">Invite</button>
+			            </div>
+			            </fieldset>
+			        </form>
+					<br>
+					<table class="table table-striped">
+						<tr>
+							<th>Pseudo</th>
+							<th>Email</th>
+							<th>Name</th>
+							<th>Firstname</th>
+							<th>Delete</th>
+						</tr>
+						<tr>
+						<c:forEach items="${items.users }" var="item">
+								<tr id="userClan-${item.idUsers }">
+							  			<td><c:out value="${item.pseudo }"/></td>
+							  			<td><c:out value="${item.email }"/></td>
+							  			<td><c:out value="${item.name }"/></td>
+							  			<td><c:out value="${item.firstname }"/></td>
+							  			<td><form method="POST" action=account><input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>"><input type="hidden" name="idUserClan" value="<c:out value='${item.idUsers }'/>"><button type="submit" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+	
+							  	</tr>
+					    </c:forEach>
+						</tr>
+					</table>
+				</div>
+				</c:forEach>
 			</c:if>
-			<c:if test="${listUserClan != null}">
-				<input type="hidden" name="idClan" value="<c:out value='${item.idClan }'/>"><button type="submit" name="btnHideClan" class="btn btn-success btn-sm "><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-			</c:if>
-		</form>
-		</c:forEach>
-		
-		<c:if test="${listUserClan != null}">
-			<table class="table table-striped">
-					<tr>
-						<th>Pseudo</th>
-						<th>Email</th>
-						<th>Name</th>
-						<th>Firstname</th>
-					</tr>
-					<tr>
-					<c:forEach items="${listUserClan }" var="item">
-							<tr id="userClan-${item.idUsers }">
-						  			<td><c:out value="${item.pseudo }"/></td>
-						  			<td><c:out value="${item.email }"/></td>
-						  			<td><c:out value="${item.name }"/></td>
-						  			<td><c:out value="${item.firstname }"/></td>
-						  	</tr>
-				    </c:forEach>
-					</tr>
-				</table>
-		</c:if>
 	</div>
 	
 	<c:import url="includes/footer.jsp"/>

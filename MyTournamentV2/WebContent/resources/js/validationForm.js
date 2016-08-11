@@ -251,7 +251,7 @@ $(document).ready(function(){
             }
         }
     });
-    $('#formUserClan').bootstrapValidator({
+    $('.formUserClan').bootstrapValidator({
         feedbackIcons: {
             valid: "glyphicon glyphicon-ok",
             invalid: "glyphicon glyphicon-remove",

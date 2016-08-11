@@ -59,18 +59,6 @@ public class SrvAccount extends HttpServlet {
 			request.setAttribute("listGameAccount", NmdQueries.findGameAccounts(user.getIdUsers()));
 			request.setAttribute("listPlatforms", context.getAttribute("platforms") );//NmdQueries.findAllPlatforms()
 			
-	
-			Clan clan = new Clan();
-			List<Clan> listClan = new ArrayList<Clan>();
-			for(Usersclan item : user.getUsersclans()){
-				if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader()){
-					clan = NmdQueries.findClanById(item.getClan().getIdClan());
-					listClan.add(clan);
-				}
-			}
-			
-			request.setAttribute("listClan", listClan);
-			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/account.jsp").forward(request, response);
 		}
 		else{
