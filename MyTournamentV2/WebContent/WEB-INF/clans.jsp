@@ -25,8 +25,8 @@
 	            </fieldset>
 	        </form>
 		</div>
-		<c:if test="${listClan != null }">
-			<c:forEach items="${listClan}" var="items" >
+		<c:if test="${listClanLeader != null }">
+			<c:forEach items="${listClanLeader}" var="items" >
 				<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3><br>
 				<div class="userClan">
 					<form action="clans" method="POST" class="form-inline" data-toggle="validator" class="formUserClan">
@@ -63,6 +63,32 @@
 							  			<td><c:out value="${item.firstname }"/></td>
 							  			<td><form method="POST" action=account><input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>"><input type="hidden" name="idUserClan" value="<c:out value='${item.idUsers }'/>"><button type="submit" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
 	
+							  	</tr>
+					    </c:forEach>
+						</tr>
+					</table>
+				</div>
+				</c:forEach>
+			</c:if>
+			<c:if test="${listClan != null }">
+			<c:forEach items="${listClan}" var="items" >
+				<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3><br>
+				<div class="userClan">
+					<br>
+					<table class="table table-striped">
+						<tr>
+							<th>Pseudo</th>
+							<th>Email</th>
+							<th>Name</th>
+							<th>Firstname</th>
+						</tr>
+						<tr>
+						<c:forEach items="${items.users }" var="item">
+								<tr id="userClan-${item.idUsers }">
+							  			<td><c:out value="${item.pseudo }"/></td>
+							  			<td><c:out value="${item.email }"/></td>
+							  			<td><c:out value="${item.name }"/></td>
+							  			<td><c:out value="${item.firstname }"/></td>
 							  	</tr>
 					    </c:forEach>
 						</tr>

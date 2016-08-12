@@ -51,14 +51,21 @@ public class SrvClans extends HttpServlet {
 		if(user != null){
 			
 			Clan clan = new Clan();
+			List<Clan> listClanLeader = new ArrayList<Clan>();
 			List<Clan> listClan = new ArrayList<Clan>();
+			
 			for(Usersclan item : user.getUsersclans()){
-				if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader()){
+				if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader() ){
+					clan = NmdQueries.findClanById(item.getClan().getIdClan());
+					listClanLeader.add(clan);
+				}
+				if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader() == false){
 					clan = NmdQueries.findClanById(item.getClan().getIdClan());
 					listClan.add(clan);
 				}
 			}
 			
+			request.setAttribute("listClanLeader", listClanLeader);
 			request.setAttribute("listClan", listClan);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/clans.jsp").forward(request, response);		
 		}

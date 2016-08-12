@@ -1,8 +1,6 @@
 package mt.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletContext;
@@ -17,10 +15,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import mt.connection.EMF;
-import mt.entities.Clan;
 import mt.entities.Gameaccount;
 import mt.entities.User;
-import mt.entities.Usersclan;
 import mt.util.NmdQueries;
 import mt.util.Util;
 import mt.validation.GameAccountCreation;
