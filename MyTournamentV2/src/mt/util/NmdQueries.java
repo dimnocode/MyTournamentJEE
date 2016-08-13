@@ -30,7 +30,7 @@ public final class NmdQueries {
 	//Queries USERCLAN
 	//---------------------------------------------------------
 
-	//Get user login with password and email in DB
+	
 		public static Usersclan findUserclanByIdUserIdClan(int idClan, int idUser){
 			Usersclan userClan = new Usersclan();
 			try{
@@ -40,7 +40,6 @@ public final class NmdQueries {
 			}
 			return userClan;
 		}
-	
 	//---------------------------------------------------------
 	//Queries USERS
 	//---------------------------------------------------------

@@ -49,8 +49,9 @@ public class SrvClans extends HttpServlet {
 		User user = Util.getLoggedUser(request);
 		
 		if(user != null){
-			
+			//refresfLists(user, request);
 			Clan clan = new Clan();
+			
 			List<Clan> listClanLeader = new ArrayList<Clan>();
 			List<Clan> listClan = new ArrayList<Clan>();
 			
@@ -63,10 +64,12 @@ public class SrvClans extends HttpServlet {
 					clan = NmdQueries.findClanById(item.getClan().getIdClan());
 					listClan.add(clan);
 				}
+				
 			}
 			
 			request.setAttribute("listClanLeader", listClanLeader);
 			request.setAttribute("listClan", listClan);
+			request.setAttribute("loggedUser", user);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/clans.jsp").forward(request, response);		
 		}
 		else{
@@ -94,7 +97,7 @@ public class SrvClans extends HttpServlet {
 		//CREATE CLAN
 		if(btnClan != null){
 			Clan clan = new Clan();
-			
+			User loggedUser = Util.getLoggedUser(request);
 			Validation<Clan> v = new Validation<Clan>();
 			Usersclan userClan = new Usersclan();
 			
@@ -102,8 +105,7 @@ public class SrvClans extends HttpServlet {
 				ClanCreation.create(request, clan, userClan);
 				if(clan != null){
 					try{
-						User loggedUser = new User();
-						loggedUser = Util.getLoggedUser(request);
+						
 						logger.log(Level.INFO, loggedUser.getPseudo() + " created the clan : " + clan.getName());
 						
 						em.getTransaction().begin();
@@ -124,9 +126,9 @@ public class SrvClans extends HttpServlet {
 						em.merge(clan);
 						em.persist(userClan);
 						em.getTransaction().commit();
-						em.close();
 						successMsg = "Clan created successfully. You're the leader ! ";
 						request.setAttribute("successMsg", successMsg);
+						//refresfLists(loggedUser, request);
 					}catch(Exception e){
 						logger.log(Level.INFO, e.getMessage());
 					}finally {
@@ -144,11 +146,14 @@ public class SrvClans extends HttpServlet {
 		//INVITE USERS IN CLAN
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
+			//User loggedUser = Util.getLoggedUser(request);
 			User user = new User();
 				user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
 				if(user != null){
 					Usersclan userClan = new Usersclan();
 					try{
+						
+						
 						em.getTransaction().begin();
 						
 						userClan.setAddedDateTime(new Date());
@@ -168,6 +173,7 @@ public class SrvClans extends HttpServlet {
 						
 						successMsg = user.getPseudo()+ " is added in " + clan.getName() + " with success ";
 						request.setAttribute("successMsg", successMsg);
+						//refresfLists(loggedUser, request);
 					}catch(Exception e){
 						logger.log(Level.INFO, e.getMessage());
 					}finally {
@@ -188,7 +194,7 @@ public class SrvClans extends HttpServlet {
 		if(btnRemoveUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
 			User user = NmdQueries.findUserById(Integer.parseInt(request.getParameter("idUser")));
-			
+			//User loggedUser = Util.getLoggedUser(request);
 			if(clan != null && user != null){
 				Usersclan userClan = NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers());
 				em.getTransaction().begin();
@@ -216,14 +222,13 @@ public class SrvClans extends HttpServlet {
 					em.getTransaction().commit();
 					successMsg = u.getPseudo() + " is removed to "+ c.getName();
 					request.setAttribute("successMsg", successMsg);
+					//refresfLists(loggedUser, request);
 				}catch(Exception e){
 					logger.log(Level.INFO, e.getMessage());
 				}
 				finally {
 					em.close();
 				}
-				
-				
 				doGet(request, response);
 			}else{
 				errMsg = "Impossible to remove";
@@ -235,5 +240,23 @@ public class SrvClans extends HttpServlet {
 		}
 		
 	}
-
+	/*public void refresfLists(User user, HttpServletRequest request ){
+		Clan clan = new Clan();
+		List<Clan> listClanLeader = new ArrayList<Clan>();
+		List<Clan> listClan = new ArrayList<Clan>();
+		
+		for(Usersclan item : user.getUsersclans()){
+			if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader() ){
+				clan = NmdQueries.findClanById(item.getClan().getIdClan());
+				listClanLeader.add(clan);
+			}
+			if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader() == false){
+				clan = NmdQueries.findClanById(item.getClan().getIdClan());
+				listClan.add(clan);
+			}
+		}
+		
+		request.setAttribute("listClanLeader", listClanLeader);
+		request.setAttribute("listClan", listClan);
+	}*/
 }

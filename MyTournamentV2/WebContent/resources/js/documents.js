@@ -51,6 +51,28 @@ $(document).ready(function(){
 			$('#action').text('Remove');
 		}
 	})
+	$(document).on('click','#btnYourClan',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$(this).children().removeClass("glyphicon-plus").addClass("glyphicon-minus")
+			$('#yourClan').show();
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$(this).children().removeClass("glyphicon-minus").addClass("glyphicon-plus")
+			$('#yourClan').hide();
+		}
+	})
+	$(document).on('click','#btnClanRegister',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$(this).children().removeClass("glyphicon-plus").addClass("glyphicon-minus")
+			$('#clanRegister').show();
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$(this).children().removeClass("glyphicon-minus").addClass("glyphicon-plus")
+			$('#clanRegister').hide();
+		}
+	})
 	$(document).on('click','#onlineTournament',function(){
 		if($(this).is(":checked")){
 			$('#location').hide()
