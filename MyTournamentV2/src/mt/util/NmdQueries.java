@@ -18,6 +18,7 @@ import mt.entities.Platform;
 import mt.entities.Typeoftournament;
 import mt.entities.User;
 import mt.entities.Userrole;
+import mt.entities.Usersclan;
 
 
 
@@ -26,24 +27,34 @@ public final class NmdQueries {
 	private static final Logger logger = Logger.getLogger(NmdQueries.class);
 	
 	//---------------------------------------------------------
-	//Queries USERS
+	//Queries USERCLAN
 	//---------------------------------------------------------
 
 	//Get user login with password and email in DB
-	public static User userLogin(String email, String pass){
-		User user = new User();
-		try{
-			user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
-		}catch(NoResultException e){
-			return null;
+		public static Usersclan findUserclanByIdUserIdClan(int idClan, int idUser){
+			Usersclan userClan = new Usersclan();
+			try{
+				userClan = (Usersclan)EMF.getEM().createNamedQuery("Usersclan.findByIdUserIdClan").setParameter("idClan", idClan).setParameter("idUser", idUser).getSingleResult();
+			}catch(NoResultException e){
+				return null;
+			}
+			return userClan;
 		}
-		return user;
-	}
 	
 	//---------------------------------------------------------
 	//Queries USERS
 	//---------------------------------------------------------
 	
+	//Get user login with password and email in DB
+		public static User userLogin(String email, String pass){
+			User user = new User();
+			try{
+				user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
+			}catch(NoResultException e){
+				return null;
+			}
+			return user;
+		}
 	//Get userRole in DB by id
 	public static Userrole findUserrole(int id, EntityManager em){
 		return em.find(Userrole.class, id);

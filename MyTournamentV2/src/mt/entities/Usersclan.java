@@ -11,7 +11,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="usersclans")
-@NamedQuery(name="Usersclan.findAll", query="SELECT u FROM Usersclan u")
+
+@NamedQueries({
+	@NamedQuery(name="Usersclan.findAll", query="SELECT u FROM Usersclan u"),
+	@NamedQuery(name="Usersclan.findByIdUserIdClan", query="SELECT u FROM Usersclan u WHERE u.clan.idClan = :idClan AND u.user.idUsers = :idUser")
+})
 public class Usersclan implements Serializable {
 	private static final long serialVersionUID = 1L;
 

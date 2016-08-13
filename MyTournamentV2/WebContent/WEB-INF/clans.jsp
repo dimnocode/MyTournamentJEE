@@ -71,7 +71,7 @@
 							  			<td><c:out value="${item.email }"/></td>
 							  			<td><c:out value="${item.name }"/></td>
 							  			<td><c:out value="${item.firstname }"/></td>
-							  			<td><form method="POST" action=account><input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>"><input type="hidden" name="idUserClan" value="<c:out value='${item.idUsers }'/>"><button type="submit" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+							  			<td><form method="POST" action=clans><input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>"><input type="hidden" name="idUser" value="<c:out value='${item.idUsers }'/>"><button type="submit" name="btnRemoveUserClan" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
 	
 							  	</tr>
 					    </c:forEach>

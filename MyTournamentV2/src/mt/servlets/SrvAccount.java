@@ -88,16 +88,21 @@ public class SrvAccount extends HttpServlet {
 				if(v.validate(request, gameAccount)){
 					GameAccountCreation.create(request, gameAccount);
 					if(gameAccount != null){
-						logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
-						em.getTransaction().begin();
-						em.persist(gameAccount);
-						em.getTransaction().commit();
+						try{
+							logger.log(Level.INFO, "GameAccount created :" + gameAccount.getName());
+							em.getTransaction().begin();
+							em.persist(gameAccount);
+							em.getTransaction().commit();
+						}catch(Exception e){
+							logger.log(Level.INFO, e.getMessage());
+						}finally {
+							em.close();
+						}
 					}
 				}else{
 					response.sendRedirect("account");
 					logger.log(Level.INFO, "GameAccount not valid");
 				}
-				em.close();
 			}
 			else{
 				response.sendRedirect("error");
@@ -107,14 +112,19 @@ public class SrvAccount extends HttpServlet {
 		if(btnRemoveGameAccount != null){
 			Gameaccount ga = NmdQueries.findGameAccount(Integer.parseInt(request.getParameter("idGameAccounts")));
 			if(ga != null){
-				ga.setActive(false);
-				em.getTransaction().begin();
-				em.merge(ga);
-				em.getTransaction().commit();
-				em.close();
-				logger.log(Level.INFO, ga.getName()+ " is removed");
-				successMsg = ga.getName()+ " is removed";
-				request.setAttribute("successMsg", successMsg);
+				try{
+					ga.setActive(false);
+					em.getTransaction().begin();
+					em.merge(ga);
+					em.getTransaction().commit();
+					logger.log(Level.INFO, ga.getName()+ " is removed");
+					successMsg = ga.getName()+ " is removed";
+					request.setAttribute("successMsg", successMsg);
+				}catch(Exception e){
+					logger.log(Level.INFO, e.getMessage());
+				}finally {
+					em.close();
+				}
 			}else{
 				errMsg = ga.getName()+ " not found";
 				request.setAttribute("errMsg", errMsg);
@@ -124,14 +134,19 @@ public class SrvAccount extends HttpServlet {
 			if(btnActiveGameAccount != null){
 				Gameaccount ga = NmdQueries.findGameAccount(Integer.parseInt(request.getParameter("idGameAccounts")));
 				if(ga != null){
-					ga.setActive(true);
-					em.getTransaction().begin();
-					em.merge(ga);
-					em.getTransaction().commit();
-					em.close();
-					logger.log(Level.INFO, ga.getName()+ " is added");
-					successMsg = ga.getName()+ " is added";
-					request.setAttribute("successMsg", successMsg);
+					try{
+						ga.setActive(true);
+						em.getTransaction().begin();
+						em.merge(ga);
+						em.getTransaction().commit();
+						logger.log(Level.INFO, ga.getName()+ " is added");
+						successMsg = ga.getName()+ " is added";
+						request.setAttribute("successMsg", successMsg);
+					}catch(Exception e){
+						logger.log(Level.INFO, e.getMessage());
+					}finally {
+						em.close();
+					}
 				}else{
 					errMsg = ga.getName()+ " not found";
 					request.setAttribute("errMsg", errMsg);
@@ -151,15 +166,19 @@ public class SrvAccount extends HttpServlet {
 			if(v.validate(request, user)){
 				if(UserCreation.updatePassword(request, user)){
 					if(user != null){
-						successMsg = "Your password be changed";
-						logger.log(Level.INFO, "User password updated :" + user.getPassword());
-						em.getTransaction().begin();
-						em.merge(user);
-						em.getTransaction().commit();
-						em.close();
-						
-						request.setAttribute("successMsg", successMsg);
-						request.setAttribute("flagUpdate", false);
+						try{
+							successMsg = "Your password be changed";
+							logger.log(Level.INFO, "User password updated :" + user.getPassword());
+							em.getTransaction().begin();
+							em.merge(user);
+							em.getTransaction().commit();
+							request.setAttribute("successMsg", successMsg);
+							request.setAttribute("flagUpdate", false);
+						}catch(Exception e){
+							logger.log(Level.INFO, e.getMessage());
+						}finally {
+							em.close();
+						}
 					}
 				}else{
 					errMsg = "Your actual password is not found";
@@ -180,14 +199,19 @@ public class SrvAccount extends HttpServlet {
 			if(v.validate(request, user)){
 				UserCreation.updateInfo(request, user);
 				if(user != null){
-					logger.log(Level.INFO, "User update :" + user.getName() + " " + user.getFirstname() + " " + user.getPseudo() + "" + user.getPhoneNumber());
-					em.getTransaction().begin();
-					em.merge(user);
-					em.getTransaction().commit();
-					em.close();
-					
-					request.setAttribute("successMsg", successMsg);
-					request.setAttribute("flagUpdate", false);
+					try{
+						logger.log(Level.INFO, "User update :" + user.getName() + " " + user.getFirstname() + " " + user.getPseudo() + "" + user.getPhoneNumber());
+						em.getTransaction().begin();
+						em.merge(user);
+						em.getTransaction().commit();
+						
+						request.setAttribute("successMsg", successMsg);
+						request.setAttribute("flagUpdate", false);
+					}catch(Exception e){
+						logger.log(Level.INFO, e.getMessage());
+					}finally {
+						em.close();
+					}
 				}
 			}
 		}

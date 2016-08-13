@@ -86,9 +86,12 @@ public class SrvClans extends HttpServlet {
 		
 		String btnClan = request.getParameter("btnClan");
 		String btnUserClan = request.getParameter("btnUserClan");
+		String btnRemoveUserClan = request.getParameter("btnRemoveUserClan");
+		
 		String successMsg = null;
 		String errMsg = null;
 		
+		//CREATE CLAN
 		if(btnClan != null){
 			Clan clan = new Clan();
 			
@@ -98,32 +101,38 @@ public class SrvClans extends HttpServlet {
 			if(v.validate(request, clan)){
 				ClanCreation.create(request, clan, userClan);
 				if(clan != null){
+					try{
+						User loggedUser = new User();
+						loggedUser = Util.getLoggedUser(request);
+						logger.log(Level.INFO, loggedUser.getPseudo() + " created the clan : " + clan.getName());
+						
+						em.getTransaction().begin();
+						em.persist(clan);
+						
+						em.merge(loggedUser);
+						em.merge(clan);
+						
+						userClan.setAddedDateTime(new Date());
+						userClan.setClanLeader(true);
+						userClan.setUser(loggedUser);
+						userClan.setClan(clan);
+						
+						loggedUser.addUsersclan(userClan);					
+						clan.addUsersclan(userClan);					
+						
+						em.merge(loggedUser);
+						em.merge(clan);
+						em.persist(userClan);
+						em.getTransaction().commit();
+						em.close();
+						successMsg = "Clan created successfully. You're the leader ! ";
+						request.setAttribute("successMsg", successMsg);
+					}catch(Exception e){
+						logger.log(Level.INFO, e.getMessage());
+					}finally {
+						em.close();
+					}
 					
-					User loggedUser = new User();
-					loggedUser = Util.getLoggedUser(request);
-					logger.log(Level.INFO, loggedUser.getPseudo() + " created the clan : " + clan.getName());
-					
-					em.getTransaction().begin();
-					em.persist(clan);
-					
-					em.merge(loggedUser);
-					em.merge(clan);
-					
-					userClan.setAddedDateTime(new Date());
-					userClan.setClanLeader(true);
-					userClan.setUser(loggedUser);
-					userClan.setClan(clan);
-					
-					loggedUser.addUsersclan(userClan);					
-					clan.addUsersclan(userClan);					
-					
-					em.merge(loggedUser);
-					em.merge(clan);
-					em.persist(userClan);
-					em.getTransaction().commit();
-					em.close();
-					successMsg = "Clan created successfully. You're the leader ! ";
-					request.setAttribute("successMsg", successMsg);
 					doGet(request, response);
 				}
 			}else{
@@ -132,46 +141,97 @@ public class SrvClans extends HttpServlet {
 			}
 			
 		}
+		//INVITE USERS IN CLAN
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
 			User user = new User();
 				user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
 				if(user != null){
 					Usersclan userClan = new Usersclan();
+					try{
+						em.getTransaction().begin();
+						
+						userClan.setAddedDateTime(new Date());
+						userClan.setClanLeader(false);
+						userClan.setUser(user);
+						userClan.setClan(clan);
+						
+						user.addUsersclan(userClan);
+						user.getClans().add(clan);
+						clan.addUsersclan(userClan);
+						clan.getUsers().add(user);
+						
+						em.merge(user);
+						em.merge(clan);
+						em.persist(userClan);
+						em.getTransaction().commit();
+						
+						successMsg = user.getPseudo()+ " is added in " + clan.getName() + " with success ";
+						request.setAttribute("successMsg", successMsg);
+					}catch(Exception e){
+						logger.log(Level.INFO, e.getMessage());
+					}finally {
+						em.close();
+					}
 					
-					em.getTransaction().begin();
-					
-					userClan.setAddedDateTime(new Date());
-					userClan.setClanLeader(false);
-					userClan.setUser(user);
-					userClan.setClan(clan);
-					
-					user.addUsersclan(userClan);
-					user.getClans().add(clan);
-					clan.addUsersclan(userClan);
-					clan.getUsers().add(user);
-					
-					em.merge(user);
-					em.merge(clan);
-					em.persist(userClan);
-					em.getTransaction().commit();
-					
-					successMsg = user.getPseudo()+ " is added in " + clan.getName() + " with success ";
-					request.setAttribute("successMsg", successMsg);
-					em.close();
-					//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
-					//dispatcher.forward(request, response);
 					doGet(request, response);
 					logger.log(Level.INFO, user.getPseudo()+ " is added in " + clan.getName() + "with success");
 				}else{
 					errMsg = request.getParameter("pseudoUserClan")+ " is not found";
 					
 					request.setAttribute("errMsg", errMsg);
-					//RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/account");
-					//dispatcher.forward(request, response);
 					doGet(request, response);
 					logger.log(Level.INFO, "error");
 				}
+		}
+		//REMOVE USER IN CLAN
+		if(btnRemoveUserClan != null){
+			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
+			User user = NmdQueries.findUserById(Integer.parseInt(request.getParameter("idUser")));
+			
+			if(clan != null && user != null){
+				Usersclan userClan = NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers());
+				em.getTransaction().begin();
+				try{
+					Clan c = new Clan();
+					for(Clan item : user.getClans()){
+						if(item.getIdClan() == clan.getIdClan());
+						c = item;
+					}
+					user.getClans().remove(c);
+					
+					User u = new User();
+					for(User item : clan.getUsers()){
+						if(item.getIdUsers() == user.getIdUsers());
+						u = item;
+					}
+					clan.getUsers().remove(u);
+					
+					em.merge(user);
+					em.merge(clan);
+					
+					Usersclan uc = em.merge(userClan);
+					em.remove(uc);
+					
+					em.getTransaction().commit();
+					successMsg = u.getPseudo() + " is removed to "+ c.getName();
+					request.setAttribute("successMsg", successMsg);
+				}catch(Exception e){
+					logger.log(Level.INFO, e.getMessage());
+				}
+				finally {
+					em.close();
+				}
+				
+				
+				doGet(request, response);
+			}else{
+				errMsg = "Impossible to remove";
+				
+				request.setAttribute("errMsg", errMsg);
+				doGet(request, response);
+				logger.log(Level.INFO, "error");
+			}
 		}
 		
 	}
