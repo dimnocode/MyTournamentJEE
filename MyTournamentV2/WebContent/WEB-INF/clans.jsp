@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html">
 <html>
 <c:import url="includes/head.jsp"/>
@@ -8,7 +9,7 @@
 	<c:import url="includes/header.jsp"/>
 	
 	<div class="container">
-		<h1>List of clan</h1>
+		<h1>Your clans</h1>
 		<c:import url="includes/msg.jsp"/>
 		<br>
 		<hr>
@@ -24,10 +25,19 @@
 	            </div>
 	            </fieldset>
 	        </form>
-		</div>
+		</div><br>
 		<c:if test="${listClanLeader != null }">
 			<c:forEach items="${listClanLeader}" var="items" >
-				<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3><br>
+			<div class="jumbotron">
+			<div class="row">
+				<div class="col-md-9">
+					<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3>
+				</div>
+				<div class="col-md-3">
+					<h4 class="table-hover nameClan">Members <c:out value="${fn:length(items.users)}"></c:out></h4>
+				</div>
+			</div>
+				
 				<div class="userClan">
 					<form action="clans" method="POST" class="form-inline" data-toggle="validator" class="formUserClan">
 					<fieldset>
@@ -68,11 +78,20 @@
 						</tr>
 					</table>
 				</div>
+				</div>
 				</c:forEach>
 			</c:if>
 			<c:if test="${listClan != null }">
 			<c:forEach items="${listClan}" var="items" >
-				<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3><br>
+			<div class="jumbotron">
+				<div class="row">
+				<div class="col-md-9">
+					<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3>
+				</div>
+				<div class="col-md-3">
+					<h4 class="table-hover nameClan">Members <c:out value="${fn:length(items.users)}"></c:out></h4>
+				</div>
+			</div>
 				<div class="userClan">
 					<br>
 					<table class="table table-striped">
@@ -93,6 +112,7 @@
 					    </c:forEach>
 						</tr>
 					</table>
+				</div>
 				</div>
 				</c:forEach>
 			</c:if>

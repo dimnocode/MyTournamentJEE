@@ -74,6 +74,8 @@ public class SrvAccount extends HttpServlet {
 		String btnEditUser = request.getParameter("btnEditUser");
 		String btnChangeUser = request.getParameter("btnChangeUser");
 		String btnEditPasswordUser = request.getParameter("btnEditPasswordUser");
+		String btnRemoveGameAccount = request.getParameter("btnRemoveGameAccount");
+		String btnActiveGameAccount = request.getParameter("btnActiveGameAccount");
 		
 		String successMsg = null;
 		String errMsg = null;
@@ -101,6 +103,40 @@ public class SrvAccount extends HttpServlet {
 				response.sendRedirect("error");
 			}
 		}
+		//REMOVE GAMEACCOUNT
+		if(btnRemoveGameAccount != null){
+			Gameaccount ga = NmdQueries.findGameAccount(Integer.parseInt(request.getParameter("idGameAccounts")));
+			if(ga != null){
+				ga.setActive(false);
+				em.getTransaction().begin();
+				em.merge(ga);
+				em.getTransaction().commit();
+				em.close();
+				logger.log(Level.INFO, ga.getName()+ " is removed");
+				successMsg = ga.getName()+ " is removed";
+				request.setAttribute("successMsg", successMsg);
+			}else{
+				errMsg = ga.getName()+ " not found";
+				request.setAttribute("errMsg", errMsg);
+			}
+		}
+		//RE ADD GAMEACCOUNT
+			if(btnActiveGameAccount != null){
+				Gameaccount ga = NmdQueries.findGameAccount(Integer.parseInt(request.getParameter("idGameAccounts")));
+				if(ga != null){
+					ga.setActive(true);
+					em.getTransaction().begin();
+					em.merge(ga);
+					em.getTransaction().commit();
+					em.close();
+					logger.log(Level.INFO, ga.getName()+ " is added");
+					successMsg = ga.getName()+ " is added";
+					request.setAttribute("successMsg", successMsg);
+				}else{
+					errMsg = ga.getName()+ " not found";
+					request.setAttribute("errMsg", errMsg);
+				}
+			}
 		//BOUTON POUR AFFICHER LES FORMULAIRE DE MODIFICATION
 		if(btnEditUser != null){
 			request.setAttribute("flagUpdate", true);

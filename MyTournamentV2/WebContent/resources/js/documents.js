@@ -35,6 +35,22 @@ $(document).ready(function(){
 			$('#divPassword').hide();
 		}
 	})
+	$(document).on('click', '#btnGameAccountRemoved',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$('#formUserPasswordEdit').find('.form-control').attr("disabled",false);
+			$('#gameAccountNotActive').show();
+			$('#gameAccountActive').hide();
+			$(this).text('Game accounts not active');
+			$('#action').text('Added');
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$('#gameAccountActive').show();
+			$('#gameAccountNotActive').hide();
+			$(this).text('Game accounts active');
+			$('#action').text('Remove');
+		}
+	})
 	$(document).on('click','#onlineTournament',function(){
 		if($(this).is(":checked")){
 			$('#location').hide()
@@ -43,10 +59,10 @@ $(document).ready(function(){
 		}
 	})
 	$(document).on('click','.nameClan',function(){
-		if($(this).next().next().attr("class") == "userClan"){
-			$(this).next().next().removeClass('userClan');
+		if($(this).parent().parent().next().attr("class") == "userClan"){
+			$(this).parent().parent().next().removeClass('userClan');
 		}else{
-			$(this).next().next().addClass('userClan');
+			$(this).parent().parent().next().addClass('userClan');
 		}
 	})
 });

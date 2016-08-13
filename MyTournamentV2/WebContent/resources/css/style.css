@@ -29,7 +29,7 @@ footer{
 .userClan{
 	display:none;
 }
-#divPassword, #location{
+#divPassword, #location, #gameAccountNotActive{
 	display: none;
 }
 

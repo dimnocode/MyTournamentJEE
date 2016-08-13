@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html">
 <html>
 <c:import url="includes/head.jsp"/>
@@ -138,24 +138,35 @@
 				<div class="form-group">
 	                 <button type="submit" class="btn btn-info" name="btnGameAccount" id="btnGameAccount">Create</button>
 	            </div>
+	            <div class="form-group">
+	                 <button type="button" class="btn btn-primary" name="btnGameAccountRemoved" id="btnGameAccountRemoved">Game accounts not active</button>
+	            </div>
 	            </fieldset>
 	        </form>
 	        <br>
-		<table class="table table-striped table-hover">
+		<table class="table table-striped">
 			<tr>
 				<th>Name</th>
 				<th>Platform</th>
 				<th>Add game</th>
-				<th>Delete</th>
+				<th id="action">Delete</th>
 			</tr>
 			<tr>
 			<c:forEach items="${listGameAccount }" var="item">
 				<c:if test="${item.active }">
-					<tr id="gameAccount-${item.idGameAccounts }">
+					<tr id="gameAccountActive">
 				  			<td><c:out value="${item.name }"/></td>
 				  			<td><c:out value="${item.platform.name }"/></td>
 				  			<td><form method="POST" action="game"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="submit" class="btn btn-info btn-sm "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></form></td>
-				  			<td><form method="POST" action="account"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="button" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+				  			<td><form method="POST" action="account"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="submit" name="btnRemoveGameAccount" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+				  	</tr>
+			  	</c:if>
+			  	<c:if test="${item.active == false}">
+					<tr id="gameAccountNotActive">
+				  			<td><c:out value="${item.name }"/></td>
+				  			<td><c:out value="${item.platform.name }"/></td>
+				  			<td><form method="POST" action="game"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="submit" class="btn btn-info btn-sm "><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></form></td>
+				  			<td><form method="POST" action="account"><input type="hidden" name="idGameAccounts" value="<c:out value='${item.idGameAccounts }'/>"><button type="submit" name="btnActiveGameAccount" class="btn btn-success btn-sm "><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></form></td>
 				  	</tr>
 			  	</c:if>
 		    </c:forEach>
