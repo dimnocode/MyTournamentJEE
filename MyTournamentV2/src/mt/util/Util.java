@@ -14,15 +14,22 @@ public final class Util {
 	public static Date stringToDate(String dateString){
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date date = formatter.parse(dateString);
-			System.out.println(formatter.format(date));
-			
+			Date date = formatter.parse(dateString);			
 			return date;
-
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+		return null;
+	}
+	
+	public static Date stringToDateTime(String dateString){
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
+		try {
+			Date date = formatter.parse(dateString);			
+			return date;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 	
@@ -32,6 +39,5 @@ public final class Util {
 		User user = (User)session.getAttribute("loggedUser");
 		
 		return user;
-	}
-	
+	}	
 }

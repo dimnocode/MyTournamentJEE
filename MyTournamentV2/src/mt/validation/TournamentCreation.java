@@ -12,9 +12,9 @@ public final class TournamentCreation {
 	
 	public static void create(HttpServletRequest request, Tournament tournament){
 		tournament.setName(request.getParameter("nameTournament"));
-		tournament.setGame(null); //NMDQUERY OR CONTEXT ?
-		tournament.setTypeoftournament(null); //NMDQUERY OR CONTEXT ?
-		tournament.setFormatoftournament(null);  //NMDQUERY OR CONTEXT ?
+		//tournament.setGame(null); //NMDQUERY OR CONTEXT ?
+		//tournament.setTypeoftournament(null); //NMDQUERY OR CONTEXT ?
+		//tournament.setFormatoftournament(null);  //NMDQUERY OR CONTEXT ?
 		tournament.setMaxPlayers(Integer.parseInt(request.getParameter("maxPlayerTournament")));
 		tournament.setStartDate(Util.stringToDate(request.getParameter("startDateTournament")));
 		tournament.setEndDate(Util.stringToDate(request.getParameter("endDateTournament")));
@@ -24,8 +24,11 @@ public final class TournamentCreation {
 		
 		if(request.getParameter("onlineTournament") != null) {
 			tournament.setOnline(true);
-			tournament.setLocation(null); // A crée avant le tournoi
+		}else{
+			tournament.setOnline(false);
 		}
+		
+		
 		
 		
 	}
