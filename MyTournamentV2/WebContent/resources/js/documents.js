@@ -6,17 +6,7 @@ $(document).ready(function(){
 		format: 'YYYY-MM-DD HH:mm:ss'
 	});
 	
-	if($('table').children().children().length > 6){
-		$('#nameGameAccount').attr('disabled',true);
-		$('#namePlateform').attr('disabled',true);
-		$('#nameGameAccount').attr('placeholder','You have 5 game account')
-		$('#btnGameAccount').attr('disabled',true);
-	}else{
-		$('#nameGameAccount').attr('disabled',false);
-		$('#namePlateform').attr('disabled',false);
-		$('#btnGameAccount').attr('disabled',false);
-		$('#nameGameAccount').attr('placeholder','Name');
-	}
+	
 	if($('#gameByGameAccount').children().children().length == 0){
 		$('#gameByGameAccount').hide();
 		$('#gameByGameAccount').prev().prev().hide();

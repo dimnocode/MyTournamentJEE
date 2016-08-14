@@ -220,8 +220,9 @@ public class SrvClans extends HttpServlet {
 					em.remove(uc);
 					
 					em.getTransaction().commit();
-					successMsg = u.getPseudo() + " is removed to "+ c.getName();
+					successMsg = user.getPseudo() + " is removed to "+ clan.getName();
 					request.setAttribute("successMsg", successMsg);
+					logger.log(Level.INFO, u.getPseudo() + " is removed to "+ c.getName());
 					//refresfLists(loggedUser, request);
 				}catch(Exception e){
 					logger.log(Level.INFO, e.getMessage());

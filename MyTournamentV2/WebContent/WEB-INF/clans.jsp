@@ -48,6 +48,7 @@
 			</div>
 				
 				<div class="userClan">
+				<br>
 					<form action="clans" method="POST" class="form-inline" data-toggle="validator" class="formUserClan">
 					<fieldset>
 					<input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>">
