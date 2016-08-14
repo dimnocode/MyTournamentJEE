@@ -215,7 +215,7 @@ public final class NmdQueries {
 	public static List<Tournament> findAllTournaments(){
 		List<Tournament> tournaments = new ArrayList<Tournament>();
 		try{
-			tournaments = EMF.getEM().createNamedQuery("Formatoftournament.findAll").getResultList();
+			tournaments = EMF.getEM().createNamedQuery("Tournament.findAll").getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
