@@ -15,6 +15,7 @@ import mt.entities.Formatoftournament;
 import mt.entities.Game;
 import mt.entities.Gameaccount;
 import mt.entities.Platform;
+import mt.entities.Tournament;
 import mt.entities.Typeoftournament;
 import mt.entities.User;
 import mt.entities.Userrole;
@@ -204,5 +205,20 @@ public final class NmdQueries {
 			return null;
 		}
 		return FormatOfTournament;
+	}
+	
+	//---------------------------------------------------------
+	//Queries TOURNAMENT
+	//---------------------------------------------------------
+		
+	//Get list of tournaments
+	public static List<Tournament> findAllTournaments(){
+		List<Tournament> tournaments = new ArrayList<Tournament>();
+		try{
+			tournaments = EMF.getEM().createNamedQuery("Formatoftournament.findAll").getResultList();
+		}catch(NoResultException e){
+			return null;
+		}
+		return tournaments;
 	}
 }
