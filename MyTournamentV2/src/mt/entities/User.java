@@ -55,8 +55,8 @@ public class User implements Serializable {
 	private String pseudo;
 
 	//bi-directional many-to-many association to Clan
-	@ManyToMany(mappedBy="users")
-	private List<Clan> clans;
+	//@ManyToMany(mappedBy="users")
+	//private List<Clan> clans;
 
 	//bi-directional many-to-one association to Gameaccount
 	@OneToMany(mappedBy="user")
@@ -166,13 +166,13 @@ public class User implements Serializable {
 		this.pseudo = pseudo;
 	}
 
-	public List<Clan> getClans() {
+	/*public List<Clan> getClans() {
 		return this.clans;
 	}
 
 	public void setClans(List<Clan> clans) {
 		this.clans = clans;
-	}
+	}*/
 
 	public List<Gameaccount> getGameaccounts() {
 		return this.gameaccounts;

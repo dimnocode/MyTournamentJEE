@@ -81,7 +81,7 @@ public final class NmdQueries {
 	public static List<Userrole> findAllUserroles(){
 		List<Userrole> userRoles = null;
 		try{
-			userRoles = EMF.getEM().createNamedQuery("Userrole.findAll").getResultList();
+			userRoles = EMF.getEM().createNamedQuery("Userrole.findAll",Userrole.class).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
@@ -120,7 +120,7 @@ public final class NmdQueries {
 	public static List<Gameaccount> findGameAccounts(int idUsers){
 		List<Gameaccount> gameAccounts = new ArrayList<Gameaccount>();
 		try{
-			gameAccounts = EMF.getEM().createNamedQuery("Gameaccount.findByUser").setParameter("idUsers", idUsers).getResultList();
+			gameAccounts = EMF.getEM().createNamedQuery("Gameaccount.findByUser",Gameaccount.class).setParameter("idUsers", idUsers).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
@@ -145,21 +145,21 @@ public final class NmdQueries {
 	public static List<Game> findAllGames(){
 		List<Game> games = new ArrayList<Game>();
 		try{
-			games = EMF.getEM().createNamedQuery("Game.findAll").getResultList();
+			games = EMF.getEM().createNamedQuery("Game.findAll", Game.class).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
 		return games;
 	}
 	//Get list game by id
-	public static List<Gameaccount> findGamesByPlatform(int idPlatforms, int idGameAccounts){
-		List<Gameaccount> gameAccount = new ArrayList<Gameaccount>();
+	public static List<Game> findGamesByPlatform(int idPlatforms, int idGameAccounts){
+		List<Game> game = new ArrayList<Game>();
 		try{
-			gameAccount = EMF.getEM().createNamedQuery("Game.findByPlatform").setParameter("idPlatforms", idPlatforms).setParameter("idGameAccounts", idGameAccounts).getResultList();
+			game = EMF.getEM().createNamedQuery("Game.findByPlatform", Game.class).setParameter("idPlatforms", idPlatforms).setParameter("idGameAccounts", idGameAccounts).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
-		return gameAccount;
+		return game;
 	}
 	
 	//---------------------------------------------------------
@@ -170,7 +170,7 @@ public final class NmdQueries {
 	public static List<Platform> findAllPlatforms(){
 		List<Platform> platforms = null;
 		try{
-			platforms = EMF.getEM().createNamedQuery("Platform.findAll").getResultList();
+			platforms = EMF.getEM().createNamedQuery("Platform.findAll",Platform.class).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
@@ -185,7 +185,7 @@ public final class NmdQueries {
 	public static List<Typeoftournament> findAllTypeOfTournament(){
 		List<Typeoftournament> typeOfTournament = null;
 		try{
-			typeOfTournament = EMF.getEM().createNamedQuery("Typeoftournament.findAll").getResultList();
+			typeOfTournament = EMF.getEM().createNamedQuery("Typeoftournament.findAll",Typeoftournament.class).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
@@ -200,7 +200,7 @@ public final class NmdQueries {
 	public static List<Formatoftournament> findAllFormatOfTournament(){
 		List<Formatoftournament> FormatOfTournament = null;
 		try{
-			FormatOfTournament = EMF.getEM().createNamedQuery("Formatoftournament.findAll").getResultList();
+			FormatOfTournament = EMF.getEM().createNamedQuery("Formatoftournament.findAll",Formatoftournament.class).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}
@@ -215,7 +215,7 @@ public final class NmdQueries {
 	public static List<Tournament> findAllTournaments(){
 		List<Tournament> tournaments = new ArrayList<Tournament>();
 		try{
-			tournaments = EMF.getEM().createNamedQuery("Tournament.findAll").getResultList();
+			tournaments = EMF.getEM().createNamedQuery("Tournament.findAll",Tournament.class).getResultList();
 		}catch(NoResultException e){
 			return null;
 		}

@@ -146,6 +146,9 @@ public class SrvClans extends HttpServlet {
 		//INVITE USERS IN CLAN
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
+			/*for(Usersclan item : clan.getUsersclans()){
+				if(item == NmdQueries.findUserclanByIdUserIdClan(Integer.parseInt(request.getParameter("idClan")), idUser))
+			}*/
 			//User loggedUser = Util.getLoggedUser(request);
 			User user = new User();
 				user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
@@ -162,9 +165,9 @@ public class SrvClans extends HttpServlet {
 						userClan.setClan(clan);
 						
 						user.addUsersclan(userClan);
-						user.getClans().add(clan);
+						//user.getClans().add(clan);
 						clan.addUsersclan(userClan);
-						clan.getUsers().add(user);
+						//clan.getUsers().add(user);
 						
 						em.merge(user);
 						em.merge(clan);
@@ -192,37 +195,20 @@ public class SrvClans extends HttpServlet {
 		}
 		//REMOVE USER IN CLAN
 		if(btnRemoveUserClan != null){
-			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
-			User user = NmdQueries.findUserById(Integer.parseInt(request.getParameter("idUser")));
-			//User loggedUser = Util.getLoggedUser(request);
-			if(clan != null && user != null){
-				Usersclan userClan = NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers());
+			
+			Usersclan userClan = NmdQueries.findUserclanByIdUserIdClan(Integer.parseInt(request.getParameter("idClan")), Integer.parseInt(request.getParameter("idUser")));
+			if(userClan.getUser() != null && userClan.getClan() != null){
 				em.getTransaction().begin();
 				try{
-					Clan c = new Clan();
-					for(Clan item : user.getClans()){
-						if(item.getIdClan() == clan.getIdClan());
-						c = item;
-					}
-					user.getClans().remove(c);
+					userClan.getUser().getUsersclans().remove(userClan);
+					userClan.getClan().getUsersclans().remove(userClan);
 					
-					User u = new User();
-					for(User item : clan.getUsers()){
-						if(item.getIdUsers() == user.getIdUsers());
-						u = item;
-					}
-					clan.getUsers().remove(u);
-					
-					em.merge(user);
-					em.merge(clan);
-					
-					Usersclan uc = em.merge(userClan);
-					em.remove(uc);
+					userClan.setRemovedDateTime(new Date());
 					
 					em.getTransaction().commit();
-					successMsg = user.getPseudo() + " is removed to "+ clan.getName();
+					successMsg = userClan.getUser().getPseudo() + " is removed to "+ userClan.getClan().getName();
 					request.setAttribute("successMsg", successMsg);
-					logger.log(Level.INFO, u.getPseudo() + " is removed to "+ c.getName());
+					logger.log(Level.INFO, userClan.getUser().getPseudo() + " is removed to "+ userClan.getClan().getName());
 					//refresfLists(loggedUser, request);
 				}catch(Exception e){
 					logger.log(Level.INFO, e.getMessage());

@@ -10,7 +10,7 @@
 		<c:import url="includes/msg.jsp"/>
 		<br>
 		<div class="form">
-			<form action="" method="POST" class="form-horizontal" data-toggle="validator" id="formLogin">
+			<form action="login" method="POST" class="form-horizontal" data-toggle="validator" id="formLogin">
 			<fieldset>
 	            <div class="form-group">
 	                <label class="col-sm-2 control-label" for="emailLogin" >Email: </label>

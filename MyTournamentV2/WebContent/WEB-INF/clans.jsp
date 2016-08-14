@@ -43,7 +43,7 @@
 					<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3>
 				</div>
 				<div class="col-md-3">
-					<h4 class="table-hover nameClan">Members <c:out value="${fn:length(items.users)}"></c:out></h4>
+					<h4 class="table-hover nameClan">Members </h4>
 				</div>
 			</div>
 				
@@ -75,20 +75,22 @@
 							<th>Delete</th>
 						</tr>
 						<tr>
-						<c:forEach items="${items.users }" var="item">
-								<tr id="userClan-${item.idUsers }">
-										<c:if test="${loggedUser.idUsers == item.idUsers }">
-							  				<td><span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<c:out value="${item.pseudo }"/></td>
+						<c:forEach items="${items.usersclans }" var="item">
+						<c:if test="${empty item.removedDateTime}">
+								<tr id="userClan-${item.user.idUsers }">
+										<c:if test="${loggedUser.idUsers == item.user.idUsers }">
+							  				<td><span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<c:out value="${item.user.pseudo }"/></td>
 							  			</c:if>
-							  			<c:if test="${loggedUser.idUsers != item.idUsers }">
-							  				<td><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<c:out value="${item.pseudo }"/></td>
+							  			<c:if test="${loggedUser.idUsers != item.user.idUsers }">
+							  				<td><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<c:out value="${item.user.pseudo }"/></td>
 							  			</c:if>
-							  			<td><c:out value="${item.email }"/></td>
-							  			<td><c:out value="${item.name }"/></td>
-							  			<td><c:out value="${item.firstname }"/></td>
-							  			<td><form method="POST" action=clans><input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>"><input type="hidden" name="idUser" value="<c:out value='${item.idUsers }'/>"><button type="submit" name="btnRemoveUserClan" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+							  			<td><c:out value="${item.user.email }"/></td>
+							  			<td><c:out value="${item.user.name }"/></td>
+							  			<td><c:out value="${item.user.firstname }"/></td>
+							  			<td><form method="POST" action=clans><input type="hidden" name="idClan" value="<c:out value='${items.idClan }'/>"><input type="hidden" name="idUser" value="<c:out value='${item.user.idUsers }'/>"><button type="submit" name="btnRemoveUserClan" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
 	
 							  	</tr>
+						</c:if>
 					    </c:forEach>
 						</tr>
 					</table>
@@ -97,61 +99,7 @@
 				</c:forEach>
 				</div>
 			</c:if>
-			<c:if test="${listClan != null }">
-			<div class="form-inline">
-				<div class="form-group">
-					<h3 class="table-hover" id="titleClanRegister">Clans register</h3>
-				</div>
-				<div class="form-group">
-					<button id="btnClanRegister" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-				</div>
-			</div><br>
-			<div id="clanRegister">
-			<c:forEach items="${listClan}" var="items" >
-			<div class="jumbotron">
-				<div class="row">
-				<div class="col-md-9">
-					<h3 class="table-hover nameClan">Clan <c:out value="${items.name }"/></h3>
-				</div>
-				<div class="col-md-3">
-					<h4 class="table-hover nameClan">Members <c:out value="${fn:length(items.users)}"></c:out></h4>
-					
-				</div>
-			</div>
-				<div class="userClan">
-					<br>
-					<table class="table table-striped">
-						<tr>
-							<th>Pseudo</th>
-							<th>Email</th>
-							<th>Name</th>
-							<th>Firstname</th>
-						</tr>
-						<tr>
-						<c:forEach items="${items.users }" var="item">
-								<tr id="userClan-${item.idUsers }">
-								<c:forEach items="${item.usersclans}" var="uc" end="0">
-									<c:if test="${uc.clanLeader }">
-										<td><span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<c:out value="${item.pseudo }"/></td>
-										
-									</c:if>
-									<c:if test="${uc.clanLeader == false}" >
-										<td><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;<c:out value="${item.pseudo }"/></td>
-										
-									</c:if>
-								</c:forEach>
-								<td><c:out value="${item.email }"/></td>
-							  			<td><c:out value="${item.name }"/></td>
-							  			<td><c:out value="${item.firstname }"/></td>
-							  	</tr>
-					    </c:forEach>
-						</tr>
-					</table>
-				</div>
-				</div>
-				</c:forEach>
-				</div>
-			</c:if>
+			
 	</div>
 	
 	<c:import url="includes/footer.jsp"/>

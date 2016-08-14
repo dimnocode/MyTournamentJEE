@@ -35,7 +35,7 @@ public class Clan implements Serializable {
 	private String name;
 
 	//bi-directional many-to-many association to User
-	@ManyToMany
+	/*@ManyToMany
 	@JoinTable(
 		name="usersclans"
 		, joinColumns={
@@ -46,7 +46,7 @@ public class Clan implements Serializable {
 			}
 		)
 	private List<User> users;
-
+*/
 	//bi-directional many-to-one association to Webref
 	@ManyToOne
 	@JoinColumn(name="idWebRef")
@@ -95,13 +95,13 @@ public class Clan implements Serializable {
 		this.name = name;
 	}
 
-	public List<User> getUsers() {
+	/*public List<User> getUsers() {
 		return this.users;
 	}
 
 	public void setUsers(List<User> users) {
 		this.users = users;
-	}
+	}*/
 
 	public Webref getWebref() {
 		return this.webref;
