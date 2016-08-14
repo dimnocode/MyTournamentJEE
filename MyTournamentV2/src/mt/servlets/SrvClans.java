@@ -90,6 +90,8 @@ public class SrvClans extends HttpServlet {
 		String btnClan = request.getParameter("btnClan");
 		String btnUserClan = request.getParameter("btnUserClan");
 		String btnRemoveUserClan = request.getParameter("btnRemoveUserClan");
+		String btnRemoveClan = request.getParameter("btnRemoveClan");
+		String btnReaddUserClan = request.getParameter("btnReaddUserClan");
 		
 		String successMsg = null;
 		String errMsg = null;
@@ -143,68 +145,97 @@ public class SrvClans extends HttpServlet {
 			}
 			
 		}
+		//REMOVE CLAN
+		if(btnRemoveClan != null){
+			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
+			if(clan != null){
+				try{
+					em.getTransaction().begin();
+					clan.setActive(false);
+					em.merge(clan);
+					em.getTransaction().commit();
+					successMsg = clan.getName()+ " is removed with successfully.";
+					request.setAttribute("successMsg", successMsg);
+					doGet(request, response);
+				}catch(Exception e){
+					logger.log(Level.INFO, e.getMessage());
+				}finally {
+					em.close();
+				}
+			}else{
+				errMsg = "Clan is not found";
+				request.setAttribute("errMsg", errMsg);
+				doGet(request, response);
+				logger.log(Level.INFO, "Clan is not found");
+			}
+		}
 		//INVITE USERS IN CLAN
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
-			/*for(Usersclan item : clan.getUsersclans()){
-				if(item == NmdQueries.findUserclanByIdUserIdClan(Integer.parseInt(request.getParameter("idClan")), idUser))
-			}*/
-			//User loggedUser = Util.getLoggedUser(request);
 			User user = new User();
-				user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
+			List<Usersclan> listUc = new ArrayList<Usersclan>();
+			user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
+			for(Usersclan item : clan.getUsersclans()){
+				if(item == NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers())){
+					listUc.add(item);
+				}
+			}
+			if(listUc.size() == 1){
 				if(user != null){
 					Usersclan userClan = new Usersclan();
 					try{
-						
-						
 						em.getTransaction().begin();
-						
+							
 						userClan.setAddedDateTime(new Date());
 						userClan.setClanLeader(false);
 						userClan.setUser(user);
 						userClan.setClan(clan);
-						
+							
 						user.addUsersclan(userClan);
-						//user.getClans().add(clan);
 						clan.addUsersclan(userClan);
-						//clan.getUsers().add(user);
-						
+							
 						em.merge(user);
 						em.merge(clan);
 						em.persist(userClan);
 						em.getTransaction().commit();
-						
+							
 						successMsg = user.getPseudo()+ " is added in " + clan.getName() + " with success ";
 						request.setAttribute("successMsg", successMsg);
-						//refresfLists(loggedUser, request);
 					}catch(Exception e){
 						logger.log(Level.INFO, e.getMessage());
 					}finally {
 						em.close();
 					}
-					
+						
 					doGet(request, response);
 					logger.log(Level.INFO, user.getPseudo()+ " is added in " + clan.getName() + "with success");
 				}else{
 					errMsg = request.getParameter("pseudoUserClan")+ " is not found";
-					
+						
 					request.setAttribute("errMsg", errMsg);
 					doGet(request, response);
 					logger.log(Level.INFO, "error");
 				}
+			}else{
+				errMsg = request.getParameter("pseudoUserClan")+ " exist in "+clan.getName();
+					
+				request.setAttribute("errMsg", errMsg);
+				doGet(request, response);
+				logger.log(Level.INFO, request.getParameter("pseudoUserClan")+ " exist in "+clan.getName());
+			}
 		}
 		//REMOVE USER IN CLAN
 		if(btnRemoveUserClan != null){
 			
 			Usersclan userClan = NmdQueries.findUserclanByIdUserIdClan(Integer.parseInt(request.getParameter("idClan")), Integer.parseInt(request.getParameter("idUser")));
 			if(userClan.getUser() != null && userClan.getClan() != null){
-				em.getTransaction().begin();
 				try{
+					em.getTransaction().begin();
 					userClan.getUser().getUsersclans().remove(userClan);
 					userClan.getClan().getUsersclans().remove(userClan);
 					
 					userClan.setRemovedDateTime(new Date());
-					
+					em.merge(userClan);
 					em.getTransaction().commit();
 					successMsg = userClan.getUser().getPseudo() + " is removed to "+ userClan.getClan().getName();
 					request.setAttribute("successMsg", successMsg);
@@ -225,7 +256,37 @@ public class SrvClans extends HttpServlet {
 				logger.log(Level.INFO, "error");
 			}
 		}
-		
+		//RE ADD USER IN CLAN
+		if(btnReaddUserClan != null){
+			Usersclan userClan = NmdQueries.findUserclanByIdUserIdClan(Integer.parseInt(request.getParameter("idClan")), Integer.parseInt(request.getParameter("idUser")));
+			if(userClan != null){
+				try{
+					em.getTransaction().begin();
+					userClan.getUser().getUsersclans().add(userClan);
+					userClan.getClan().getUsersclans().add(userClan);
+					
+					userClan.setRemovedDateTime(null);
+					em.merge(userClan);
+					em.getTransaction().commit();
+					successMsg = userClan.getUser().getPseudo() + " is re add to "+ userClan.getClan().getName();
+					request.setAttribute("successMsg", successMsg);
+					logger.log(Level.INFO, userClan.getUser().getPseudo() + " is re add to "+ userClan.getClan().getName());
+					//refresfLists(loggedUser, request);
+				}catch(Exception e){
+					logger.log(Level.INFO, e.getMessage());
+				}
+				finally {
+					em.close();
+				}
+				doGet(request, response);
+			}else{
+				errMsg = "Impossible to re add";
+				
+				request.setAttribute("errMsg", errMsg);
+				doGet(request, response);
+				logger.log(Level.INFO, "error");
+			}
+		}
 	}
 	/*public void refresfLists(User user, HttpServletRequest request ){
 		Clan clan = new Clan();

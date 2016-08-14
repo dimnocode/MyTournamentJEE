@@ -41,6 +41,21 @@ $(document).ready(function(){
 			$('#action').text('Remove');
 		}
 	})
+	$(document).on('click', '#playersActive',function(){
+		if($(this).attr("class") == "btn btn-primary playerActive"){
+			$(this).removeClass("btn btn-primary playerActive").addClass("btn btn-success playerActive")
+			$(this).parent().parent().next().children().last().find('.userNotActive').show();
+			$(this).parent().parent().next().children().last().find('.userActive').hide();
+			$(this).text('Players not active');
+			$(this).parent().parent().next().children().last().find('#action').text('Added');
+		}else{
+			$(this).removeClass("btn btn-success playerActive").addClass("btn btn-primary playerActive");
+			$(this).parent().parent().next().children().last().find('.userNotActive').hide();
+			$(this).parent().parent().next().children().last().find('.userActive').show();
+			$(this).text('Players active');
+			$(this).parent().parent().next().children().last().find('#action').text('Remove');
+		}
+	})
 	$(document).on('click','#btnYourClan',function(){
 		if($(this).attr("class") == "btn btn-primary"){
 			$(this).removeClass("btn-primary").addClass("btn-success")
@@ -71,12 +86,25 @@ $(document).ready(function(){
 		}
 	})
 	$(document).on('click','.nameClan',function(){
+		
+		if($(this).parent().parent().parent().parent().next().attr("class") == "userClan"){
+			$(this).parent().parent().parent().parent().parent().find('.playerActive').show();
+			
+			$(this).parent().parent().parent().parent().next().removeClass('userClan');
+		}else{
+			$(this).parent().parent().parent().parent().parent().find('.playerActive').hide();
+			$(this).parent().parent().parent().parent().next().addClass('userClan');
+		}
+	})
+	$(document).on('click','.clanRegister',function(){
+		
 		if($(this).parent().parent().next().attr("class") == "userClan"){
 			$(this).parent().parent().next().removeClass('userClan');
 		}else{
 			$(this).parent().parent().next().addClass('userClan');
 		}
 	})
+	
 });
 
 /**/

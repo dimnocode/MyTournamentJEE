@@ -29,7 +29,7 @@ footer{
 .userClan{
 	display:none;
 }
-#divPassword, #location, #gameAccountNotActive, #clanRegister, #yourClan{
+#divPassword, #location, #gameAccountNotActive, #clanRegister, #yourClan, .userNotActive, .playerActive{
 	display: none;
 }
 
