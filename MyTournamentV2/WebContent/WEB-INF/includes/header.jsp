@@ -22,8 +22,15 @@
                         </c:if>
                         
                         <c:if test="${!empty sessionScope.loggedUser}">
-                        	<li><a href="account">Hi, <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></a></li>
-                        	<li><a href="logout.jsp">Logout</a></li>
+                        	<c:if test="${sessionScope.loggedUser.userrole.idUserRoles eq 1 }">
+                        		<li><a href="account">Hi, <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></a></li>
+                        		<li><a href="dashboard">Dashboard</a></li>
+                        		<li><a href="logout.jsp">Logout</a></li>
+                        	</c:if>
+                        	<c:if test="${sessionScope.loggedUser.userrole.idUserRoles != 1 }">
+                        		<li><a href="account">Hi, <c:out value="${sessionScope.loggedUser.pseudo}"></c:out></a></li>
+                        		<li><a href="logout.jsp">Logout</a></li>
+                        	</c:if>
                         </c:if>
                         
                     </ul>

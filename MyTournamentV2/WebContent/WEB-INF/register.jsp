@@ -44,7 +44,7 @@
 	            <div class="form-group">
 	                <label class="col-sm-2 control-label" for="dobUser" >Date of birth: </label>
 	                <div class="col-sm-10">
-	                    <input class="datepicker form-control" type="text" id="dobUser" name="dobUser" placeholder="Date of birth">
+	                    <input class="datepicker form-control" readonly type="text" id="dobUser" name="dobUser" placeholder="Date of birth">
 	                </div>
 	            </div>
 	            <div class="form-group">
