@@ -11,7 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name="formatoftournaments")
-@NamedQuery(name="Formatoftournament.findAll", query="SELECT f FROM Formatoftournament f")
+@NamedQueries({
+
+	@NamedQuery(name="Formatoftournament.findAll", query="SELECT f FROM Formatoftournament f"),
+	@NamedQuery(name="Formatoftournament.findById", query="SELECT f FROM Formatoftournament f WHERE f.idFormatTournaments = :idFormatTournaments")
+})
 public class Formatoftournament implements Serializable {
 	private static final long serialVersionUID = 1L;
 

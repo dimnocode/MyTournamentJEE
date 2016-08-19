@@ -131,7 +131,9 @@
   					<label class="control-label" for="namePlateform">Platform:</label>
   						<select class="form-control" name="namePlateform" id="namePlateform">
   							<c:forEach items="${listPlatforms }" var="item">
-  								<option value="${item.idPlatforms }">${item.name }</option>
+	  							<c:if test="${item.active }">
+	  								<option value="${item.idPlatforms }">${item.name }</option>
+	  							</c:if>
   							</c:forEach>
 	  					</select>
 				</div>

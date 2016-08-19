@@ -404,6 +404,32 @@ $(document).ready(function(){
             }
         }
     });
+    
+    $('#formAdminPlatforms').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	namePlatforms: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            }
+        }
+    });
+    
+    
     $('.datepicker').on('changeDate show', function(e) {
         $('#formUser').bootstrapValidator('revalidateField', 'dobRegister');
     });

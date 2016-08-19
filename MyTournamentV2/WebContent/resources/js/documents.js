@@ -1,11 +1,15 @@
 $(document).ready(function(){
+	
 	 $('.datepicker').datepicker({
 		    format: 'yyyy-mm-dd'
 		 });
 	$('.datetimepicker').datetimepicker({
 		format: 'YYYY-MM-DD HH:mm:ss'
 	});
-	
+	$('#myTabs a').click(function (e) {
+		  e.preventDefault()
+		  $(this).tab('show')
+		})
 	
 	if($('#gameByGameAccount').children().children().length == 0){
 		$('#gameByGameAccount').hide();
@@ -39,6 +43,51 @@ $(document).ready(function(){
 			$('#gameAccountNotActive').hide();
 			$(this).text('Game accounts active');
 			$('#action').text('Remove');
+		}
+	})
+	$(document).on('click', '#btnPlatformsRemoved',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$('.platformsNotActive').show();
+			$('.platformsActive').hide();
+			$(this).text('Platforms not active');
+			$('.action').text('Added');
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$('.platformsActive').show();
+			$('.platformsNotActive').hide();
+			$(this).text('Platforms active');
+			$('.action').text('Delete');
+		}
+	})
+	$(document).on('click', '#btnTypeoftournamentRemoved',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$('.typeoftourmanetNotActive').show();
+			$('.typeoftourmanetActive').hide();
+			$(this).text('Type of tournament not active');
+			$('.action').text('Added');
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$('.typeoftourmanetActive').show();
+			$('.typeoftourmanetNotActive').hide();
+			$(this).text('Type of tournament active');
+			$('.action').text('Delete');
+		}
+	})
+	$(document).on('click', '#btnFormatoftournamentRemoved',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$('.formatoftourmanetNotActive').show();
+			$('.formatoftourmanetActive').hide();
+			$(this).text('Format of tournament not active');
+			$('.action').text('Added');
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$('.formatoftourmanetActive').show();
+			$('.formatoftourmanetNotActive').hide();
+			$(this).text('Format of tournament active');
+			$('.action').text('Delete');
 		}
 	})
 	$(document).on('click', '#playersActive',function(){

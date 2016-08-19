@@ -33,11 +33,13 @@
 			<input type="hidden" name="idGameAccounts" value="<c:out value="${gameaccount.idGameAccounts }"/>">
 			<div class="row">
 				<c:forEach items="${listGame}" var="item">
-			  		<div class="col-md-3">
-			  			<label class="checkbox-inline">
-	  						<input type="checkbox" id="game-${item.idGames }" name="${item.idGames }" value="${item.idGames }"> <c:out value="${item.name }"/>
-						</label>
-			  		</div>
+					<c:if test="${item.active }">
+						<div class="col-md-3">
+				  			<label class="checkbox-inline">
+		  						<input type="checkbox" id="game-${item.idGames }" name="${item.idGames }" value="${item.idGames }"> <c:out value="${item.name }"/>
+							</label>
+				  		</div>
+					</c:if>
 				</c:forEach>
 			</div>
 			<br>

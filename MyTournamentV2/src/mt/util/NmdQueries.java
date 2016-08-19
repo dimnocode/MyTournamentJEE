@@ -177,7 +177,15 @@ public final class NmdQueries {
 		}
 		return platforms;
 	}
-	
+	public static Platform findPlatformById(int idPlatforms){
+		Platform platform = null;
+		try{
+			platform = EMF.getEM().createNamedQuery("Platform.find",Platform.class).setParameter("idPlatforms", idPlatforms).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return platform;
+	}
 	//---------------------------------------------------------
 	//Queries TYPE OF TOURNAMENTS
 	//---------------------------------------------------------
@@ -192,7 +200,15 @@ public final class NmdQueries {
 		}
 		return typeOfTournament;
 	}
-	
+	public static Typeoftournament findTypeOfTournamentById(int idTypeOfTournaments){
+		Typeoftournament typeOfTournament = null;
+		try{
+			typeOfTournament = EMF.getEM().createNamedQuery("Typeoftournament.findById",Typeoftournament.class).setParameter("idTypeOfTournaments", idTypeOfTournaments).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return typeOfTournament;
+	}
 	//---------------------------------------------------------
 	//Queries FORMAT OF TOURNAMENT
 	//---------------------------------------------------------
@@ -207,7 +223,15 @@ public final class NmdQueries {
 		}
 		return FormatOfTournament;
 	}
-	
+	public static Formatoftournament findFormatoftournamentById(int idFormatTournaments){
+		Formatoftournament format = null;
+		try{
+			format = EMF.getEM().createNamedQuery("Formatoftournament.findById",Formatoftournament.class).setParameter("idFormatTournaments", idFormatTournaments).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return format;
+	}
 	//---------------------------------------------------------
 	//Queries TOURNAMENT
 	//---------------------------------------------------------

@@ -29,7 +29,8 @@ footer{
 .userClan{
 	display:none;
 }
-#divPassword, #location, #gameAccountNotActive, #clanRegister, #yourClan, .userNotActive, .playerActive{
+#divPassword, #location, #gameAccountNotActive, #clanRegister, #yourClan, .userNotActive, .playerActive,
+.platformsNotActive,.typeoftourmanetNotActive,.formatoftourmanetNotActive{
 	display: none;
 }
 

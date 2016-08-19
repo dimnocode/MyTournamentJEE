@@ -15,6 +15,18 @@ public class Validation<T> {
 		
 		case "mt.entities.Clan":
 			return ClanValidation.validate(request);
+			
+		case "mt.entities.Tournament":
+			return TournamentValidation.validate(request);
+			
+		case "mt.entities.Platform":
+			return PlatformValidation.validate(request);
+			
+		case "mt.entities.Typeoftournament":
+			return TypeoftournamentValidation.validate(request);
+			
+		case "mt.entities.Formatoftournament":
+			return FormatoftournamentValidation.validate(request);
 		}
 		return false;
 	}
