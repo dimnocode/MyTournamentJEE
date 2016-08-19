@@ -25,37 +25,37 @@ import mt.entities.Usersclan;
 
 
 public final class NmdQueries {
-	
+
 	private static final Logger logger = Logger.getLogger(NmdQueries.class);
-	
+
 	//---------------------------------------------------------
 	//Queries USERCLAN
 	//---------------------------------------------------------
 
-	
-		public static Usersclan findUserclanByIdUserIdClan(int idClan, int idUser){
-			Usersclan userClan = new Usersclan();
-			try{
-				userClan = (Usersclan)EMF.getEM().createNamedQuery("Usersclan.findByIdUserIdClan").setParameter("idClan", idClan).setParameter("idUser", idUser).getSingleResult();
-			}catch(NoResultException e){
-				return null;
-			}
-			return userClan;
+
+	public static Usersclan findUserclanByIdUserIdClan(int idClan, int idUser){
+		Usersclan userClan = new Usersclan();
+		try{
+			userClan = (Usersclan)EMF.getEM().createNamedQuery("Usersclan.findByIdUserIdClan").setParameter("idClan", idClan).setParameter("idUser", idUser).getSingleResult();
+		}catch(NoResultException e){
+			return null;
 		}
+		return userClan;
+	}
 	//---------------------------------------------------------
 	//Queries USERS
 	//---------------------------------------------------------
-	
+
 	//Get user login with password and email in DB
-		public static User userLogin(String email, String pass){
-			User user = new User();
-			try{
-				user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
-			}catch(NoResultException e){
-				return null;
-			}
-			return user;
+	public static User userLogin(String email, String pass){
+		User user = new User();
+		try{
+			user = (User)EMF.getEM().createNamedQuery("User.login").setParameter("email", email).setParameter("pass", pass).getSingleResult();
+		}catch(NoResultException e){
+			return null;
 		}
+		return user;
+	}
 	//Get userRole in DB by id
 	public static Userrole findUserrole(int id, EntityManager em){
 		return em.find(Userrole.class, id);
@@ -91,7 +91,7 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 	//Queries CLAN
 	//---------------------------------------------------------
-		
+
 	//Get clan by id
 	public static Clan findClanById(int idClans){
 		Clan clan = new Clan();
@@ -102,11 +102,11 @@ public final class NmdQueries {
 		}
 		return clan;
 	}
-	
+
 	//---------------------------------------------------------
 	//Queries GAMEACCOUNT
 	//---------------------------------------------------------
-	
+
 	//Get gameAccount by id
 	public static Gameaccount findGameAccount(int idGameAccounts){
 		Gameaccount gameAccount = new Gameaccount();
@@ -127,11 +127,11 @@ public final class NmdQueries {
 		}
 		return gameAccounts;
 	}
-	
+
 	//---------------------------------------------------------
 	//Queries GAMES
 	//---------------------------------------------------------
-	
+
 	//Get game by Id
 	public static Game findGameById(int idGames){
 		Game game = new Game();
@@ -162,11 +162,11 @@ public final class NmdQueries {
 		}
 		return game;
 	}
-	
+
 	//---------------------------------------------------------
 	//Queries PLATFORMS
 	//---------------------------------------------------------
-	
+
 	//Get list plaftorms
 	public static List<Platform> findAllPlatforms(){
 		List<Platform> platforms = null;
@@ -189,7 +189,7 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 	//Queries TYPE OF TOURNAMENTS
 	//---------------------------------------------------------
-	
+
 	//Get list type of tournament
 	public static List<Typeoftournament> findAllTypeOfTournament(){
 		List<Typeoftournament> typeOfTournament = null;
@@ -212,7 +212,7 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 	//Queries FORMAT OF TOURNAMENT
 	//---------------------------------------------------------
-		
+
 	//Get list format or tournament
 	public static List<Formatoftournament> findAllFormatOfTournament(){
 		List<Formatoftournament> FormatOfTournament = null;
@@ -235,7 +235,7 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 	//Queries TOURNAMENT
 	//---------------------------------------------------------
-		
+
 	//Get list of tournaments
 	public static List<Tournament> findAllTournaments(){
 		List<Tournament> tournaments = new ArrayList<Tournament>();
@@ -246,38 +246,47 @@ public final class NmdQueries {
 		}
 		return tournaments;
 	}
-	
+
 	//Get tournament by id
-		public static Tournament findTournamentById(int idTournaments){
-			Tournament tournament = new Tournament();
-			try{
-				tournament = (Tournament) EMF.getEM().createNamedQuery("Tournament.findById").setParameter("idTournaments", idTournaments).getSingleResult();
-			}catch(NoResultException e){
-				return null;
-			}
-			return tournament;
+	public static Tournament findTournamentById(int idTournaments){
+		Tournament tournament = new Tournament();
+		try{
+			tournament = (Tournament) EMF.getEM().createNamedQuery("Tournament.findById").setParameter("idTournaments", idTournaments).getSingleResult();
+		}catch(NoResultException e){
+			return null;
 		}
-		
-		//---------------------------------------------------------
-		//Queries REGISTRATION
-		//---------------------------------------------------------
-			
-		//Get list of registrations
-		public static List<Registration> findAllRegistrations(){
-			List<Registration> registrations = new ArrayList<Registration>();
-			try{
-				registrations = EMF.getEM().createNamedQuery("Registration.findAll",Registration.class).getResultList();
-			}catch(NoResultException e){
-				return null;
-			}
-			return registrations;
+		return tournament;
+	}
+
+	//---------------------------------------------------------
+	//Queries REGISTRATION
+	//---------------------------------------------------------
+
+	//Get list of registrations
+	public static List<Registration> findAllRegistrations(){
+		List<Registration> registrations = new ArrayList<Registration>();
+		try{
+			registrations = EMF.getEM().createNamedQuery("Registration.findAll",Registration.class).getResultList();
+		}catch(NoResultException e){
+			return null;
 		}
-		
-		//Is User registered
-			public static long isUserRegistered(int idTournament, int idUser){
-				
-				return (long) EMF.getEM().createNamedQuery("Registration.isUserRegistered").setParameter("tournament", idTournament).setParameter("user", idUser).getSingleResult();
-			}
-		
-		
+		return registrations;
+	}
+
+	//Is User registered
+	public static long isUserRegistered(int idTournament, int idUser){
+
+		return (long) EMF.getEM().createNamedQuery("Registration.isUserRegistered").setParameter("tournament", idTournament).setParameter("user", idUser).getSingleResult();
+	}
+
+	//Get registration by user and tournament
+	public static Registration findRegistrationByUserAndTournament(int idTournament, int idUser){
+		Registration registration = new Registration();
+		try{
+			registration = (Registration) EMF.getEM().createNamedQuery("Registration.findByUserAndTournament").setParameter("idTournament", idTournament).setParameter("idUser", idUser).getSingleResult();
+		}catch(NoResultException e){
+			return null;
+		}
+		return registration;
+	}
 }
