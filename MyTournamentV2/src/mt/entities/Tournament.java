@@ -15,7 +15,7 @@ import java.util.List;
 @NamedQueries({
 
 	@NamedQuery(name="Tournament.findAll", query="SELECT t FROM Tournament t"),
-	@NamedQuery(name="Tournament.findById", query="SELECT t FROM Tournament t WHERE t.idTournaments = :idtournaments")
+	@NamedQuery(name="Tournament.findById", query="SELECT t FROM Tournament t WHERE t.idTournaments = :idTournaments")
 })
 
 public class Tournament implements Serializable {
