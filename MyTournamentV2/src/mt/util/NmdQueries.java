@@ -221,4 +221,15 @@ public final class NmdQueries {
 		}
 		return tournaments;
 	}
+	
+	//Get tournament by id
+		public static Tournament findTournamentById(int idTournaments){
+			Tournament tournament = new Tournament();
+			try{
+				tournament = (Tournament) EMF.getEM().createNamedQuery("Tournament.findById").setParameter("idTournaments", idTournaments).getSingleResult();
+			}catch(NoResultException e){
+				return null;
+			}
+			return tournament;
+		}
 }
