@@ -11,7 +11,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="registrations")
-@NamedQuery(name="Registration.findAll", query="SELECT r FROM Registration r")
+@NamedQueries({
+	@NamedQuery(name="Registration.findAll", query="SELECT r FROM Registration r"),
+	@NamedQuery (name="Registration.isUserRegistered", query="select case when (count(r) > 0) then true else false end from Registration r where r.user.idUsers = :user AND r.tournament.idTournaments = :tournament")
+})
+
 public class Registration implements Serializable {
 	private static final long serialVersionUID = 1L;
 

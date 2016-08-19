@@ -15,6 +15,7 @@ import mt.entities.Formatoftournament;
 import mt.entities.Game;
 import mt.entities.Gameaccount;
 import mt.entities.Platform;
+import mt.entities.Registration;
 import mt.entities.Tournament;
 import mt.entities.Typeoftournament;
 import mt.entities.User;
@@ -232,4 +233,27 @@ public final class NmdQueries {
 			}
 			return tournament;
 		}
+		
+		//---------------------------------------------------------
+		//Queries REGISTRATION
+		//---------------------------------------------------------
+			
+		//Get list of registrations
+		public static List<Registration> findAllRegistrations(){
+			List<Registration> registrations = new ArrayList<Registration>();
+			try{
+				registrations = EMF.getEM().createNamedQuery("Registration.findAll",Registration.class).getResultList();
+			}catch(NoResultException e){
+				return null;
+			}
+			return registrations;
+		}
+		
+		//Is User registered
+			public static long isUserRegistered(int idTournament, int idUser){
+				
+				return (long) EMF.getEM().createNamedQuery("Registration.isUserRegistered").setParameter("tournament", idTournament).setParameter("user", idUser).getSingleResult();
+			}
+		
+		
 }
