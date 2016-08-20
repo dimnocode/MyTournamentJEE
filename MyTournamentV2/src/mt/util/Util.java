@@ -47,7 +47,7 @@ public final class Util {
 	}
 
 	// Returns true if user has the game in one of his gameaccounts
-	public boolean hasGame(User u, Game g) {
+	public static boolean hasGame(User u, Game g) {
 
 		for (Gameaccount ga : u.getGameaccounts()) {
 			if (ga.getGames().contains(g)) {
@@ -58,7 +58,7 @@ public final class Util {
 	}
 
 	// Returns true if tournament has enough players that have the game
-	public boolean hasEnoughPlayers(Clan c, Tournament t) {
+	public static boolean hasEnoughPlayers(Clan c, Tournament t) {
 		int count = 0;
 
 		for (Usersclan uc : c.getUsersclans()) {
