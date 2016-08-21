@@ -17,5 +17,7 @@
 	<script type="text/javascript" src="resources/js/datetimePicker/collapse.js"></script>
 	<script type="text/javascript" src="resources/js/datetimePicker/transition.js"></script>
 	<script type="text/javascript" src="resources/js/datetimePicker/datetimePicker.js"></script>
+	<script type="text/javascript" src="resources/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="resources/js/lang/en.js"></script>
 </footer>
