@@ -40,7 +40,7 @@
 			<tbody>
 			<c:forEach items="${tournaments}" var="item">				
 					<tr>
-				  			<td><form method="post" action="${pageContext.request.contextPath}/tournament"><c:out value="${item.name}"/> <input type="submit" value="See"> <input type="hidden" name="tournamentId" value="<c:out value="${item.idTournaments}"/>"> </form></td>
+				  			<td><c:out value="${item.name}"/><form method="post" action="${pageContext.request.contextPath}/tournament"> <button type="submit" class="btn btn-primary">See <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button> <input type="hidden" name="tournamentId" value="<c:out value="${item.idTournaments}"/>"> </form></td>
 				  			<td><c:out value="${item.game.name}"/></td>
 				  			<td><c:out value="${item.typeoftournament.name}"/></td>
 				  			<td><c:out value="${item.formatoftournament.name}"/></td>
