@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html">
 <html>
 <c:import url="includes/head.jsp"/>
@@ -40,12 +41,12 @@
 			<tbody>
 			<c:forEach items="${tournaments}" var="item">				
 					<tr>
-				  			<td><c:out value="${item.name}"/><form method="post" action="${pageContext.request.contextPath}/tournament"> <button type="submit" class="btn btn-primary">See <span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button> <input type="hidden" name="tournamentId" value="<c:out value="${item.idTournaments}"/>"> </form></td>
+				  			<td><c:out value="${item.name}"/><form method="post" action="${pageContext.request.contextPath}/tournament"> <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Details</button> <input type="hidden" name="tournamentId" value="<c:out value="${item.idTournaments}"/>"> </form></td>
 				  			<td><c:out value="${item.game.name}"/></td>
 				  			<td><c:out value="${item.typeoftournament.name}"/></td>
 				  			<td><c:out value="${item.formatoftournament.name}"/></td>
-				  			<td><c:out value="${item.startDate}"/></td>
-				  			<td><c:out value="${item.endDate}"/></td>
+				  			<td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${item.startDate}" /></td>
+				  			<td><fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${item.endDate}" /></td>
 				  			<td><c:out value="${fn:length(item.registrations)}"/>/<c:out value="${item.maxPlayers}"/></td>
 				  	</tr>
 		    </c:forEach>
