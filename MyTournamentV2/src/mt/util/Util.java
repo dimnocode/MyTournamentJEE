@@ -52,7 +52,7 @@ public final class Util {
 	public static boolean hasGame(User u, Game g) {
 
 		for (Gameaccount ga : u.getGameaccounts()) {
-			if (ga.getGames().contains(g)) {
+			if (ga.getActive() && ga.getGames().contains(g)) {
 				return true;
 			}
 		}
@@ -82,12 +82,12 @@ public final class Util {
 	}
 
 
-	// Returns true if tournament has enough players that have the game
+	// Returns true if tournament has enough active players that have the game
 	public static boolean hasEnoughPlayers(Clan c, Tournament t) {
 		int count = 0;
 
 		for (Usersclan uc : c.getUsersclans()) {
-			if (hasGame(uc.getUser(), t.getGame()) && !isRegistered(uc.getUser(), t)) {
+			if (hasGame(uc.getUser(), t.getGame()) && !isRegistered(uc.getUser(), t) && uc.getRemovedDateTime() == null) {
 				count++;
 			}
 		}
