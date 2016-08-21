@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import mt.entities.Clan;
 import mt.entities.Game;
 import mt.entities.Gameaccount;
+import mt.entities.Registration;
 import mt.entities.Tournament;
 import mt.entities.User;
 import mt.entities.Usersclan;
@@ -37,7 +38,8 @@ public final class Util {
 		}
 		return null;
 	}
-
+	
+	//Returns the user stored in HttpSession
 	public static User getLoggedUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 
@@ -57,12 +59,35 @@ public final class Util {
 		return false;
 	}
 
+	// Returns true if user is already registered in tournament
+	public static boolean isRegistered(User u, Tournament t){
+
+		for (Registration r : u.getRegistrations()) {
+			if (t.getRegistrations().contains(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Returns true if a clan member is already registered in tournament
+	public static boolean isRegistered(Clan c, Tournament t){
+
+		for (Registration r : t.getRegistrations()) {
+			if (c.getRegistrations().contains(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
 	// Returns true if tournament has enough players that have the game
 	public static boolean hasEnoughPlayers(Clan c, Tournament t) {
 		int count = 0;
 
 		for (Usersclan uc : c.getUsersclans()) {
-			if (hasGame(uc.getUser(), t.getGame())) {
+			if (hasGame(uc.getUser(), t.getGame()) && !isRegistered(uc.getUser(), t)) {
 				count++;
 			}
 		}
