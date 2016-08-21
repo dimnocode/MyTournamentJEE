@@ -130,11 +130,12 @@
 			<div class="col-md-6">
 				
 				<c:if test="${tournament.typeoftournament.idTypeOfTournaments eq 2}">
-					<h2>Add a clan</h2>
 					
-					<c:if test="${not empty leaderClans}">		
+					<h2>Register clan</h2>
+					
+					<c:if test="${not empty unregisteredClans}">		
 						<div class="panel-group" id="accordionClans" role="tablist" aria-multiselectable="true" style="padding-left: 3%;">
-							<c:forEach items="${leaderClans}" var="item">
+							<c:forEach items="${unregisteredClans}" var="item">
 									
 	                			<!-- Clan name                   -->
 	                			<div class="panel panel-default">
@@ -167,7 +168,28 @@
 						</div>					
 					</c:if>	
 					
-					<c:if test="${empty leaderClans}">None of the clan you're leading has enough players that have the game</c:if>
+					<c:if test="${empty unregisteredClans}">None of the clan you're leading has enough players that have the game</c:if>
+					
+						<c:if test="${not empty registeredClans}">
+							<br><br>
+							<h2>Unregister clan</h2>
+							<ul class="list-group">	
+								<c:forEach items="${registeredClans}" var="item">									
+		                			<!-- Clan name                   -->
+		                			
+		                    			<li class="list-group-item">                 			
+		                    			     
+		                    			    <form method="post" action="${pageContext.request.contextPath}/tournament"> 
+		                    			    	<h4><c:out value="${item.name}"/>
+		                    			    	<input type="hidden" name="tournamentId" value="<c:out value="${tournament.idTournaments}"/>">
+		                    			    	<input type="hidden" name="clanId" value="<c:out value="${item.idClan}"/>">
+		                    			    	<button type="submit" name="cUnregister" class="btn btn-sm btn-primary pull-right"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+		                    			    	</h4> 
+		                    			    </form>	                            		
+		                    			</li>               								
+								</c:forEach>
+							</ul>										
+						</c:if>					
 				</c:if>			
 			</div>
 		</div>

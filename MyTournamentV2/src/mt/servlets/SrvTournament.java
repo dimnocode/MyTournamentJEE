@@ -66,14 +66,8 @@ public class SrvTournament extends HttpServlet {
 		int tournamentId = Integer.parseInt(request.getParameter("tournamentId"));
 		
 		Tournament tournament = NmdQueries.findTournamentById(tournamentId);		
-		User loggedUser = Util.getLoggedUser(request);
-		
-		Registration pRegistration = new Registration();
-		pRegistration = NmdQueries.findRegistrationByUserAndTournament(tournament.getIdTournaments(), loggedUser.getIdUsers());	
-		
-		
-		//List<Registration> cRegistration = new ArrayList<Registration>();
-		//cRegistration = NmdQueries.findAllRegistrations();
+		User loggedUser = Util.getLoggedUser(request);		
+		Registration pRegistration = NmdQueries.findRegistrationByUserAndTournament(tournament.getIdTournaments(), loggedUser.getIdUsers());	
 		
 		tournament = em.merge(tournament);
 		loggedUser = em.merge(loggedUser);
@@ -174,6 +168,38 @@ public class SrvTournament extends HttpServlet {
 			}			
 		}
 		
+		//Clan unregister
+		
+		if(request.getParameter("cUnregister") != null){	
+			//Remove registration
+			//Remove in User registrations
+			//Remove in Clan registrations
+			
+			em.getTransaction().begin();
+			
+			Clan c = NmdQueries.findClanById(Integer.parseInt(request.getParameter("clanId")));
+			c = em.merge(c);
+			
+			for(Registration r : c.getRegistrations()){
+				
+				r = em.merge(r);
+				
+				User u = r.getUser();
+				
+				u.getRegistrations().remove(r);
+			
+				Tournament t = r.getTournament();
+				
+				t.getRegistrations().remove(r);
+				
+				em.merge(u);
+				em.merge(t);
+				em.remove(r);
+			}
+			em.getTransaction().commit();
+		}
+		
+		
 		//---------------------------------
 		//      Setting lists and attributes
 		//---------------------------------
@@ -187,18 +213,22 @@ public class SrvTournament extends HttpServlet {
 		//If tournament of type "Clans"(2)
 		if(tournament.getTypeoftournament().getIdTypeOfTournaments() == 2){
 		
-			List<Clan> leaderClans = new ArrayList<Clan>();
+			List<Clan> unregisteredClans = new ArrayList<Clan>();
+			List<Clan> registeredClans = new ArrayList<Clan>();
 
 			//Add clan to list if clan is active and loggedUser is Leader and clan has enough not already registered players having the game
 			for(Usersclan uc : loggedUser.getUsersclans()){
-				//If isleader and clan has enough players			
+				//If isleader and clan has enough players and clan is not registered and clan is active			
 				if (uc.getClanLeader() && Util.hasEnoughPlayers(uc.getClan(), tournament) && !Util.isRegistered(uc.getClan(), tournament) && uc.getClan().getActive()){
-					leaderClans.add(uc.getClan());					
+					unregisteredClans.add(uc.getClan());	//Add in unregisteredClans				
+				}
+				if (uc.getClanLeader() && Util.isRegistered(uc.getClan(), tournament)){
+					registeredClans.add(uc.getClan());					
 				}
 			}
 			
-			//Iterate through clan->usersclan to delete users that don't have the game or are already registered through other clan or have been deleted from clan
-			for(Clan c : leaderClans){
+			//Iterate through unregisteredClans clan->usersclan to delete users that don't have the game or are already registered through other clan or have been deleted from clan
+			for(Clan c : unregisteredClans){
 				Iterator<Usersclan> i = c.getUsersclans().iterator();				
 				while(i.hasNext()){
 					Usersclan uc = i.next();
@@ -208,9 +238,10 @@ public class SrvTournament extends HttpServlet {
 				}
 			}
 			
-			request.setAttribute("leaderClans", leaderClans);
+			request.setAttribute("unregisteredClans", unregisteredClans);
+			request.setAttribute("registeredClans", registeredClans);
 		}
-		
+		pRegistration = NmdQueries.findRegistrationByUserAndTournament(tournament.getIdTournaments(), loggedUser.getIdUsers());
 		request.setAttribute("pRegistration", pRegistration);
 		request.setAttribute("tournament", tournament);
 		request.setAttribute("loggedUser", loggedUser);
