@@ -157,7 +157,7 @@
 			  										<input type="checkbox" name="<c:out value="${uc.user.idUsers}"/>" value="<c:out value="${uc.user.idUsers}"/>"><c:out value="${uc.user.pseudo}"/><br>
 													</label>											
 												</c:forEach>
-												<br>												
+												<br><br>												
 												<input type="submit" name="cRegister" class="btn btn-info" value="Register selection">
 											</form>
 	                        			</div>
