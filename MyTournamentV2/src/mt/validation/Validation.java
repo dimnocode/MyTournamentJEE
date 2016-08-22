@@ -16,6 +16,9 @@ public class Validation<T> {
 		case "mt.entities.Clan":
 			return ClanValidation.validate(request);
 			
+		case "mt.entities.Game":
+			return GameValidation.validate(request);
+			
 		case "mt.entities.Tournament":
 			return TournamentValidation.validate(request);
 			

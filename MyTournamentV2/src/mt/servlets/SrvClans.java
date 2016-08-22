@@ -170,15 +170,12 @@ public class SrvClans extends HttpServlet {
 		//INVITE USERS IN CLAN
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
-			User user = new User();
-			List<Usersclan> listUc = new ArrayList<Usersclan>();
-			user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
-			for(Usersclan item : clan.getUsersclans()){
-				if(item == NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers())){
-					listUc.add(item);
-				}
-			}
-			if(listUc.size() == 1){
+			User user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
+			
+			//BESOIN DE VERIFIER SI LE USER EST DEJA INSCRIT DANS LE CLAN
+			
+			
+			
 				if(user != null){
 					Usersclan userClan = new Usersclan();
 					try{
@@ -214,13 +211,6 @@ public class SrvClans extends HttpServlet {
 					doGet(request, response);
 					logger.log(Level.INFO, "error");
 				}
-			}else{
-				errMsg = request.getParameter("pseudoUserClan")+ " exist in "+clan.getName();
-					
-				request.setAttribute("errMsg", errMsg);
-				doGet(request, response);
-				logger.log(Level.INFO, request.getParameter("pseudoUserClan")+ " exist in "+clan.getName());
-			}
 		}
 		//REMOVE USER IN CLAN
 		if(btnRemoveUserClan != null){

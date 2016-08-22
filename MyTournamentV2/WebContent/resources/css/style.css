@@ -30,7 +30,7 @@ footer{
 	display:none;
 }
 #divPassword, #location, #gameAccountNotActive, #clanRegister, #yourClan, .userNotActive, .playerActive,
-.platformsNotActive,.typeoftourmanetNotActive,.formatoftourmanetNotActive{
+.platformsNotActive,.typeoftourmanetNotActive,.formatoftourmanetNotActive,.gamesNotActive{
 	display: none;
 }
 

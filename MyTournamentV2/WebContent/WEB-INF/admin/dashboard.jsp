@@ -75,8 +75,8 @@
 			                <input class="form-control" type="text" id="nameGames" name="nameGames" placeholder="Name">
 			            </div>
 			            <div class="form-group">
-		  					<label class="control-label" for="namePlateforms">Platform:</label>
-		  						<select class="form-control" name="namePlateforms" id="namePlateforms">
+		  					<label class="control-label" for="namePlatforms">Platform:</label>
+		  						<select class="form-control" name="namePlatforms" id="namePlatforms">
 		  							<c:forEach items="${listPlatforms }" var="item">
 		  								<option value="${item.idPlatforms }">${item.name }</option>
 		  							</c:forEach>
@@ -85,9 +85,37 @@
 						<div class="form-group">
 			                 <button type="submit" class="btn btn-info" name="btnGames" id="btnGames">Create</button>
 			            </div>
+			            <div class="form-group">
+			                 <button type="button" class="btn btn-primary" name="btnGamesRemoved" id="btnGamesRemoved">Games not active</button>
+			            </div>
 			            </fieldset>
 			        </form>
 			        <br>
+			        <table class="table table-striped">
+						<tr>
+							<th>Name</th>
+							<th>Platform</th>
+							<th class="action">Delete</th>
+						</tr>
+						<tr>
+						<c:forEach items="${listGames }" var="item">
+							<c:if test="${item.active }">
+								<tr class="gamesActive">
+							  			<td><c:out value="${item.name }"/></td>
+							  			<td><c:out value="${item.platform.name }"/></td>
+							  			<td><form method="POST" action="dashboard"><input type="hidden" name="idGame" value="<c:out value='${item.idGames }'/>"><button type="submit" name="btnRemoveGames" class="btn btn-danger btn-sm "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></form></td>
+							  	</tr>
+						  	</c:if>
+						  	<c:if test="${item.active eq false}">
+								<tr class="gamesNotActive">
+							  			<td><c:out value="${item.name }"/></td>
+							  			<td><c:out value="${item.platform.name }"/></td>
+							  			<td><form method="POST" action="dashboard"><input type="hidden" name="idGame" value="<c:out value='${item.idGames }'/>"><button type="submit" name="btnActiveGames" class="btn btn-success btn-sm "><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button></form></td>
+							  	</tr>
+						  	</c:if>
+					    </c:forEach>
+						</tr>
+					</table>
 		    </div>
 		    <div role="tabpanel" class="tab-pane" id="typeoftournament">
 		    	<h3>Type of Tournament</h3><br>

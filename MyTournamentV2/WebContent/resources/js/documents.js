@@ -60,6 +60,21 @@ $(document).ready(function(){
 			$('.action').text('Delete');
 		}
 	})
+	$(document).on('click', '#btnGamesRemoved',function(){
+		if($(this).attr("class") == "btn btn-primary"){
+			$(this).removeClass("btn-primary").addClass("btn-success")
+			$('.gamesNotActive').show();
+			$('.gamesActive').hide();
+			$(this).text('Games not active');
+			$('.action').text('Added');
+		}else{
+			$(this).removeClass("btn-success").addClass("btn-primary");
+			$('.gamesActive').show();
+			$('.gamesNotActive').hide();
+			$(this).text('Games active');
+			$('.action').text('Delete');
+		}
+	})
 	$(document).on('click', '#btnTypeoftournamentRemoved',function(){
 		if($(this).attr("class") == "btn btn-primary"){
 			$(this).removeClass("btn-primary").addClass("btn-success")
@@ -90,6 +105,7 @@ $(document).ready(function(){
 			$('.action').text('Delete');
 		}
 	})
+	
 	$(document).on('click', '#playersActive',function(){
 		if($(this).attr("class") == "btn btn-primary playerActive"){
 			$(this).removeClass("btn btn-primary playerActive").addClass("btn btn-success playerActive")

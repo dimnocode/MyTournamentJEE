@@ -428,8 +428,75 @@ $(document).ready(function(){
             }
         }
     });
-    
-    
+    $('#formAdminGames').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	nameGames: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            }
+        }
+    });
+    $('#formAdminTypeoftournament').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	nameTypeoftournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            }
+        }
+    });
+    $('#formAdminFormatoftournament').bootstrapValidator({
+        feedbackIcons: {
+            valid: "glyphicon glyphicon-ok",
+            invalid: "glyphicon glyphicon-remove",
+            validating: "glyphicon glyphicon-refresh"
+        },
+        fields: {
+        	nameFormatoftournament: {
+                validators: {
+                    notEmpty: {
+                    	
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 20
+                    },
+                    regexp: {
+                    	regexp: /^[a-zA-Z0-9\s]+$/
+                    }
+                }
+            }
+        }
+    });
     $('.datepicker').on('changeDate show', function(e) {
         $('#formUser').bootstrapValidator('revalidateField', 'dobRegister');
     });
