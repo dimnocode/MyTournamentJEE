@@ -1,10 +1,8 @@
 package mt.servlets;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

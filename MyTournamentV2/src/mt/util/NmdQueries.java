@@ -33,6 +33,12 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 
+	/** 
+	 * Name query for get object Usersclan by id Clan and id User
+	 * @param idClan
+	 * @param idUser
+	 * @return
+	 */
 	public static Usersclan findUserclanByIdUserIdClan(int idClan, int idUser){
 		Usersclan userClan = new Usersclan();
 		try{

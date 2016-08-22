@@ -9,6 +9,11 @@ import java.security.NoSuchAlgorithmException;
 public final class Hashing {
 
 	
+	/**
+	 * This method hash the password in @param 
+	 * @param password
+	 * @return 
+	 */
 	public static String hash(String password){
 		
 		try {
