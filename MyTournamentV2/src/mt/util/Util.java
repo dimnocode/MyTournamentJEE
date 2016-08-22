@@ -88,7 +88,7 @@ public final class Util {
 	 * Checks 
 	 * @param c Object of type Clan
 	 * @param t Object of type Tournament
-	 * @return Returns true if number of valid players id superior or equal to tournament format id
+	 * @return Returns true if number of valid players id superior or equal to tournament format id 
 	 */
 	public static boolean hasEnoughPlayers(Clan c, Tournament t) {
 		int count = 0;
