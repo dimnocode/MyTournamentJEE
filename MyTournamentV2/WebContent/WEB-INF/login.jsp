@@ -27,7 +27,7 @@
 		            </div>
 		            <div class="form-group">
 		                <div class="col-sm-offset-2 col-sm-10">
-		                    <button type="submit" class="btn btn-info" name="btnLogin" id="btnLogin">Login</button>
+		                    <input type="submit" class="btn btn-info btnSub" name="btnLogin" id="btnLogin" value="Login" />
 		                </div>
 		            </div>
 		            </fieldset>

@@ -64,7 +64,7 @@
 		            </div>
 		            <div class="form-group">
 		                <div class="col-sm-offset-2 col-sm-10">
-		                    <button id="submitUser" type="submit" class="btn btn-info">Register</button>
+		                    <button id="submitUser" type="submit" class="btn btn-info btnSub">Register</button>
 		                </div>
 		            </div>
 		            </fieldset>
