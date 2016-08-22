@@ -16,6 +16,7 @@ import mt.connection.EMF;
 import mt.validation.UserCreation;
 import mt.validation.Validation;
 import mt.entities.User;
+import mt.util.NmdQueries;
 
 /**
  * Servlet implementation class register
@@ -48,7 +49,7 @@ public class SrvRegister extends HttpServlet {
 		EMF.getEMF();
 		EntityManager em = EMF.getEM();
 		
-		
+		String errMsg = null;
 		
 		User user = new User();
 		Validation<User> v = new Validation<User>();
@@ -56,20 +57,28 @@ public class SrvRegister extends HttpServlet {
 		if(v.validate(request, user)){
 			UserCreation.create(request, user);
 			if(user != null){
-				logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() + " " + user.getPassword());
-				em.getTransaction().begin();
-				em.persist(user);
-				em.getTransaction().commit();
-				//this.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-				response.sendRedirect("login");
+				if(NmdQueries.findUserByEmailOrPseudo(user.getEmail(), user.getPseudo()) == null){
+					try{
+						logger.log(Level.INFO, "User created :" + user.getName() + " " + user.getFirstname() + " " + user.getPassword());
+						em.getTransaction().begin();
+						em.persist(user);
+						em.getTransaction().commit();
+						response.sendRedirect("login");
+					}catch(Exception e){
+						logger.log(Level.INFO, e.getMessage());
+					}finally {
+						em.close();
+					}
+				}else{
+					logger.log(Level.INFO, user.getEmail() + " " + user.getPseudo() + ". Impossible to register");
+					errMsg = "This pseudo or email exist. Impossible to register";
+					request.setAttribute("errMsg", errMsg);
+					doGet(request, response);
+				}
 			}
 		}else{
 			doGet(request, response);
-		}
-		
-		
-		em.close();
-		
+		}	
 		
 	}
 

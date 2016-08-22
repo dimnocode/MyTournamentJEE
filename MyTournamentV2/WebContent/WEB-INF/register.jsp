@@ -6,8 +6,10 @@
 	<c:import url="includes/header.jsp"/>
 	
 	<div class="container">
+		
 		<h1>Register</h1>
 		<br>
+		<c:import url="includes/msg.jsp"/>
 		<div class="form">
 			<form action="register" method="POST" class="form-horizontal" data-toggle="validator" id="formUser">
 			<fieldset>

@@ -11,6 +11,11 @@ public final class UserValidation {
 	
 	private static final Logger logger = Logger.getLogger(UserValidation.class);
 	
+	/**
+	 * check if we change information (update) else  we create new user (create)
+	 * @param request http request
+	 * @return true if all paramater is validate or false
+	 */
 	public static boolean validate(HttpServletRequest request){
 		if(request.getParameter("passUser") == null && request.getParameter("confirmUser") == null)	{ //TEST QUI VERIFIE SI L ON VEUX CHANGER D INFORMATION 
 			if(request.getParameter("passUserEdit") != null && request.getParameter("newPassUserEdit") != null && request.getParameter("confirmUserEdit") != null ){ //TEST QUI VERIRIFIE SI ON EST DANS L UPDATE DE PASSWORD

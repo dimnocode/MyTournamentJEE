@@ -171,12 +171,9 @@ public class SrvClans extends HttpServlet {
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
 			User user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
+			Usersclan ucl = NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers());
 			
-			//BESOIN DE VERIFIER SI LE USER EST DEJA INSCRIT DANS LE CLAN
-			
-			
-			
-				if(user != null){
+			if(ucl == null){
 					Usersclan userClan = new Usersclan();
 					try{
 						em.getTransaction().begin();
@@ -204,13 +201,14 @@ public class SrvClans extends HttpServlet {
 						
 					doGet(request, response);
 					logger.log(Level.INFO, user.getPseudo()+ " is added in " + clan.getName() + "with success");
-				}else{
-					errMsg = request.getParameter("pseudoUserClan")+ " is not found";
-						
-					request.setAttribute("errMsg", errMsg);
-					doGet(request, response);
-					logger.log(Level.INFO, "error");
-				}
+				
+			}else{
+				errMsg = request.getParameter("pseudoUserClan")+ " is already in "+ clan.getName();
+				
+				request.setAttribute("errMsg", errMsg);
+				doGet(request, response);
+				logger.log(Level.INFO, request.getParameter("pseudoUserClan")+ " is already in "+ clan.getName());
+			}
 		}
 		//REMOVE USER IN CLAN
 		if(btnRemoveUserClan != null){
@@ -276,23 +274,4 @@ public class SrvClans extends HttpServlet {
 			}
 		}
 	}
-	/*public void refresfLists(User user, HttpServletRequest request ){
-		Clan clan = new Clan();
-		List<Clan> listClanLeader = new ArrayList<Clan>();
-		List<Clan> listClan = new ArrayList<Clan>();
-		
-		for(Usersclan item : user.getUsersclans()){
-			if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader() ){
-				clan = NmdQueries.findClanById(item.getClan().getIdClan());
-				listClanLeader.add(clan);
-			}
-			if(item.getUser().getIdUsers() == user.getIdUsers() && item.getClanLeader() == false){
-				clan = NmdQueries.findClanById(item.getClan().getIdClan());
-				listClan.add(clan);
-			}
-		}
-		
-		request.setAttribute("listClanLeader", listClanLeader);
-		request.setAttribute("listClan", listClan);
-	}*/
 }

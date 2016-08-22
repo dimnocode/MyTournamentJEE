@@ -24,6 +24,10 @@ import mt.entities.Usersclan;
 
 
 
+/**
+ * @author Lucas Giunta
+ *
+ */
 public final class NmdQueries {
 
 	private static final Logger logger = Logger.getLogger(NmdQueries.class);
@@ -108,6 +112,21 @@ public final class NmdQueries {
 		}
 		return user;
 	}
+	 /**
+	  * Name query for get object User by @param email or @param pseudo
+	 * @param email this is email in format String
+	 * @param pseudo this is pseudo in format String
+	 * @return object User or null
+	 */
+	public static User findUserByEmailOrPseudo(String email, String pseudo){
+			User user = new User();
+			try{
+				user = (User) EMF.getEM().createNamedQuery("User.findByEmailOrPseudo").setParameter("email", email).setParameter("pseudo", pseudo).getSingleResult();
+			}catch(NoResultException e){
+				return null;
+			}
+			return user;
+		}
 	//Get all userRoles 
 	/**
 	 * Name query for get all object Userrole in format List

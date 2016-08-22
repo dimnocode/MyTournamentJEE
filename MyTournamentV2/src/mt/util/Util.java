@@ -120,7 +120,6 @@ public final class Util {
 		return false;
 	}
 
-
 	// Returns true if tournament has enough active players that have the game
 	/**
 	 * Checks if a clan has enough valid players in it to register for specific tournament

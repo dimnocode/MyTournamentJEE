@@ -6,6 +6,10 @@ import java.security.NoSuchAlgorithmException;
 
 
 
+/**
+ * @author Lucas Giunta
+ *
+ */
 public final class Hashing {
 
 	
