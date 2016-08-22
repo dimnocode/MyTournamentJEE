@@ -10,9 +10,9 @@ public final class Hashing {
 
 	
 	/**
-	 * This method hash the password in @param 
-	 * @param password
-	 * @return 
+	 * This method hash the password in @param password
+	 * @param password parameter in format String
+	 * @return password in format String hashed 
 	 */
 	public static String hash(String password){
 		

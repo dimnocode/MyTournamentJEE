@@ -102,7 +102,7 @@ public class SrvClans extends HttpServlet {
 			Usersclan userClan = new Usersclan();
 			
 			if(v.validate(request, clan)){
-				ClanCreation.create(request, clan, userClan);
+				ClanCreation.create(request, clan);
 				if(clan != null){
 					try{
 						
