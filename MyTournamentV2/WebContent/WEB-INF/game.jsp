@@ -7,27 +7,28 @@
 	
 	<div class="container spacer">
 		<h1>Games by <c:out value="${gameaccount.name }"/></h1><br>
-		<table class="table table-striped">
-			<tr>
-				<th>Game</th>
-				<th>Delete</th>
-			</tr>
-			<c:forEach items="${gameaccount.games }" var="item">
+		<div class="table-responsive">
+			<table class="table table-striped">
 				<tr>
-					<td><c:out value="${item.name }"/></td>
-					<td><form method="POST" action="">
-							<input type="hidden" name="idGames" value="<c:out value='${item.idGames }'/>">
-							<input type="hidden" name="idGameAccounts" value="<c:out value='${gameaccount.idGameAccounts }'/>">
-							<button type="submit" name="btnGameRemove" class="btn btn-danger btn-sm ">
-								<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-							</button>
-						</form>
-					</td>
+					<th>Game</th>
+					<th>Delete</th>
 				</tr>
-			</c:forEach>
-			
-		</table>
-	
+				<c:forEach items="${gameaccount.games }" var="item">
+					<tr>
+						<td><c:out value="${item.name }"/></td>
+						<td><form method="POST" action="">
+								<input type="hidden" name="idGames" value="<c:out value='${item.idGames }'/>">
+								<input type="hidden" name="idGameAccounts" value="<c:out value='${gameaccount.idGameAccounts }'/>">
+								<button type="submit" name="btnGameRemove" class="btn btn-danger btn-sm ">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+							</form>
+						</td>
+					</tr>
+				</c:forEach>
+				
+			</table>
+		</div>
 		<h1>Add new games</h1><br>
 		<form id="gameByGameAccount" method="POST" action="">
 			<input type="hidden" name="idGameAccounts" value="<c:out value="${gameaccount.idGameAccounts }"/>">
