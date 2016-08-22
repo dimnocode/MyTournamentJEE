@@ -34,7 +34,7 @@ public final class NmdQueries {
 
 
 	/** 
-	 * Name query for get object Usersclan by id Clan and id User
+	 * Name query for get object Usersclan by @param idClan and @param idUser
 	 * @param idClan
 	 * @param idUser
 	 * @return
@@ -53,6 +53,12 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get user login with password and email in DB
+	/**
+	 * Name query for get object User by @param email and @param password
+	 * @param email
+	 * @param pass
+	 * @return
+	 */
 	public static User userLogin(String email, String pass){
 		User user = new User();
 		try{
@@ -63,9 +69,21 @@ public final class NmdQueries {
 		return user;
 	}
 	//Get userRole in DB by id
+	/**
+	 * Name query for get object Userrole by @param id(Userrole)
+	 * @param id
+	 * @param em
+	 * @return
+	 */
 	public static Userrole findUserrole(int id, EntityManager em){
-		return em.find(Userrole.class, id);
+		return em.find(Userrole.class, id); 
 	}
+	
+	/**
+	 * Name query for get object User by @param idUsers 
+	 * @param idUsers
+	 * @return
+	 */
 	public static User findUserById(int idUsers){
 		User user = new User();
 		try{
@@ -75,6 +93,12 @@ public final class NmdQueries {
 		}
 		return user;
 	}
+	/**
+	 * Name query for get object User by @param email and @param pseudo
+	 * @param email
+	 * @param pseudo
+	 * @return
+	 */
 	public static User findUserByUnique(String email, String pseudo){
 		User user = new User();
 		try{
@@ -85,6 +109,10 @@ public final class NmdQueries {
 		return user;
 	}
 	//Get all userRoles 
+	/**
+	 * Name query for get all object Userrole in format List
+	 * @return
+	 */
 	public static List<Userrole> findAllUserroles(){
 		List<Userrole> userRoles = null;
 		try{
@@ -99,6 +127,11 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get clan by id
+	/**
+	 * Name query for get object Clan by @param idClans
+	 * @param idClans
+	 * @return
+	 */
 	public static Clan findClanById(int idClans){
 		Clan clan = new Clan();
 		try{
@@ -114,6 +147,11 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get gameAccount by id
+	/**
+	 * Name query for get object Gameaccount by @param idGameAccounts
+	 * @param idGameAccounts
+	 * @return
+	 */
 	public static Gameaccount findGameAccount(int idGameAccounts){
 		Gameaccount gameAccount = new Gameaccount();
 		try{
@@ -124,6 +162,11 @@ public final class NmdQueries {
 		return gameAccount;
 	}
 	//Get list gameAccounts by id user
+	/**
+	 * Name query for get all object Gameaccount in format List by @param idUsers
+	 * @param idUsers
+	 * @return
+	 */
 	public static List<Gameaccount> findGameAccounts(int idUsers){
 		List<Gameaccount> gameAccounts = new ArrayList<Gameaccount>();
 		try{
@@ -139,6 +182,11 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get game by Id
+	/**
+	 * Name query for get object Game by @param idGames
+	 * @param idGames
+	 * @return
+	 */
 	public static Game findGameById(int idGames){
 		Game game = new Game();
 		try{
@@ -149,6 +197,10 @@ public final class NmdQueries {
 		return game;
 	}
 	//Get all games
+	/**
+	 * Name query for get all object Game in format List
+	 * @return
+	 */
 	public static List<Game> findAllGames(){
 		List<Game> games = new ArrayList<Game>();
 		try{
@@ -159,6 +211,12 @@ public final class NmdQueries {
 		return games;
 	}
 	//Get list game by id
+	/**
+	 * Name query for get all object Game in format List by @param idPlatforms and @param idGameAccounts
+	 * @param idPlatforms
+	 * @param idGameAccounts
+	 * @return
+	 */
 	public static List<Game> findGamesByPlatform(int idPlatforms, int idGameAccounts){
 		List<Game> game = new ArrayList<Game>();
 		try{
@@ -174,6 +232,10 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get list plaftorms
+	/**
+	 * Name query for get all object Platform in format List
+	 * @return
+	 */
 	public static List<Platform> findAllPlatforms(){
 		List<Platform> platforms = null;
 		try{
@@ -183,6 +245,11 @@ public final class NmdQueries {
 		}
 		return platforms;
 	}
+	/**
+	 * Name query for get object Platform by @param idPlatforms
+	 * @param idPlatforms
+	 * @return
+	 */
 	public static Platform findPlatformById(int idPlatforms){
 		Platform platform = null;
 		try{
@@ -197,6 +264,10 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get list type of tournament
+	/**
+	 * Name query for get all object Typeoftournament in format List
+	 * @return
+	 */
 	public static List<Typeoftournament> findAllTypeOfTournament(){
 		List<Typeoftournament> typeOfTournament = null;
 		try{
@@ -206,6 +277,11 @@ public final class NmdQueries {
 		}
 		return typeOfTournament;
 	}
+	/**
+	 * Name query for get object Typeoftournament by @param idTypeOfTournaments
+	 * @param idTypeOfTournaments
+	 * @return
+	 */
 	public static Typeoftournament findTypeOfTournamentById(int idTypeOfTournaments){
 		Typeoftournament typeOfTournament = null;
 		try{
@@ -220,6 +296,10 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get list format or tournament
+	/**
+	 * Name query for get all object Formatoftournament in format List
+	 * @return
+	 */
 	public static List<Formatoftournament> findAllFormatOfTournament(){
 		List<Formatoftournament> FormatOfTournament = null;
 		try{
@@ -229,6 +309,11 @@ public final class NmdQueries {
 		}
 		return FormatOfTournament;
 	}
+	/**
+	 * Name query for get object Formatoftournament by @param idFormatTournaments
+	 * @param idFormatTournaments
+	 * @return
+	 */
 	public static Formatoftournament findFormatoftournamentById(int idFormatTournaments){
 		Formatoftournament format = null;
 		try{
@@ -243,6 +328,10 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get list of tournaments
+	/**
+	 * Name query for get all object Tournament in format List
+	 * @return
+	 */
 	public static List<Tournament> findAllTournaments(){
 		List<Tournament> tournaments = new ArrayList<Tournament>();
 		try{
@@ -254,6 +343,11 @@ public final class NmdQueries {
 	}
 
 	//Get tournament by id
+	/**
+	 * Name query for get object Tournament by @param idTournaments
+	 * @param idTournaments
+	 * @return
+	 */
 	public static Tournament findTournamentById(int idTournaments){
 		Tournament tournament = new Tournament();
 		try{
@@ -269,6 +363,10 @@ public final class NmdQueries {
 	//---------------------------------------------------------
 
 	//Get list of registrations
+	/**
+	 * Name query for get all object Registration in format List
+	 * @return
+	 */
 	public static List<Registration> findAllRegistrations(){
 		List<Registration> registrations = new ArrayList<Registration>();
 		try{
@@ -279,13 +377,13 @@ public final class NmdQueries {
 		return registrations;
 	}
 
-	//Is User registered
-	public static long isUserRegistered(int idTournament, int idUser){
-
-		return (long) EMF.getEM().createNamedQuery("Registration.isUserRegistered").setParameter("tournament", idTournament).setParameter("user", idUser).getSingleResult();
-	}
-
 	//Get registration by user and tournament
+	/**
+	 * Name query for get object Registration by @param idTournament and @param idUser
+	 * @param idTournament
+	 * @param idUser
+	 * @return
+	 */
 	public static Registration findRegistrationByUserAndTournament(int idTournament, int idUser){
 		Registration registration = new Registration();
 		try{

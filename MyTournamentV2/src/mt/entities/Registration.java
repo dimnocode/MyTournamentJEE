@@ -13,7 +13,6 @@ import java.util.Date;
 @Table(name="registrations")
 @NamedQueries({
 	@NamedQuery(name="Registration.findAll", query="SELECT r FROM Registration r"),
-	@NamedQuery(name="Registration.isUserRegistered", query="select case when (count(r) > 0) then true else false end from Registration r where r.user.idUsers = :user AND r.tournament.idTournaments = :tournament"),
 	@NamedQuery(name="Registration.findByUserAndTournament", query="SELECT r from Registration r WHERE r.user.idUsers = :idUser AND r.tournament.idTournaments = :idTournament")
 })
 
