@@ -19,7 +19,7 @@ import mt.util.Util;
 /**
  * Servlet Filter implementation class authentication
  */
-@WebFilter(filterName = "Authentication", urlPatterns = {"/account", "/game", "/tournament", "/clans"})
+@WebFilter(filterName = "Authentication", urlPatterns = {"/account", "/game", "/tournament", "/clans", "/tournamentcreation"})
 public class Authentication implements Filter {
 
 	private static final Logger logger = Logger.getLogger(Authentication.class);

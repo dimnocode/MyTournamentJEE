@@ -24,20 +24,26 @@ public class SrvIndex extends HttpServlet {
     public SrvIndex() {
         super();
         // TODO Auto-generated constructor stub
-    }
+    }    
+
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		
+		ServletContext context = getServletContext();
+		context.setAttribute("userRoles", NmdQueries.findAllUserroles());
+		context.setAttribute("platforms", NmdQueries.findAllPlatforms());
+		context.setAttribute("games", NmdQueries.findAllGames());
+		context.setAttribute("formatOfTournament", NmdQueries.findAllFormatOfTournament());
+		context.setAttribute("typeOfTournament", NmdQueries.findAllTypeOfTournament());
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		ServletContext context = request.getSession().getServletContext();
-		context.setAttribute("userRoles", NmdQueries.findAllUserroles());
-		context.setAttribute("platforms", NmdQueries.findAllPlatforms());
-		context.setAttribute("games", NmdQueries.findAllGames());
-		context.setAttribute("formatOfTournament", NmdQueries.findAllFormatOfTournament());
-		context.setAttribute("typeOfTournament", NmdQueries.findAllTypeOfTournament());
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
