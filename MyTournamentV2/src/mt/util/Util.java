@@ -23,8 +23,8 @@ import mt.entities.Usersclan;
 public final class Util {
 
 	/**
-	 *  Convert a string to date (format : yyyy-MM-dd)
-	 * @param dateString
+	 *  Convert a string to date 
+	 * @param dateString String format : "yyyy-MM-dd"
 	 * @return Returns date if valid else return null
 	 */
 	public static Date stringToDate(String dateString) {
@@ -39,8 +39,8 @@ public final class Util {
 	}
 
 	/**
-	 * Convert a string to date and time (format : yyyy-MM-dd' 'HH:mm:ss)
-	 * @param dateString
+	 * Convert a string to date and time
+	 * @param dateString format : "yyyy-MM-dd' 'HH:mm:ss"
 	 * @return Returns #date if valid else return null
 	 */
 	public static Date stringToDateTime(String dateString) {
@@ -58,7 +58,7 @@ public final class Util {
 	/**
 	 * Get the logged user in session
 	 * @param request
-	 * @return 
+	 * @return User if in session else null
 	 */
 	public static User getLoggedUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -87,8 +87,13 @@ public final class Util {
 	}
 
 	// Returns true if user is already registered in tournament
-	public static boolean isRegistered(User u, Tournament t){
-
+	/**
+	 * Returns true if user is already registered in tournament
+	 * @param u Object of type User
+	 * @param t Object of type Tournament
+	 * @return returns true if a user registration is found in a tournament registrations list else returns false
+	 */
+	public static boolean isRegistered(User u, Tournament t){ 
 		for (Registration r : u.getRegistrations()) {
 			if (t.getRegistrations().contains(r)) {
 				return true;
@@ -98,6 +103,12 @@ public final class Util {
 	}
 
 	// Returns true if a clan member is already registered in tournament
+	/**
+	 * Returns true if a clan member is already registered in tournament
+	 * @param c Object of type Clan
+	 * @param t Object of type Tournament
+	 * @return returns true if a clan registration is found in a tournament registrations list else returns false
+	 */
 	public static boolean isRegistered(Clan c, Tournament t){
 
 		for (Registration r : t.getRegistrations()) {
