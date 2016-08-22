@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +23,6 @@ import mt.entities.Clan;
 import mt.entities.Registration;
 import mt.entities.Tournament;
 import mt.entities.User;
-import mt.entities.Usersclan;
 import mt.util.NmdQueries;
 import mt.util.Util;
 
@@ -235,28 +233,8 @@ public class SrvTournament extends HttpServlet {
 		
 			List<Clan> unregisteredClans = new ArrayList<Clan>();
 			List<Clan> registeredClans = new ArrayList<Clan>();
-
-			//Add clan to list if clan is active and loggedUser is Leader and clan has enough not already registered players having the game
-			for(Usersclan uc : loggedUser.getUsersclans()){
-				//If isleader and clan has enough players and clan is not registered and clan is active			
-				if (uc.getClanLeader() && Util.hasEnoughPlayers(uc.getClan(), tournament) && !Util.isRegistered(uc.getClan(), tournament) && uc.getClan().getActive()){
-					unregisteredClans.add(uc.getClan());	//Add in unregisteredClans				
-				}
-				if (uc.getClanLeader() && Util.isRegistered(uc.getClan(), tournament)){
-					registeredClans.add(uc.getClan());					
-				}
-			}
 			
-			//Iterate through unregisteredClans clan->usersclan to delete users that don't have the game or are already registered through other clan or have been deleted from clan
-			for(Clan c : unregisteredClans){
-				Iterator<Usersclan> i = c.getUsersclans().iterator();				
-				while(i.hasNext()){
-					Usersclan uc = i.next();
-					if(!Util.hasGame(uc.getUser(), tournament.getGame()) || Util.isRegistered(uc.getUser(), tournament) || uc.getRemovedDateTime() != null){		
-						i.remove();
-					}
-				}
-			}
+			Util.ClanLists(loggedUser, tournament, unregisteredClans, registeredClans);
 			
 			request.setAttribute("unregisteredClans", unregisteredClans);
 			request.setAttribute("registeredClans", registeredClans);

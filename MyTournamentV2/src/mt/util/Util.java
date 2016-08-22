@@ -3,6 +3,8 @@ package mt.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,7 +21,6 @@ import mt.entities.Usersclan;
  * @author DIm
  *
  */
-
 public final class Util {
 
 	/**
@@ -86,7 +87,7 @@ public final class Util {
 		return false;
 	}
 
-	// Returns true if user is already registered in tournament
+	// Returns true if user is already registered in u
 	/**
 	 * Returns true if user is already registered in tournament
 	 * @param u Object of type User
@@ -137,5 +138,39 @@ public final class Util {
 			}
 		}
 		return count >= t.getFormatoftournament().getIdFormatTournaments();
+	}
+	
+	//Add clan to list if clan is active and loggedUser is Leader and clan has enough not already registered players having the game
+
+	/**
+	 * Populate the two lists with clans leaded by User that are registered and not registered (but could be registered in a tournament)
+	 * Remove users in unregisteredClan that are not valid for registration (Don't have the game, already registered, inactive)
+	 * @param u Object of type User
+	 * @param t Object of type Tournament
+	 * @param unregisteredClans list of objects Clan not registered in tournament
+	 * @param registeredClans list of objects Clan not unregistered in tournament
+	 */
+	public static void ClanLists(User u, Tournament t, List<Clan>unregisteredClans, List<Clan>registeredClans){		
+	
+		for(Usersclan uc : u.getUsersclans()){
+			//If isleader and clan has enough players and clan is not registered and clan is active			
+			if (uc.getClanLeader() && Util.hasEnoughPlayers(uc.getClan(), t) && !Util.isRegistered(uc.getClan(), t) && uc.getClan().getActive()){
+				unregisteredClans.add(uc.getClan());	//Add in unregisteredClans				
+			}
+			if (uc.getClanLeader() && Util.isRegistered(uc.getClan(), t)){
+				registeredClans.add(uc.getClan());		//Add in registeredClans		
+			}
+		}
+		
+		//Iterate through unregisteredClans clan->usersclan to delete users that don't have the game or are already registered through other clan or have been deleted from clan
+		for(Clan c : unregisteredClans){
+			Iterator<Usersclan> i = c.getUsersclans().iterator();				
+			while(i.hasNext()){
+				Usersclan uc = i.next();
+				if(!Util.hasGame(uc.getUser(), t.getGame()) || Util.isRegistered(uc.getUser(), t) || uc.getRemovedDateTime() != null){		
+					i.remove();
+				}
+			}
+		}
 	}
 }
