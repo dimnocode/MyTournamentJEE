@@ -7,6 +7,10 @@ import org.apache.log4j.Logger;
 
 import mt.util.Util;
 
+/**
+ * @author Lucas Giunta
+ *
+ */
 public final class UserValidation {
 	
 	private static final Logger logger = Logger.getLogger(UserValidation.class);

@@ -10,8 +10,17 @@ import mt.util.NmdQueries;
 
 
 
+/**
+ * @author Lucas Giunta
+ *
+ */
 public class GameAccountCreation {
 	
+	/**
+	 * create object Gameaccount
+	 * @param request http request
+	 * @param gameAccount object Gameaccount
+	 */
 	public static void create(HttpServletRequest request, Gameaccount gameAccount){
 		HttpSession session = request.getSession();
 		

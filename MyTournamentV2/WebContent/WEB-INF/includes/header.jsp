@@ -9,9 +9,10 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                     	<li><a href="/MyTournamentV2">Index</a></li>
+                    	<li><a href="tournamentslist">Tournaments</a></li>
+                    	
                     	<c:if test="${!empty sessionScope.loggedUser}">
                         	<li><a href="account">Account</a></li>
-                        	<li><a href="tournamentslist">Tournaments</a></li>
                         	<li><a href="clans">Clans</a></li>
                         </c:if>
                     </ul>

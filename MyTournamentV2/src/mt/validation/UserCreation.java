@@ -13,8 +13,17 @@ import mt.util.Hashing;
 import mt.util.NmdQueries;
 import mt.util.Util;
 
+/**
+ * @author Lucas Giunta
+ *
+ */
 public final class UserCreation{
 	private static final Logger logger = Logger.getLogger(UserCreation.class);
+	/**
+	 * create object User
+	 * @param request http request
+	 * @param user object user
+	 */
 	public static void create(HttpServletRequest request, User user){
 		
 		user.setName(request.getParameter("nameUser"));
@@ -30,6 +39,11 @@ public final class UserCreation{
 	}
 	
 	//METHODE QUI SERVIRA A UPDATE LES INFORMATION 
+	/**
+	 * update information of object user
+	 * @param request http request
+	 * @param user object user
+	 */
 	public static void updateInfo(HttpServletRequest request, User user){
 		user.setName(request.getParameter("nameUser"));
 		user.setFirstname(request.getParameter("firstnameUser"));
@@ -39,6 +53,12 @@ public final class UserCreation{
 		user.setDob(Util.stringToDate(request.getParameter("dobUser")));
 	}
 	//METHODE QUI SERVIRA A UPDATE LE PASSWORD
+	/**
+	 * uptdate password of object user
+	 * @param request http request
+	 * @param user object user
+	 * @return true if update success or false if actual password is not found
+	 */
 	public static boolean updatePassword(HttpServletRequest request, User user){
 		if(user.getPassword().equals(Hashing.hash(request.getParameter("passUserEdit")))){
 			user.setPassword(Hashing.hash(request.getParameter("newPassUserEdit")));
