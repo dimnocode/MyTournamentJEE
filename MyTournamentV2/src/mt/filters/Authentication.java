@@ -47,12 +47,9 @@ public class Authentication implements Filter {
 		User user = Util.getLoggedUser(req);
 		
 		if(user == null){
-//			HttpServletResponse resp = (HttpServletResponse) response;
-			logger.log(Level.INFO, "User is not logged : " + req.getServletPath());
-			
-			req.setAttribute("errMsg", "You are not logged in");
-//			resp.sendRedirect("error?errMsg=NotLoggedIn");
-			
+
+			logger.log(Level.INFO, "User is not logged : " + req.getServletPath());			
+			req.setAttribute("errMsg", "You are not logged in");			
 			req.getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 			
 		}else{
