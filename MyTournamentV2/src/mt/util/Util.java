@@ -15,8 +15,18 @@ import mt.entities.Tournament;
 import mt.entities.User;
 import mt.entities.Usersclan;
 
+/**
+ * @author DIm
+ *
+ */
+
 public final class Util {
 
+	/**
+	 *  Convert a string to date (format : yyyy-MM-dd)
+	 * @param dateString
+	 * @return Returns date if valid else return null
+	 */
 	public static Date stringToDate(String dateString) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		try {
@@ -28,6 +38,11 @@ public final class Util {
 		return null;
 	}
 
+	/**
+	 * Convert a string to date and time (format : yyyy-MM-dd' 'HH:mm:ss)
+	 * @param dateString
+	 * @return Returns #date if valid else return null
+	 */
 	public static Date stringToDateTime(String dateString) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd' 'HH:mm:ss");
 		try {
@@ -40,6 +55,11 @@ public final class Util {
 	}
 	
 	//Returns the user stored in HttpSession
+	/**
+	 * Get the logged user in session
+	 * @param request
+	 * @return 
+	 */
 	public static User getLoggedUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 
@@ -49,9 +69,16 @@ public final class Util {
 	}
 
 	// Returns true if user has the game in one of his gameaccounts
+	/**
+	 * Checks if a user have a game in one of his active game accounts
+	 * @param u Object of type User
+	 * @param g Object of type Game
+	 * @return Returns true if user has game in one of his active game accounts
+	 */
 	public static boolean hasGame(User u, Game g) {
 
 		for (Gameaccount ga : u.getGameaccounts()) {
+			//Ajouter filtre platform
 			if (ga.getActive() && ga.getGames().contains(g)) {
 				return true;
 			}
@@ -85,7 +112,7 @@ public final class Util {
 	// Returns true if tournament has enough active players that have the game
 	/**
 	 * Checks if a clan has enough valid players in it to register for specific tournament
-	 * Checks 
+	 * Checks : if user has game, if user isn't already registered in tournament (through other clan), if user isn't deactivated in clan.
 	 * @param c Object of type Clan
 	 * @param t Object of type Tournament
 	 * @return Returns true if number of valid players id superior or equal to tournament format id 
