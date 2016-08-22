@@ -57,7 +57,7 @@ public final class Util {
 	//Returns the user stored in HttpSession
 	/**
 	 * Get the logged user in session
-	 * @param request
+	 * @param request HttpRequest
 	 * @return User if in session else null
 	 */
 	public static User getLoggedUser(HttpServletRequest request) {
