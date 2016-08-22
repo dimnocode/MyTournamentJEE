@@ -83,6 +83,13 @@ public final class Util {
 
 
 	// Returns true if tournament has enough active players that have the game
+	/**
+	 * Checks if a clan has enough valid players in it to register for specific tournament
+	 * Checks 
+	 * @param c Object of type Clan
+	 * @param t Object of type Tournament
+	 * @return Returns true if number of valid players id superior or equal to tournament format id
+	 */
 	public static boolean hasEnoughPlayers(Clan c, Tournament t) {
 		int count = 0;
 

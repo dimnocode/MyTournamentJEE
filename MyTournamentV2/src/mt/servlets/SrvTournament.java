@@ -193,10 +193,7 @@ public class SrvTournament extends HttpServlet {
 		
 		//Clan unregister
 		
-		if(request.getParameter("cUnregister") != null){	
-			//Remove registration
-			//Remove in User registrations
-			//Remove in Clan registrations
+		if(request.getParameter("cUnregister") != null){
 			
 			em.getTransaction().begin();
 			
