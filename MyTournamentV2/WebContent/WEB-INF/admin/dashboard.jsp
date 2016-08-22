@@ -46,7 +46,6 @@
 							<th>Name</th>
 							<th class="action">Delete</th>
 						</tr>
-						<tr>
 						<c:forEach items="${listPlatforms }" var="item">
 							<c:if test="${item.active }">
 								<tr class="platformsActive">
@@ -61,7 +60,6 @@
 							  	</tr>
 						  	</c:if>
 					    </c:forEach>
-						</tr>
 					</table>
 			</div>
 			
@@ -91,13 +89,16 @@
 			            </fieldset>
 			        </form>
 			        <br>
-			        <table class="table table-striped">
+			        <table id="table" class="table table-striped">
+			       		<thead>
 						<tr>
 							<th>Name</th>
 							<th>Platform</th>
 							<th class="action">Delete</th>
 						</tr>
-						<tr>
+						</thead>
+						
+						<tbody>
 						<c:forEach items="${listGames }" var="item">
 							<c:if test="${item.active }">
 								<tr class="gamesActive">
@@ -114,7 +115,7 @@
 							  	</tr>
 						  	</c:if>
 					    </c:forEach>
-						</tr>
+						</tbody>
 					</table>
 		    </div>
 		    <div role="tabpanel" class="tab-pane" id="typeoftournament">
@@ -139,7 +140,6 @@
 							<th>Name</th>
 							<th class="action">Delete</th>
 						</tr>
-						<tr>
 						<c:forEach items="${listTypeOfTournament }" var="item">
 							<c:if test="${item.active }">
 								<tr class="typeoftourmanetActive">
@@ -154,7 +154,6 @@
 							  	</tr>
 						  	</c:if>
 					    </c:forEach>
-						</tr>
 					</table>
 		    </div>
 		    <div role="tabpanel" class="tab-pane" id="formatoftournament">
@@ -179,7 +178,6 @@
 							<th>Name</th>
 							<th class="action">Delete</th>
 						</tr>
-						<tr>
 						<c:forEach items="${listFormatOfTournament }" var="item">
 							<c:if test="${item.active }">
 								<tr class="formatoftourmanetActive">
@@ -194,7 +192,6 @@
 							  	</tr>
 						  	</c:if>
 					    </c:forEach>
-						</tr>
 					</table>
 		    </div>
 		  </div>
@@ -204,5 +201,10 @@
 	</div>
 	
 	<c:import url="../includes/footer.jsp"/>
+	<script>
+		$(document).ready(function() {
+	    $('#table').DataTable();
+	} );
+	</script>
 </body>
 </html>
