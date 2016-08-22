@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -47,8 +48,19 @@ public class SrvTournament extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		this.getServletContext().getRequestDispatcher("/WEB-INF/tournament.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		
+		if(request.getAttribute("tournament") != null){			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/tournament.jsp").forward(request, response);
+		}else{
+			if(session.getAttribute("createdTournament") != null){
+				request.setAttribute("tournamentId", (int)session.getAttribute("createdTournament"));
+				session.removeAttribute("createdTournament");
+				doPost(request, response);
+			} else{
+				response.sendRedirect("tournamentslist");
+			}
+		}
 	}
 
 	/**
@@ -63,7 +75,18 @@ public class SrvTournament extends HttpServlet {
 		//       Parameters
 		//---------------------------------
 		
-		int tournamentId = Integer.parseInt(request.getParameter("tournamentId"));
+		System.out.println("Tournoi passé au post =" + request.getParameter("tournamentId"));
+		
+		int tournamentId = 0;
+		
+		if(request.getParameter("tournamentId") != null){
+			tournamentId = Integer.parseInt(request.getParameter("tournamentId"));
+		}
+		
+		if(request.getAttribute("tournamentId") != null){
+			tournamentId = (int)(request.getAttribute("tournamentId"));
+		}
+		
 		
 		Tournament tournament = NmdQueries.findTournamentById(tournamentId);		
 		User loggedUser = Util.getLoggedUser(request);		

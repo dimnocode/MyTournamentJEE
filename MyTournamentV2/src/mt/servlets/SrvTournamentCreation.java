@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import mt.connection.EMF;
 import mt.entities.Formatoftournament;
@@ -80,36 +81,41 @@ public class SrvTournamentCreation extends HttpServlet {
 			ServletContext context = request.getSession().getServletContext();
 			
 			List<Game> gl = new ArrayList<Game>((List<Game>)context.getAttribute("games"));
-			Game g  = new Game();
-			g = gl.get(Integer.parseInt(request.getParameter("gameTournament")));
-			em.merge(g);
+			Game g  = gl.get(Integer.parseInt(request.getParameter("gameTournament")));
 			tournament.setGame(g);
 			
 			List<Typeoftournament> tl = new ArrayList<Typeoftournament>((List<Typeoftournament>)context.getAttribute("typeOfTournament"));
-			Typeoftournament t = new Typeoftournament();
-			t = tl.get(Integer.parseInt(request.getParameter("typeTournament")));
-			em.merge(t);
+			Typeoftournament t = tl.get(Integer.parseInt(request.getParameter("typeTournament")));
 			tournament.setTypeoftournament(t);
 			
 			List<Formatoftournament> fl = new ArrayList<Formatoftournament>((List<Formatoftournament>)context.getAttribute("formatOfTournament"));
-			Formatoftournament f = new Formatoftournament();
-			f = fl.get(Integer.parseInt(request.getParameter("formatTournament")));
-			em.merge(f);
+			Formatoftournament f = fl.get(Integer.parseInt(request.getParameter("formatTournament")));
 			tournament.setFormatoftournament(f);
 			
-			User u = new User();
-			u = Util.getLoggedUser(request);
-			em.merge(u);
+			User u = Util.getLoggedUser(request);
 			tournament.setUser(u);
 			
-			em.persist(tournament);			
+			u.getTournaments().add(tournament);
+			
+			em.persist(tournament);
+			em.merge(u);
 			
 			em.getTransaction().commit();
+			
+			tournament = em.merge(tournament);
+			System.out.println("TOurnament CREATED = " +tournament.getIdTournaments());
+			
 			em.close();
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("createdTournament", tournament.getIdTournaments());
+			
+			response.sendRedirect("tournament");
+
+		}else{
+			doGet(request, response);	
 		}
-
-
-		response.sendRedirect("tournamentslist");
+			
 	}
 
 }
