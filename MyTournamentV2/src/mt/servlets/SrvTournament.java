@@ -99,7 +99,7 @@ public class SrvTournament extends HttpServlet {
 		//---------------------------------
 		
 		//Player register
-		if(request.getParameter("pRegister") != null && pRegistration == null){
+		if(request.getParameter("pRegister") != null && pRegistration == null && tournament.getMaxPlayers() > tournament.getRegistrations().size()){
 			
 			em.getTransaction().begin();
 			
@@ -148,7 +148,7 @@ public class SrvTournament extends HttpServlet {
 			Clan c = NmdQueries.findClanById(Integer.parseInt(map.get("clanId")[0]));
 			c = em.merge(c);
 			
-			if(map.size()-3 == tournament.getFormatoftournament().getIdFormatTournaments() && !Util.isRegistered(c, tournament)){
+			if(map.size()-3 == tournament.getFormatoftournament().getIdFormatTournaments() && !Util.isRegistered(c, tournament) && (tournament.getMaxPlayers() * tournament.getFormatoftournament().getIdFormatTournaments() > tournament.getRegistrations().size())){
 			
 				Map<String, String[]> myMap = new HashMap<String, String[]>(map);		
 

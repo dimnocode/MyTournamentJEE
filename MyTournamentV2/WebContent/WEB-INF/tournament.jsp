@@ -94,10 +94,10 @@
 
 				<c:if test="${tournament.typeoftournament.idTypeOfTournaments eq 2}">
 					<h2>
-						Registered clans 
+						Registered players
 						<span class="label label-default"> 
 						<c:out value="${fn:length(tournament.registrations)}" /> / 
-						<c:out value="${tournament.maxPlayers}" />
+						<c:out value="${tournament.maxPlayers * tournament.formatoftournament.idFormatTournaments}" />
 						</span>
 					</h2>
 					<c:if test="${not empty pRegistration}">
@@ -133,7 +133,7 @@
 					
 					<h2>Register clan</h2>
 					
-					<c:if test="${not empty unregisteredClans}">		
+					<c:if test="${not empty unregisteredClans and tournament.maxPlayers gt fn:length(tournament.registrations)}">		
 						<div class="panel-group" id="accordionClans" role="tablist" aria-multiselectable="true" style="padding-left: 3%;">
 							<c:forEach items="${unregisteredClans}" var="item">
 									
