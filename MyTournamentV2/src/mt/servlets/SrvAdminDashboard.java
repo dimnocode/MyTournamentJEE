@@ -50,7 +50,7 @@ public class SrvAdminDashboard extends HttpServlet {
 		String errMsg = null;
 		
 		if(loggedUser != null){
-			if(loggedUser.getIdUsers() == 1){
+			if(loggedUser.getUserrole().getIdUserRoles() == 1){
 				//ServletContext context = request.getSession().getServletContext();
 				
 				request.setAttribute("listPlatforms", NmdQueries.findAllPlatforms());//context.getAttribute("platforms"));
@@ -60,15 +60,9 @@ public class SrvAdminDashboard extends HttpServlet {
 				
 				this.getServletContext().getRequestDispatcher("/WEB-INF/admin/dashboard.jsp").forward(request, response);
 			}else{
-				
-				errMsg = "This url is not found ! ";
-				request.setAttribute("errMsg", errMsg);
-				response.sendRedirect("error");
+				response.sendRedirect("E404");
 			}
 		}else{
-			
-			errMsg = "This url is not found ! ";
-			request.setAttribute("errMsg", errMsg);
 			response.sendRedirect("error");
 		}
 	}
