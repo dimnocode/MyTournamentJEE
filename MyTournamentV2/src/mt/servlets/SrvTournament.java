@@ -73,8 +73,6 @@ public class SrvTournament extends HttpServlet {
 		//       Parameters
 		//---------------------------------
 		
-		System.out.println("Tournoi passé au post =" + request.getParameter("tournamentId"));
-		
 		int tournamentId = 0;
 		
 		if(request.getParameter("tournamentId") != null){
@@ -86,7 +84,9 @@ public class SrvTournament extends HttpServlet {
 		}
 		
 		
-		Tournament tournament = NmdQueries.findTournamentById(tournamentId);		
+		Tournament tournament = NmdQueries.findTournamentById(tournamentId);
+		
+		if(tournament != null){
 		User loggedUser = Util.getLoggedUser(request);		
 		Registration pRegistration = NmdQueries.findRegistrationByUserAndTournament(tournament.getIdTournaments(), loggedUser.getIdUsers());	
 		
@@ -97,6 +97,9 @@ public class SrvTournament extends HttpServlet {
 		//---------------------------------
 		//       Actions
 		//---------------------------------
+		
+		
+			
 		
 		//Player register
 		if(request.getParameter("pRegister") != null && pRegistration == null && tournament.getMaxPlayers() > tournament.getRegistrations().size()){
@@ -125,7 +128,7 @@ public class SrvTournament extends HttpServlet {
 				logger.log(Level.ERROR, "An error has occured during registration");
 				request.setAttribute("errorMsg", "An error has occured during registration");
 			}finally{
-				doGet(request, response);
+				
 				em.close();
 			};
 
@@ -155,7 +158,6 @@ public class SrvTournament extends HttpServlet {
 				request.setAttribute("errorMsg", "An error has occured during registration");
 			}finally{
 				pRegistration=null;
-				doGet(request, response);
 				em.close();
 			}
 			
@@ -216,7 +218,6 @@ public class SrvTournament extends HttpServlet {
 				logger.log(Level.ERROR, "An error has occured during registration");
 				request.setAttribute("errorMsg", "An error has occured during registration");				
 			}finally{
-				doGet(request, response);
 				em.close();
 			}
 						
@@ -254,7 +255,6 @@ public class SrvTournament extends HttpServlet {
 				logger.log(Level.ERROR, "An error has occured during registration");
 				request.setAttribute("errorMsg", "An error has occured during registration");				
 			}finally{
-				doGet(request, response);
 				em.close();
 			}
 			
@@ -287,7 +287,11 @@ public class SrvTournament extends HttpServlet {
 		request.setAttribute("tournament", tournament);
 		request.setAttribute("loggedUser", loggedUser);
 		
-		em.close();
+		//em.close();
 		doGet(request, response);
+		}else{
+			logger.log(Level.ERROR, "No tournament passed through post");
+			doGet(request, response);
+		}
 	}
 }
