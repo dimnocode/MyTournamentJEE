@@ -171,43 +171,51 @@ public class SrvClans extends HttpServlet {
 		if(btnUserClan != null){
 			Clan clan = NmdQueries.findClanById(Integer.parseInt(request.getParameter("idClan")));
 			User user = NmdQueries.findUserByUnique(request.getParameter("emailUserClan"), request.getParameter("pseudoUserClan"));
-			Usersclan ucl = NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers());
 			
-			if(ucl == null){
-					Usersclan userClan = new Usersclan();
-					try{
-						em.getTransaction().begin();
+			if(user != null && clan != null){
+				Usersclan ucl = NmdQueries.findUserclanByIdUserIdClan(clan.getIdClan(), user.getIdUsers());
+				if(ucl == null){
+						Usersclan userClan = new Usersclan();
+						try{
+							em.getTransaction().begin();
+								
+							userClan.setAddedDateTime(new Date());
+							userClan.setClanLeader(false);
+							userClan.setUser(user);
+							userClan.setClan(clan);
+								
+							user.addUsersclan(userClan);
+							clan.addUsersclan(userClan);
+								
+							em.merge(user);
+							em.merge(clan);
+							em.persist(userClan);
+							em.getTransaction().commit();
+								
+							successMsg = user.getPseudo()+ " is added in " + clan.getName() + " with success ";
+							request.setAttribute("successMsg", successMsg);
+						}catch(Exception e){
+							logger.log(Level.INFO, e.getMessage());
+						}finally {
+							em.close();
+						}
 							
-						userClan.setAddedDateTime(new Date());
-						userClan.setClanLeader(false);
-						userClan.setUser(user);
-						userClan.setClan(clan);
-							
-						user.addUsersclan(userClan);
-						clan.addUsersclan(userClan);
-							
-						em.merge(user);
-						em.merge(clan);
-						em.persist(userClan);
-						em.getTransaction().commit();
-							
-						successMsg = user.getPseudo()+ " is added in " + clan.getName() + " with success ";
-						request.setAttribute("successMsg", successMsg);
-					}catch(Exception e){
-						logger.log(Level.INFO, e.getMessage());
-					}finally {
-						em.close();
-					}
-						
+						doGet(request, response);
+						logger.log(Level.INFO, user.getPseudo()+ " is added in " + clan.getName() + "with success");
+					
+				}else{
+					errMsg = request.getParameter("pseudoUserClan")+ " is already in "+ clan.getName();
+					
+					request.setAttribute("errMsg", errMsg);
 					doGet(request, response);
-					logger.log(Level.INFO, user.getPseudo()+ " is added in " + clan.getName() + "with success");
-				
+					logger.log(Level.INFO, request.getParameter("pseudoUserClan")+ " is already in "+ clan.getName());
+				}
 			}else{
-				errMsg = request.getParameter("pseudoUserClan")+ " is already in "+ clan.getName();
+				errMsg = request.getParameter("pseudoUserClan")+ " is not found !!";
 				
 				request.setAttribute("errMsg", errMsg);
 				doGet(request, response);
-				logger.log(Level.INFO, request.getParameter("pseudoUserClan")+ " is already in "+ clan.getName());
+				logger.log(Level.INFO, request.getParameter("pseudoUserClan")+ " is not found !!");
 			}
 		}
 		//REMOVE USER IN CLAN
