@@ -133,21 +133,26 @@ public class SrvGameAccountGames extends HttpServlet {
 			Game g = new Game();
 			Map<String, String[]> myMap = new HashMap<String, String[]>(map);
 			myMap.remove("idGameAccounts");
-				
-			em.getTransaction().begin();
-			for (Object key: myMap.keySet())
-		    {
-				g = NmdQueries.findGameById(Integer.parseInt(key.toString()));
-				ga.getGames().add(g);
-				g.getGameaccounts().add(ga);
-				em.merge(g);
-				em.merge(ga);
-						
-				logger.log(Level.INFO,"Game and GameAccount updated ");
-	            logger.log(Level.INFO,"Size: "+ myMap.size() );
-	        }
-			em.getTransaction().commit();
-			em.close();
+			
+			try{
+				em.getTransaction().begin();
+				for (Object key: myMap.keySet())
+			    {
+					g = NmdQueries.findGameById(Integer.parseInt(key.toString()));
+					ga.getGames().add(g);
+					g.getGameaccounts().add(ga);
+					em.merge(g);
+					em.merge(ga);
+							
+					logger.log(Level.INFO,"Game and GameAccount updated ");
+		            logger.log(Level.INFO,"Size: "+ myMap.size() );
+		        }
+				em.getTransaction().commit();
+			}catch(Exception e){
+				logger.log(Level.WARN, e.getMessage());
+			}finally {
+				em.close();
+			}
 			doGet(request, response);
 		}
 	}
