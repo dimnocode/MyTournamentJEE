@@ -101,120 +101,163 @@ public class SrvTournament extends HttpServlet {
 		//Player register
 		if(request.getParameter("pRegister") != null && pRegistration == null && tournament.getMaxPlayers() > tournament.getRegistrations().size()){
 			
-			em.getTransaction().begin();
-			
-			pRegistration = new Registration();
-			pRegistration.setUser(loggedUser);
-			pRegistration.setTournament(tournament);
-			pRegistration.setCreationDate(new Date());
-			em.persist(pRegistration);			
-			pRegistration = em.merge(pRegistration);
-			
-			tournament.getRegistrations().add(pRegistration);
-			loggedUser.getRegistrations().add(pRegistration);
-			
-			em.merge(loggedUser);
-			em.merge(tournament);
-			request.setAttribute("successMsg", "You have successefully registered");
-			
-			em.getTransaction().commit();		
+			try{
+				
+				em.getTransaction().begin();
+				
+				pRegistration = new Registration();
+				pRegistration.setUser(loggedUser);
+				pRegistration.setTournament(tournament);
+				pRegistration.setCreationDate(new Date());
+				em.persist(pRegistration);			
+				pRegistration = em.merge(pRegistration);
+				
+				tournament.getRegistrations().add(pRegistration);
+				loggedUser.getRegistrations().add(pRegistration);
+				
+				em.merge(loggedUser);
+				em.merge(tournament);
+				request.setAttribute("successMsg", "You have successefully registered");
+				
+				em.getTransaction().commit();	
+				
+			}catch(Exception e){
+				logger.log(Level.ERROR, "An error has occured during registration");
+				request.setAttribute("errorMsg", "An error has occured during registration");
+			}finally{
+				doGet(request, response);
+				em.close();
+			};
+
 		}
 		
 		//Player unregister
 		if(request.getParameter("pUnregister") != null && pRegistration != null){
 			
-			em.getTransaction().begin();
-			
-			pRegistration = em.merge(pRegistration);
-			
-			loggedUser.getRegistrations().remove(pRegistration);
-			tournament.getRegistrations().remove(pRegistration);
-			
-			em.merge(loggedUser);
-			em.merge(tournament);
+			try{
+				em.getTransaction().begin();
+				
+				pRegistration = em.merge(pRegistration);
+				
+				loggedUser.getRegistrations().remove(pRegistration);
+				tournament.getRegistrations().remove(pRegistration);
+				
+				em.merge(loggedUser);
+				em.merge(tournament);
 
-			em.remove(em.merge(pRegistration));
-			request.setAttribute("successMsg", "You have successefully unregistered");
-			 
-			em.getTransaction().commit();
-			pRegistration=null;
+				em.remove(em.merge(pRegistration));
+				request.setAttribute("successMsg", "You have successefully unregistered");
+				 
+				em.getTransaction().commit();
+				
+			}catch(Exception e){
+				logger.log(Level.ERROR, "An error has occured during registration");
+				request.setAttribute("errorMsg", "An error has occured during registration");
+			}finally{
+				pRegistration=null;
+				doGet(request, response);
+				em.close();
+			}
+			
+			
 		}
 		
 		//Clan register
 		
 		if(request.getParameter("cRegister") != null){	
 			
-			Map<String, String[]> map = request.getParameterMap();	
-			Clan c = NmdQueries.findClanById(Integer.parseInt(map.get("clanId")[0]));
-			c = em.merge(c);
-			
-			if(map.size()-3 == tournament.getFormatoftournament().getIdFormatTournaments() && !Util.isRegistered(c, tournament) && (tournament.getMaxPlayers() * tournament.getFormatoftournament().getIdFormatTournaments() > tournament.getRegistrations().size())){
-			
-				Map<String, String[]> myMap = new HashMap<String, String[]>(map);		
+			try{
+				
+				Map<String, String[]> map = request.getParameterMap();	
+				Clan c = NmdQueries.findClanById(Integer.parseInt(map.get("clanId")[0]));
+				c = em.merge(c);
+				
+				if(map.size()-3 == tournament.getFormatoftournament().getIdFormatTournaments() && !Util.isRegistered(c, tournament) && (tournament.getMaxPlayers() * tournament.getFormatoftournament().getIdFormatTournaments() > tournament.getRegistrations().size())){
+				
+					Map<String, String[]> myMap = new HashMap<String, String[]>(map);		
 
-				myMap.remove("tournamentId");
-				myMap.remove("clanId");
-				myMap.remove("cRegister");
-	
-				logger.log(Level.INFO,"Size: "+ myMap.size() );
-				for (Object key: myMap.keySet())
-				{	
-					User u = NmdQueries.findUserById(Integer.parseInt(key.toString()));
-					
-					em.getTransaction().begin();
-					
-					Registration r = new Registration();
-					r.setUser(u);
-					r.setTournament(tournament);
-					r.setClan(c);
-					r.setCreationDate(new Date());
-					em.persist(r);
-					r = em.merge(r);
-					
-					c.getRegistrations().add(r);
-					u.getRegistrations().add(r);
-					tournament.getRegistrations().add(r);
-					
-					em.merge(u);
-					em.merge(tournament);
-					em.merge(c);
-					
-					request.setAttribute("successMsg", "Your clan has successfully registered");
-					em.getTransaction().commit();					
+					myMap.remove("tournamentId");
+					myMap.remove("clanId");
+					myMap.remove("cRegister");
+		
+					logger.log(Level.INFO,"Size: "+ myMap.size() );
+					for (Object key: myMap.keySet())
+					{	
+						User u = NmdQueries.findUserById(Integer.parseInt(key.toString()));
+						
+						em.getTransaction().begin();
+						
+						Registration r = new Registration();
+						r.setUser(u);
+						r.setTournament(tournament);
+						r.setClan(c);
+						r.setCreationDate(new Date());
+						em.persist(r);
+						r = em.merge(r);
+						
+						c.getRegistrations().add(r);
+						u.getRegistrations().add(r);
+						tournament.getRegistrations().add(r);
+						
+						em.merge(u);
+						em.merge(tournament);
+						em.merge(c);
+						
+						request.setAttribute("successMsg", "Your clan has successfully registered");
+						em.getTransaction().commit();					
+					}
+
+
+				}else{
+					request.setAttribute("errMsg", "You can only add " + tournament.getFormatoftournament().getIdFormatTournaments() + " players by clan");
 				}
-
-
-			}else{
-				request.setAttribute("errMsg", "You can only add " + tournament.getFormatoftournament().getIdFormatTournaments() + " players by clan");
-			}			
+				
+			}catch(Exception e){
+				logger.log(Level.ERROR, "An error has occured during registration");
+				request.setAttribute("errorMsg", "An error has occured during registration");				
+			}finally{
+				doGet(request, response);
+				em.close();
+			}
+						
 		}
 		
 		//Clan unregister
 		
+		
 		if(request.getParameter("cUnregister") != null){
 			
-			em.getTransaction().begin();
-			
-			Clan c = NmdQueries.findClanById(Integer.parseInt(request.getParameter("clanId")));
-			c = em.merge(c);
-			
-			for(Registration r : c.getRegistrations()){
+			try{
+				em.getTransaction().begin();
 				
-				r = em.merge(r);
+				Clan c = NmdQueries.findClanById(Integer.parseInt(request.getParameter("clanId")));
+				c = em.merge(c);
 				
-				User u = r.getUser();
+				for(Registration r : c.getRegistrations()){
+					
+					r = em.merge(r);
+					
+					User u = r.getUser();
+					
+					u.getRegistrations().remove(r);
 				
-				u.getRegistrations().remove(r);
-			
-				Tournament t = r.getTournament();
-				
-				t.getRegistrations().remove(r);
-				
-				em.merge(u);
-				em.merge(t);
-				em.remove(r);
+					Tournament t = r.getTournament();
+					
+					t.getRegistrations().remove(r);
+					
+					em.merge(u);
+					em.merge(t);
+					em.remove(r);
+				}
+				em.getTransaction().commit();
+			}catch(Exception e){
+				logger.log(Level.ERROR, "An error has occured during registration");
+				request.setAttribute("errorMsg", "An error has occured during registration");				
+			}finally{
+				doGet(request, response);
+				em.close();
 			}
-			em.getTransaction().commit();
+			
 		}
 		
 		
